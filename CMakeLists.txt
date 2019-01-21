@@ -18,10 +18,17 @@ if (LINUX)
 
     conan_basic_setup()
 
-    include_directories(server/include)
+    include_directories(httpServer/include)
 
     add_executable(zia_server
-            server/sources/main.cpp
+            httpServer/src/connection.cpp
+            httpServer/src/connection_manager.cpp
+            httpServer/src/main.cpp
+            httpServer/src/mime_types.cpp
+            httpServer/src/reply.cpp
+            httpServer/src/request_handler.cpp
+            httpServer/src/request_parser.cpp
+            httpServer/src/server.cpp
             )
 
     target_link_libraries(zia_server pthread)
