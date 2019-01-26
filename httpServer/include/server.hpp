@@ -7,55 +7,52 @@
 
 #include <boost/asio.hpp>
 #include <string>
+#include <thread>
 #include "connection.hpp"
 #include "connection_manager.hpp"
 #include "request_handler.hpp"
 
-namespace http {
-    namespace server {
-
 /// The top-level class of the HTTP server.
-        class server
-        {
-        public:
-            server(const server&) = delete;
-            server& operator=(const server&) = delete;
+class Server {
+public:
+    Server(const Server &) = delete;
 
-            /// Construct the server to listen on the specified TCP address and port, and
-            /// serve up files from the given directory.
-            explicit server(const std::string& address, const std::string& port,
-                            const std::string& doc_root);
+    Server &operator=(const Server &) = delete;
 
-            /// Run the server's io_service loop.
-            void run();
+    /// Construct the server to listen on the specified TCP address and port, and
+    /// serve up files from the given directory.
+    explicit Server(const std::string &address, const std::string &port,
+                    const std::string &doc_root);
 
-        private:
-            /// Perform an asynchronous accept operation.
-            void do_accept();
+    /// Run the server's io_service loop.
+    void run();
 
-            /// Wait for a request to stop the server.
-            void do_await_stop();
+    int loadModule(const std::string &path);
 
-            /// The io_service used to perform asynchronous operations.
-            boost::asio::io_service io_service_;
+private:
+    /// Perform an asynchronous accept operation.
+    void do_accept();
 
-            /// The signal_set is used to register for process termination notifications.
-            boost::asio::signal_set signals_;
+    /// Wait for a request to stop the server.
+    void do_await_stop();
 
-            /// Acceptor used to listen for incoming connections.
-            boost::asio::ip::tcp::acceptor acceptor_;
+    /// The io_service used to perform asynchronous operations.
+    boost::asio::io_service io_service_;
 
-            /// The connection manager which owns all live connections.
-            connection_manager connection_manager_;
+    /// The signal_set is used to register for process termination notifications.
+    boost::asio::signal_set signals_;
 
-            /// The next socket to be accepted.
-            boost::asio::ip::tcp::socket socket_;
+    /// Acceptor used to listen for incoming connections.
+    boost::asio::ip::tcp::acceptor acceptor_;
 
-            /// The handler for all incoming requests.
-            request_handler request_handler_;
-        };
+    /// The connection manager which owns all live connections.
+    connection_manager connection_manager_;
 
-    } // namespace server
-} // namespace http
+    /// The next socket to be accepted.
+    boost::asio::ip::tcp::socket socket_;
+
+    /// The handler for all incoming requests.
+    request_handler request_handler_;
+};
 
 #endif //ZIA_SERVER_HPP

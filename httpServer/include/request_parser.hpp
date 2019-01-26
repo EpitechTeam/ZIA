@@ -7,9 +7,6 @@
 
 #include <tuple>
 
-namespace http {
-    namespace server {
-
         struct request;
 
 /// Parser for incoming requests.
@@ -83,8 +80,5 @@ namespace http {
                 expecting_newline_3
             } state_;
         };
-
-    } // namespace server
-} // namespace http
 
 #endif //ZIA_REQUEST_PARSER_HPP
