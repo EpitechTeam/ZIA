@@ -9,6 +9,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY .)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++ -g3 -Wall -O")
 
 include_directories(httpServer/include)
+include_directories(moduleApi/include)
 
 if (UNIX AND NOT APPLE)
     set(LINUX TRUE)
@@ -32,6 +33,7 @@ if (LINUX)
             httpServer/src/request_handler.cpp
             httpServer/src/request_parser.cpp
             httpServer/src/server.cpp
+            moduleApi/src/moduleManager.cpp
             )
 
     target_link_libraries(zia_server pthread)
