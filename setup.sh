@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+if [ "$1" = "clean" ]
+then
+    rm zia_server
+    rm -rf build
+    exit
+fi
+
 unameOut="$(uname -s)"
 
 if [ "$unameOut" = "Linux" ]; then
@@ -26,6 +33,8 @@ elif [ "$unameOut" = "Darwin" ]; then
     conan install .. --build=missing
     cmake .. -G "Unix Makefiles"
     make
+    cd bin
+    cp *zia* ./../../
 else
     echo "WINDOWS"
 	echo "Files initiation ..."
