@@ -24,18 +24,20 @@ int main(int argc, char* argv[])
 
         // Initialise the server.
         Server server(argv[1], argv[2], argv[3]);
+        server.loadModule("");
 
+        /*
         std::thread moduleLoadingThread([&server]() {
             std::string line;
 
             while (std::getline(std::cin, line)) {
                 server.loadModule(line);
             }
-        });
+        });*/
         // Run the server until stopped.
         server.run();
 
-        moduleLoadingThread.join();
+       // moduleLoadingThread.join();
     }
     catch (std::exception& e)
     {

@@ -23,10 +23,10 @@ public:
     explicit request_handler(const std::string &doc_root);
 
     /// Handle a request and produce a reply.
-    void handle_request(request &req, reply &rep);
+    void handle_request(request &req, reply &rep, connection_ptr connection);
 
     /// Fire Event
-    void fireEvent(const Event &event, request &req, reply &scope);
+    void fireEvent(const Event &event, request &req, reply &scope, connection_ptr connection);
 
     int loadModule(const std::string &path);
 

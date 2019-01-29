@@ -14,7 +14,7 @@ public:
     }
     ~AppendModule() = default;
 
-    int catchEvent(const Event &event, request &req, reply &scope) {
+    int catchEvent(const Event &event, request &req, reply &scope, connection_ptr connection) {
         switch (event) {
             case AFTER_FILL_RESPONSE:
                 std::cout << "AFTER_FILL_RESPONSE catched by AppendModule." << std::endl;

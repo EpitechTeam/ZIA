@@ -14,10 +14,10 @@ request_handler::request_handler(const std::string &doc_root)
         : doc_root_(doc_root) {
 }
 
-void request_handler::handle_request(request &req, reply &rep) {
+void request_handler::handle_request(request &req, reply &rep, connection_ptr connection) {
 
     // Fire BEFORE_URL_TO_PATH Event
-    this->fireEvent(BEFORE_URL_TO_PATH, req, rep);
+    this->fireEvent(BEFORE_URL_TO_PATH, req, rep, connection);
 
     // Decode url to path.
     std::string request_path;
@@ -27,7 +27,7 @@ void request_handler::handle_request(request &req, reply &rep) {
     }
 
     // Fire AFTER_URL_TO_PATH Event
-    this->fireEvent(AFTER_URL_TO_PATH, req, rep);
+    this->fireEvent(AFTER_URL_TO_PATH, req, rep, connection);
 
 
     // Request path must be absolute and not contain "..".
@@ -43,7 +43,7 @@ void request_handler::handle_request(request &req, reply &rep) {
     }
 
     // Fire BEFORE_DETERMINATE_FILE_EXTENSION Event
-    this->fireEvent(BEFORE_DETERMINATE_FILE_EXTENSION, req, rep);
+    this->fireEvent(BEFORE_DETERMINATE_FILE_EXTENSION, req, rep, connection);
 
     // Determine the file extension.
     std::size_t last_slash_pos = request_path.find_last_of("/");
@@ -54,10 +54,10 @@ void request_handler::handle_request(request &req, reply &rep) {
     }
 
     // Fire AFTER_DETERMINATE_FILE_EXTENSION Event
-    this->fireEvent(AFTER_DETERMINATE_FILE_EXTENSION, req, rep);
+    this->fireEvent(AFTER_DETERMINATE_FILE_EXTENSION, req, rep, connection);
 
     // Fire BEFORE_FILE_OPENING Event
-    this->fireEvent(BEFORE_FILE_OPENING, req, rep);
+    this->fireEvent(BEFORE_FILE_OPENING, req, rep, connection);
 
     // Open the file to send back.
     std::string full_path = doc_root_ + request_path;
@@ -68,10 +68,10 @@ void request_handler::handle_request(request &req, reply &rep) {
     }
 
     // Fire AFTER_FILE_OPENING Event
-    this->fireEvent(AFTER_FILE_OPENING, req, rep);
+    this->fireEvent(AFTER_FILE_OPENING, req, rep, connection);
 
     // Fire BEFORE_FILL_RESPONSE Event
-    this->fireEvent(BEFORE_FILL_RESPONSE, req, rep);
+    this->fireEvent(BEFORE_FILL_RESPONSE, req, rep, connection);
 
     // Fill out the reply to be sent to the client.
     rep.status = reply::ok;
@@ -85,7 +85,7 @@ void request_handler::handle_request(request &req, reply &rep) {
     rep.headers[1].value = mime_types::extension_to_type(extension);
 
     // Fire AFTER_FILL_RESPONSE Event
-    this->fireEvent(AFTER_FILL_RESPONSE, req, rep);
+    this->fireEvent(AFTER_FILL_RESPONSE, req, rep, connection);
 
 }
 
@@ -115,8 +115,8 @@ bool request_handler::url_decode(const std::string &in, std::string &out) {
     return true;
 }
 
-void request_handler::fireEvent(const Event &event, request &req, reply &scope) {
-    this->_moduleManager.fireEvent(event, req, scope);
+void request_handler::fireEvent(const Event &event, request &req, reply &scope, connection_ptr connection) {
+    this->_moduleManager.fireEvent(event, req, scope, connection);
 }
 
 int request_handler::loadModule(const std::string &path) {

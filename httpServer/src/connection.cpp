@@ -33,7 +33,7 @@ void connection::do_read() {
                                             request_, buffer_.data(), buffer_.data() + bytes_transferred);
 
                                     if (result == request_parser::good) {
-                                        request_handler_.handle_request(request_, reply_);
+                                        request_handler_.handle_request(request_, reply_, shared_from_this());
                                         do_write();
                                     } else if (result == request_parser::bad) {
                                         reply_ = reply::stock_reply(reply::bad_request);
