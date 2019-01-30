@@ -30,6 +30,7 @@
 *.exe
 *.out
 *.app
+zia_server
 
 \.idea/
 
