@@ -23,6 +23,8 @@ if (LINUX)
 
     conan_basic_setup()
 
+    include_directories(httpServer/include)
+    include_directories(moduleApi/include)
     add_executable(zia_server
             httpServer/src/connection.cpp
             httpServer/src/connection_manager.cpp
@@ -32,6 +34,7 @@ if (LINUX)
             httpServer/src/request_handler.cpp
             httpServer/src/request_parser.cpp
             httpServer/src/server.cpp
+            moduleApi/src/moduleManager.cpp
             )
 
     target_link_libraries(zia_server pthread)
@@ -56,6 +59,7 @@ elseif (APPLE)
             httpServer/src/request_handler.cpp
             httpServer/src/request_parser.cpp
             httpServer/src/server.cpp
+            moduleApi/src/moduleManager.cpp
             )
 
     target_link_libraries(zia_server pthread)

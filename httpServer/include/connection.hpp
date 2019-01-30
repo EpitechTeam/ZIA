@@ -13,61 +13,56 @@
 #include "request_handler.hpp"
 #include "request_parser.hpp"
 
-namespace http {
-    namespace server {
-
-        class connection_manager;
+class connection_manager;
 
 /// Represents a single connection from a client.
-        class connection
-                : public std::enable_shared_from_this<connection>
-        {
-        public:
-            connection(const connection&) = delete;
-            connection& operator=(const connection&) = delete;
+class connection
+        : public std::enable_shared_from_this<connection> {
+public:
+    connection(const connection &) = delete;
 
-            /// Construct a connection with the given socket.
-            explicit connection(boost::asio::ip::tcp::socket socket,
-                                connection_manager& manager, request_handler& handler);
+    connection &operator=(const connection &) = delete;
 
-            /// Start the first asynchronous operation for the connection.
-            void start();
+    /// Construct a connection with the given socket.
+    explicit connection(boost::asio::ip::tcp::socket socket,
+                        connection_manager &manager, request_handler &handler);
 
-            /// Stop all asynchronous operations associated with the connection.
-            void stop();
+    /// Start the first asynchronous operation for the connection.
+    void start();
 
-        private:
-            /// Perform an asynchronous read operation.
-            void do_read();
+    /// Stop all asynchronous operations associated with the connection.
+    void stop();
 
-            /// Perform an asynchronous write operation.
-            void do_write();
+private:
+    /// Perform an asynchronous read operation.
+    void do_read();
 
-            /// Socket for the connection.
-            boost::asio::ip::tcp::socket socket_;
+    /// Perform an asynchronous write operation.
+    void do_write();
 
-            /// The manager for this connection.
-            connection_manager& connection_manager_;
+    /// Socket for the connection.
+    boost::asio::ip::tcp::socket socket_;
 
-            /// The handler used to process the incoming request.
-            request_handler& request_handler_;
+    /// The manager for this connection.
+    connection_manager &connection_manager_;
 
-            /// Buffer for incoming data.
-            std::array<char, 8192> buffer_;
+    /// The handler used to process the incoming request.
+    request_handler &request_handler_;
 
-            /// The incoming request.
-            request request_;
+    /// Buffer for incoming data.
+    std::array<char, 8192> buffer_;
 
-            /// The parser for the incoming request.
-            request_parser request_parser_;
+    /// The incoming request.
+    request request_;
 
-            /// The reply to be sent back to the client.
-            reply reply_;
-        };
+    /// The parser for the incoming request.
+    request_parser request_parser_;
 
-        typedef std::shared_ptr<connection> connection_ptr;
+    /// The reply to be sent back to the client.
+    reply reply_;
+};
 
-    } // namespace server
-} // namespace http
+typedef std::shared_ptr <connection> connection_ptr;
+
 
 #endif //ZIA_CONNECTION_HPP

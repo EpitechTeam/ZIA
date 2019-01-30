@@ -23,10 +23,19 @@ int main(int argc, char* argv[])
         }
 
         // Initialise the server.
-        http::server::server s(argv[1], argv[2], argv[3]);
+        Server server(argv[1], argv[2], argv[3]);
 
+        std::thread moduleLoadingThread([&server]() {
+            std::string line;
+
+            while (std::getline(std::cin, line)) {
+                server.loadModule(line);
+            }
+        });
         // Run the server until stopped.
-        s.run();
+        server.run();
+
+        moduleLoadingThread.join();
     }
     catch (std::exception& e)
     {
