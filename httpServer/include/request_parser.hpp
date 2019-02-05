@@ -20,7 +20,7 @@
             void reset();
 
             /// Result of parse.
-            enum result_type { good, bad, indeterminate };
+            enum result_type { good, bad, indeterminate, after_header};
 
             /// Parse some data. The enum return value is good when a complete request has
             /// been parsed, bad if the data is invalid, indeterminate when more data is
@@ -30,13 +30,15 @@
             std::tuple<result_type, InputIterator> parse(request& req,
                                                          InputIterator begin, InputIterator end)
             {
+                result_type result;
+
                 while (begin != end)
                 {
-                    result_type result = consume(req, *begin++);
+                    result = consume(req, *begin++);
                     if (result == good || result == bad)
                         return std::make_tuple(result, begin);
                 }
-                return std::make_tuple(indeterminate, begin);
+                return std::make_tuple(result == after_header ? good : indeterminate, begin);
             }
 
         private:
@@ -77,7 +79,10 @@
                 space_before_header_value,
                 header_value,
                 expecting_newline_2,
-                expecting_newline_3
+                expecting_newline_3,
+                param_line_start,
+                param_name,
+                param_value
             } state_;
         };
 

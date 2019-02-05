@@ -30,6 +30,11 @@ void print_request(request &req) {
         std::cout << "\033[1;32m" << req.headers[i].name << " : \033[0m";
         std::cout << "\033[1;37m" << req.headers[i].value << "\033[0m" << std::endl;
     }
+    std::cout << "\nPARAMS:" << std::endl;
+    for (unsigned int i = 0; req.params.size() != i; i++) {
+        std::cout << "\033[1;32m" << req.params[i].name << " : \033[0m";
+        std::cout << "\033[1;37m" << req.params[i].value << "\033[0m" << std::endl;
+    }
 }
 
 class PhpCgiModule : public IModule {
@@ -45,10 +50,10 @@ public:
             case AFTER_FILL_RESPONSE:
                 std::cout << "AFTER_FILL_RESPONSE catched by PhpCgiModule." << std::endl;
                 print_request(req);
-                this->execPhp(req, scope, connection);
+                //this->execPhp(req, scope, connection);
                 break;
             default:
-                // print_request(req);
+                //print_request(req);
                 std::cout << "event" << std::endl;
                 break;
         }

@@ -186,7 +186,41 @@ request_parser::result_type request_parser::consume(request &req, char input) {
                 return bad;
             }
         case expecting_newline_3:
-            return (input == '\n') ? good : bad;
+            if (input == '\n') {
+                state_ = param_line_start;
+                return after_header;
+            } else {
+                return bad;
+            }
+        case param_line_start:
+            if (!is_char(input) || is_ctl(input) || is_tspecial(input)) {
+                return bad;
+            } else {
+                req.params.push_back(param());
+                req.params.back().name.push_back(input);
+                state_ = param_name;
+                return after_header;
+            }
+        case param_name:
+            if (input == '=') {
+                state_ = param_value;
+                return indeterminate;
+            } else if (!is_char(input) || is_ctl(input) || is_tspecial(input)) {
+                return bad;
+            } else {
+                req.params.back().name.push_back(input);
+                return after_header;
+            }
+        case param_value:
+            if (input == '&') {
+                state_ = param_line_start;
+                return indeterminate;
+            } else if (!is_char(input) || is_ctl(input) || is_tspecial(input)) {
+                return bad;
+            } else {
+                req.params.back().value.push_back(input);
+                return after_header;
+            }
         default:
             return bad;
     }
