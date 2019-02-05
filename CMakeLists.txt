@@ -42,8 +42,8 @@ if (LINUX)
 elseif (APPLE)
     message(STATUS "compiling for macOS")
 
-    #include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     include(build/conanbuildinfo.cmake)
+    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 
     conan_basic_setup()
 
