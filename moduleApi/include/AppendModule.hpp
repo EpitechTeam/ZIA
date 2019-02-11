@@ -14,12 +14,12 @@ public:
     }
     ~AppendModule() = default;
 
-    int catchEvent(const Event &event, request &req, reply &scope, connection_ptr connection) {
+    int catchEvent(const Event &event, request &req, reply &scope, ConnectionPtr connection) {
         switch (event) {
             case AFTER_FILL_RESPONSE:
                 std::cout << "AFTER_FILL_RESPONSE catched by AppendModule." << std::endl;
                 scope.content.append("<p> Hello World </p>\n");
-                scope = reply::stock_reply(reply::not_found);
+                scope = reply::stockReply(reply::not_found);
                 break;
             default:
                 break;

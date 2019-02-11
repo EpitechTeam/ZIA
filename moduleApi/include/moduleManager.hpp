@@ -14,8 +14,8 @@
 #include "reply.hpp"
 #include "request.hpp"
 
-class connection;
-typedef std::shared_ptr <connection> connection_ptr;
+class Connection;
+typedef std::shared_ptr <Connection> ConnectionPtr;
 
 class IModule;
 
@@ -40,7 +40,7 @@ public:
 
     int unloadModule(const std::string &name);
 
-    int fireEvent(const Event &event, request &req, reply &scope, connection_ptr connection);
+    int fireEvent(const Event &event, request &req, reply &scope, ConnectionPtr connection);
 
 private:
 

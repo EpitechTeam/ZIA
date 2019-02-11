@@ -25,14 +25,14 @@ if (LINUX)
     conan_basic_setup()
 
     add_executable(zia_server
-            httpServer/src/connection.cpp
-            httpServer/src/connection_manager.cpp
+            httpServer/src/Connection.cpp
+            httpServer/src/ConnectionManager.cpp
             httpServer/src/main.cpp
             httpServer/src/mime_types.cpp
             httpServer/src/reply.cpp
-            httpServer/src/request_handler.cpp
-            httpServer/src/request_parser.cpp
-            httpServer/src/server.cpp
+            httpServer/src/RequestHandler.cpp
+            httpServer/src/RequestParser.cpp
+            httpServer/src/Server.cpp
             moduleApi/src/moduleManager.cpp
             )
 
@@ -50,14 +50,14 @@ elseif (APPLE)
     conan_basic_setup()
 
     add_executable(zia_server
-            httpServer/src/connection.cpp
-            httpServer/src/connection_manager.cpp
+            httpServer/src/Connection.cpp
+            httpServer/src/ConnectionManager.cpp
             httpServer/src/main.cpp
             httpServer/src/mime_types.cpp
             httpServer/src/reply.cpp
-            httpServer/src/request_handler.cpp
-            httpServer/src/request_parser.cpp
-            httpServer/src/server.cpp
+            httpServer/src/RequestHandler.cpp
+            httpServer/src/RequestParser.cpp
+            httpServer/src/Server.cpp
             moduleApi/src/moduleManager.cpp
             )
 

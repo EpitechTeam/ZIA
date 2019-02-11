@@ -10,7 +10,6 @@
 #include "header.hpp"
 #include "param.hpp"
 
-/// A request received from a client.
 struct request {
     std::string method;
     std::string uri;

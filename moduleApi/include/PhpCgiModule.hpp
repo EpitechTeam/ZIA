@@ -17,7 +17,7 @@
 #include <boost/filesystem.hpp>
 
 #include "IModule.hpp"
-#include "connection.hpp"
+#include "Connection.hpp"
 
 #define EOL "\r\n"
 
@@ -45,16 +45,16 @@ public:
 
     ~PhpCgiModule() = default;
 
-    int catchEvent(const Event &event, request &req, reply &scope, connection_ptr connection) {
+    int catchEvent(const Event &event, request &req, reply &scope, ConnectionPtr connection) {
         switch (event) {
             case AFTER_FILL_RESPONSE:
-                std::cout << "AFTER_FILL_RESPONSE catched by PhpCgiModule." << std::endl;
+                //std::cout << "AFTER_FILL_RESPONSE catched by PhpCgiModule." << std::endl;
                 print_request(req);
                 //this->execPhp(req, scope, connection);
                 break;
             default:
                 //print_request(req);
-                std::cout << "event" << std::endl;
+                //std::cout << "event" << std::endl;
                 break;
         }
         return 0;
@@ -165,7 +165,7 @@ public:
         return e;
     }
 
-    void execPhp(const request &req, const reply &scope, connection_ptr connection) {
+    void execPhp(const request &req, const reply &scope, ConnectionPtr connection) {
 
         pid_t pid;
         int pipe_fds[2];
@@ -301,12 +301,4 @@ public:
     }
 };
 
-/*
-struct request {
-    std::string method;
-    std::string uri;
-    int http_version_major;
-    int http_version_minor;
-    std::vector <header> headers;
-};*/
 #endif //R_TYPE_PHPCGIMODULE_HPP

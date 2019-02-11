@@ -9,28 +9,20 @@
 
         struct request;
 
-/// Parser for incoming requests.
-        class request_parser
+        class RequestParser
         {
         public:
-            /// Construct ready to parse the request method.
-            request_parser();
+            RequestParser();
 
-            /// Reset to initial parser state.
             void reset();
 
-            /// Result of parse.
-            enum result_type { good, bad, indeterminate, after_header};
+            enum resultType { good, bad, indeterminate, after_header};
 
-            /// Parse some data. The enum return value is good when a complete request has
-            /// been parsed, bad if the data is invalid, indeterminate when more data is
-            /// required. The InputIterator return value indicates how much of the input
-            /// has been consumed.
             template <typename InputIterator>
-            std::tuple<result_type, InputIterator> parse(request& req,
+            std::tuple<resultType, InputIterator> parse(request& req,
                                                          InputIterator begin, InputIterator end)
             {
-                result_type result;
+                resultType result;
 
                 while (begin != end)
                 {
@@ -42,22 +34,16 @@
             }
 
         private:
-            /// Handle the next character of input.
-            result_type consume(request& req, char input);
+            resultType consume(request& req, char input);
 
-            /// Check if a byte is an HTTP character.
-            static bool is_char(int c);
+            static bool isChar(int c);
 
-            /// Check if a byte is an HTTP control character.
-            static bool is_ctl(int c);
+            static bool isCtl(int c);
 
-            /// Check if a byte is defined as an HTTP tspecial character.
-            static bool is_tspecial(int c);
+            static bool isTspecial(int c);
 
-            /// Check if a byte is a digit.
-            static bool is_digit(int c);
+            static bool isDigit(int c);
 
-            /// The current state of the parser.
             enum state
             {
                 method_start,
@@ -83,7 +69,7 @@
                 param_line_start,
                 param_name,
                 param_value
-            } state_;
+            } _state;
         };
 
 #endif //ZIA_REQUEST_PARSER_HPP

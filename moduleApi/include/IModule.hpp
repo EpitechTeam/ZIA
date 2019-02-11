@@ -22,7 +22,7 @@ public:
 
     virtual ~IModule() = default;
 
-    virtual int catchEvent(const Event &event, request &req, reply &scope, connection_ptr connection) = 0;
+    virtual int catchEvent(const Event &event, request &req, reply &scope, ConnectionPtr connection) = 0;
 
     std::string getName() const {
         return (this->_name);
