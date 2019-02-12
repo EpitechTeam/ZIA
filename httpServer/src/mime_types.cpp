@@ -18,7 +18,7 @@ namespace mime_types {
                     {"png",  "image/png"}
             };
 
-    std::string extension_to_type(const std::string &extension) {
+    std::string extensionToType(const std::string &extension) {
         for (mapping m: mappings) {
             if (m.extension == extension) {
                 return m.mime_type;

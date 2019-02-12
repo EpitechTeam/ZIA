@@ -40,7 +40,7 @@ namespace status_strings {
     const std::string service_unavailable =
             "HTTP/1.0 503 Service Unavailable\r\n";
 
-    boost::asio::const_buffer to_buffer(reply::status_type status) {
+    boost::asio::const_buffer toBuffer(reply::status_type status) {
         switch (status) {
             case reply::ok:
                 return boost::asio::buffer(ok);
@@ -88,9 +88,9 @@ namespace misc_strings {
 
 } // namespace misc_strings
 
-std::vector <boost::asio::const_buffer> reply::to_buffers() {
+std::vector <boost::asio::const_buffer> reply::toBuffers() {
     std::vector <boost::asio::const_buffer> buffers;
-    buffers.push_back(status_strings::to_buffer(status));
+    buffers.push_back(status_strings::toBuffer(status));
     for (std::size_t i = 0; i < headers.size(); ++i) {
         header &h = headers[i];
         buffers.push_back(boost::asio::buffer(h.name));
@@ -223,7 +223,7 @@ namespace stock_replies {
 
 } // namespace stock_replies
 
-reply reply::stock_reply(reply::status_type status) {
+reply reply::stockReply(reply::status_type status) {
     reply rep;
     rep.status = status;
     rep.content = stock_replies::to_string(status);

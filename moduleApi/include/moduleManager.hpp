@@ -14,6 +14,9 @@
 #include "reply.hpp"
 #include "request.hpp"
 
+class Connection;
+typedef std::shared_ptr <Connection> ConnectionPtr;
+
 class IModule;
 
 enum Event {
@@ -37,9 +40,7 @@ public:
 
     int unloadModule(const std::string &name);
 
-    int fireEvent(const Event &event, request &req, reply &scope);
-
-    void buildEnv(const request &req, const reply &scope);
+    int fireEvent(const Event &event, request &req, reply &scope, ConnectionPtr connection);
 
 private:
 

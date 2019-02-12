@@ -3,9 +3,11 @@
 //
 
 #include <stdlib.h>
+#include <map>
 
 #include "moduleManager.hpp"
 #include "PhpCgiModule.hpp"
+#include <boost/filesystem.hpp>
 
 int
 ModuleManager::loadModule(const std::string &path) {
@@ -46,9 +48,9 @@ ModuleManager::unloadModule(const std::string &name) {
 }
 
 int
-ModuleManager::fireEvent(const Event &event, request &req, reply &scope) {
+ModuleManager::fireEvent(const Event &event, request &req, reply &scope, ConnectionPtr connection) {
     for (auto &it : this->_modules) {
-        it->catchEvent(event, req, scope);
+        it->catchEvent(event, req, scope, connection);
     }
     return (0);
 }
