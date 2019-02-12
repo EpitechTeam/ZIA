@@ -55,8 +55,8 @@ elseif (APPLE)
             httpServer/src/main.cpp
             httpServer/src/mime_types.cpp
             httpServer/src/reply.cpp
-            httpServer/src/request_handler.cpp
-            httpServer/src/request_parser.cpp
+            httpServer/src/requestHandler.cpp
+            httpServer/src/requestParser.cpp
             httpServer/src/server.cpp
             moduleApi/src/moduleManager.cpp
             )
