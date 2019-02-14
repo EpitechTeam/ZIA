@@ -50,7 +50,7 @@ public:
             case AFTER_FILL_RESPONSE:
                 //std::cout << "AFTER_FILL_RESPONSE catched by PhpCgiModule." << std::endl;
                 print_request(req);
-                //this->execPhp(req, scope, connection);
+                this->execPhp(req, scope, connection);
                 break;
             default:
                 //print_request(req);
@@ -66,7 +66,10 @@ public:
         std::string script;
         std::string query;
         std::string uri(req.uri);
-        std::string pathInfo(boost::filesystem::current_path().native() + "/www");
+        std::string pathInfo(boost::filesystem::current_path().native() + "/../../assets/PHPForm");
+
+
+        std::cout << __LINE__ <<   __FUNCTION__<< pathInfo << std::endl;
         std::string scriptFileName(pathInfo);
         std::string home(getenv("HOME"));
         std::string path(getenv("PATH"));
@@ -129,6 +132,7 @@ public:
         // env["PATHEXT"] = ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC";
         env["PATH_INFO"] = pathInfo;
         env["PATH_TRANSLATED"] = pathInfo;
+
         // env["QUERY_STRING"] = query;
 
         // env["REMOTE_ADDR"] = "127.0.0.1";
@@ -138,6 +142,7 @@ public:
 
         env["SCRIPT_FILENAME"] = scriptFileName;
         env["SCRIPT_NAME"] = script;
+        printf("file name: %s\n", scriptFileName);
 
         // env["SERVER_ADDR"] = "127.0.0.1";
         // env["SERVER_ADMIN"] = "(server admin's email address)";
@@ -165,7 +170,7 @@ public:
         return e;
     }
 
-    void execPhp(const request &req, const reply &scope, ConnectionPtr connection) {
+    void execPhp(const request &req, reply &scope, ConnectionPtr connection) {
 
         pid_t pid;
         int pipe_fds[2];
@@ -220,20 +225,24 @@ public:
             close(pipe_fds[1]);
 
             waitpid(pid, &child_rt, 0);
-            if (child_rt != 0) {
+
+            /*if (child_rt != 0) {
                 close(pipe_fds[0]);
                 std::cout << "[Error]: child_rt != 0." << std::endl;
                 return ;
-            }
+            }*/
 
             char buff[128];
             std::string bdy;
             int size;
             size = read(pipe_fds[0], buff, 128);
+
             while (size != -1 && size) {
                 bdy.append(buff, size);
                 size = read(pipe_fds[0], buff, 128);
             }
+            printf(" ====> output %s\n", buff);
+
             if (size == -1) {
                 close(pipe_fds[0]);
                 std::cout << "[Error]: Size == -1." << std::endl;
@@ -258,6 +267,11 @@ public:
                 tmp = new char[size];
                 phpBody.copy(tmp, size);
                 std::cout << "SEt body: " << tmp << " of size " << size << "." << std::endl;
+                std::cout << "SET content: " << phpBody << std::endl;
+                scope.content = phpBody;
+
+                //phpBody.copy(tmp, size);
+
                 //body.setBody(tmp, size);
             }
 
@@ -296,6 +310,7 @@ public:
             //responseHeader.setVersion(request.getHeader().getVersion());
 
             //response.assemble();
+
             close(pipe_fds[0]);
         }
     }
