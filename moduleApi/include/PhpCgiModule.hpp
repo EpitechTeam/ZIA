@@ -66,7 +66,7 @@ public:
         std::string script;
         std::string query;
         std::string uri(req.uri);
-        std::string pathInfo(boost::filesystem::current_path().native() + "/../../assets/PHPForm");
+        std::string pathInfo(boost::filesystem::current_path().native() + "/assets/PHPForm");
 
 
         std::cout << __LINE__ <<   __FUNCTION__<< pathInfo << std::endl;
@@ -89,8 +89,11 @@ public:
             if (size && pos < size)
                 query.append(uri.substr(pos + 1).c_str(), size - pos);
         }
-
-        scriptFileName += script;
+        if(script == "/")
+            script = "/index.html",
+        std::cout << "SCRIPT ASKIP " << script << std::endl;
+        scriptFileName =  scriptFileName + script;
+        std::cout << "SCRIPT + PATH ASKIP " << scriptFileName << std::endl;
 
         env["DOCUMENT_ROOT"] = pathInfo;
         env["GATEWAY_INTERFACE"] = "CGI/1.1";
@@ -137,7 +140,7 @@ public:
 
         // env["REMOTE_ADDR"] = "127.0.0.1";
         // env["REMOTE_PORT"] = "63555";
-        // env["REQUEST_METHOD"] = requestHeader.getCommand();
+        env["REQUEST_METHOD"] = req.method;
         // env["REQUEST_URI"] = requestHeader.getArg();
 
         env["SCRIPT_FILENAME"] = scriptFileName;
@@ -178,7 +181,6 @@ public:
         char *buff;
 
         std::cout << "ExecPhp" << std::endl;
-
         pipe(pipe_fds);
 
         pid = fork();
@@ -268,7 +270,9 @@ public:
                 phpBody.copy(tmp, size);
                 std::cout << "SEt body: " << tmp << " of size " << size << "." << std::endl;
                 std::cout << "SET content: " << phpBody << std::endl;
-                scope.content = phpBody;
+//                scope.content = phpBody;
+                scope.content.append("<p> Hello World </p>\n");
+                scope = reply::stockReply(reply::ok);
 
                 //phpBody.copy(tmp, size);
 
