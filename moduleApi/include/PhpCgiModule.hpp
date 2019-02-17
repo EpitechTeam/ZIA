@@ -26,6 +26,19 @@ void print_request(request &req) {
     std::cout << "\033[1;37m " << req.uri << " \033[0m\n";
     std::cout << "\033[1;31m major: " << req.http_version_major << " \033[0m";
     std::cout << "\033[1;31m minor: " << req.http_version_minor << " \033[0m\n";
+
+    std::cout << "\033[1;31m url : \033[0m";
+    std::cout << "\033[1;37m" << req.url << "\033[0m" << std::endl;
+
+    std::cout << "\033[1;31m docRoot : \033[0m";
+    std::cout << "\033[1;37m" << req.docRoot << "\033[0m" << std::endl;
+
+    std::cout << "\033[1;31m fullPath : \033[0m";
+    std::cout << "\033[1;37m" << req.fullPath << "\033[0m" << std::endl;
+
+    std::cout << "\033[1;31m extension : \033[0m";
+    std::cout << "\033[1;37m" << req.extension << "\033[0m" << std::endl;
+
     for (unsigned int i = 0; req.headers.size() != i; i++) {
         std::cout << "\033[1;32m" << req.headers[i].name << " : \033[0m";
         std::cout << "\033[1;37m" << req.headers[i].value << "\033[0m" << std::endl;

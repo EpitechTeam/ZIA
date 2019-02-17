@@ -15,6 +15,10 @@ struct request {
     std::string uri;
     int http_version_major;
     int http_version_minor;
+    std::string url;
+    std::string fullPath;
+    std::string docRoot;
+    std::string extension;
     std::vector <header> headers;
     std::vector <param> params;
     std::string query;

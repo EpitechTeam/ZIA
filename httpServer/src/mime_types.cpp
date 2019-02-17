@@ -15,7 +15,8 @@ namespace mime_types {
                     {"htm",  "text/html"},
                     {"html", "text/html"},
                     {"jpg",  "image/jpeg"},
-                    {"png",  "image/png"}
+                    {"png",  "image/png"},
+                    {"php", "text/php"}
             };
 
     std::string extensionToType(const std::string &extension) {
