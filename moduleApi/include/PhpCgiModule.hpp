@@ -63,7 +63,9 @@ public:
             case AFTER_FILL_RESPONSE:
                 //std::cout << "AFTER_FILL_RESPONSE catched by PhpCgiModule." << std::endl;
                 print_request(req);
-                this->execPhp(req, scope, connection);
+                if (req.extension == "php") {
+                    this->execPhp(req, scope, connection);
+                }
                 break;
             default:
                 //print_request(req);
