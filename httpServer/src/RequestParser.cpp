@@ -198,27 +198,32 @@ RequestParser::resultType RequestParser::consume(request &req, char input) {
             } else {
                 req.params.push_back(param());
                 req.params.back().name.push_back(input);
+                req.query.push_back(input);
                 this->_state = param_name;
                 return after_header;
             }
         case param_name:
             if (input == '=') {
                 this->_state = param_value;
+                req.query.push_back(input);
                 return indeterminate;
             } else if (!isChar(input) || isCtl(input) || isTspecial(input)) {
                 return bad;
             } else {
                 req.params.back().name.push_back(input);
+                req.query.push_back(input);
                 return after_header;
             }
         case param_value:
             if (input == '&') {
                 this->_state = param_line_start;
+                req.query.push_back(input);
                 return indeterminate;
             } else if (!isChar(input) || isCtl(input) || isTspecial(input)) {
                 return bad;
             } else {
                 req.params.back().value.push_back(input);
+                req.query.push_back(input);
                 return after_header;
             }
         default:
