@@ -16,12 +16,12 @@ RequestHandler::RequestHandler(const std::string &docRoot)
 
 void RequestHandler::handleRequest(request &req, reply &rep, ConnectionPtr connection) {
 
+    req.docRoot = this->_docRoot;
     // Fire BEFORE_URL_TO_PATH Event
     this->fireEvent(BEFORE_URL_TO_PATH, req, rep, connection);
 
     // Decode url to path.
-    std::string requestPath;
-    if (!this->urlDecode(req.uri, requestPath)) {
+    if (!this->urlDecode(req.uri, req.url)) {
         rep = reply::stockReply(reply::bad_request);
         return;
     }
@@ -31,25 +31,24 @@ void RequestHandler::handleRequest(request &req, reply &rep, ConnectionPtr conne
 
 
     // Request path must be absolute and not contain "..".
-    if (requestPath.empty() || requestPath[0] != '/'
-        || requestPath.find("..") != std::string::npos) {
+    if (req.url.empty() || req.url[0] != '/'
+        || req.url.find("..") != std::string::npos) {
         rep = reply::stockReply(reply::bad_request);
         return;
     }
 
     // If path ends in slash (i.e. is a directory) then add "index.html".
-    if (requestPath[requestPath.size() - 1] == '/') {
-        requestPath += "index.html";
+    if (req.url[req.url.size() - 1] == '/') {
+        req.url += "index.html";
     }
 
     // Fire BEFORE_DETERMINATE_FILE_EXTENSION Event
     this->fireEvent(BEFORE_DETERMINATE_FILE_EXTENSION, req, rep, connection);
 
-    std::size_t lastSlashPos = requestPath.find_last_of("/");
-    std::size_t lastDotPos = requestPath.find_last_of(".");
-    std::string extension;
+    std::size_t lastSlashPos = req.url.find_last_of("/");
+    std::size_t lastDotPos = req.url.find_last_of(".");
     if (lastDotPos != std::string::npos && lastDotPos > lastSlashPos) {
-        extension = requestPath.substr(lastDotPos + 1);
+        req.extension = req.url.substr(lastDotPos + 1);
     }
 
     // Fire AFTER_DETERMINATE_FILE_EXTENSION Event
@@ -59,8 +58,8 @@ void RequestHandler::handleRequest(request &req, reply &rep, ConnectionPtr conne
     this->fireEvent(BEFORE_FILE_OPENING, req, rep, connection);
 
     // Open the file to send back.
-    std::string fullPath = this->_docRoot + requestPath;
-    std::ifstream is(fullPath.c_str(), std::ios::in | std::ios::binary);
+    req.fullPath = this->_docRoot + req.url;
+    std::ifstream is(req.fullPath.c_str(), std::ios::in | std::ios::binary);
     if (!is) {
         rep = reply::stockReply(reply::not_found);
         return;
@@ -81,7 +80,7 @@ void RequestHandler::handleRequest(request &req, reply &rep, ConnectionPtr conne
     rep.headers[0].name = "Content-Length";
     rep.headers[0].value = std::to_string(rep.content.size());
     rep.headers[1].name = "Content-Type";
-    rep.headers[1].value = mime_types::extensionToType(extension);
+    rep.headers[1].value = mime_types::extensionToType(req.extension);
 
     // Fire AFTER_FILL_RESPONSE Event
     this->fireEvent(AFTER_FILL_RESPONSE, req, rep, connection);

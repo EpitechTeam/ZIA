@@ -26,6 +26,19 @@ void print_request(request &req) {
     std::cout << "\033[1;37m " << req.uri << " \033[0m\n";
     std::cout << "\033[1;31m major: " << req.http_version_major << " \033[0m";
     std::cout << "\033[1;31m minor: " << req.http_version_minor << " \033[0m\n";
+
+    std::cout << "\033[1;31m url : \033[0m";
+    std::cout << "\033[1;37m" << req.url << "\033[0m" << std::endl;
+
+    std::cout << "\033[1;31m docRoot : \033[0m";
+    std::cout << "\033[1;37m" << req.docRoot << "\033[0m" << std::endl;
+
+    std::cout << "\033[1;31m fullPath : \033[0m";
+    std::cout << "\033[1;37m" << req.fullPath << "\033[0m" << std::endl;
+
+    std::cout << "\033[1;31m extension : \033[0m";
+    std::cout << "\033[1;37m" << req.extension << "\033[0m" << std::endl;
+
     for (unsigned int i = 0; req.headers.size() != i; i++) {
         std::cout << "\033[1;32m" << req.headers[i].name << " : \033[0m";
         std::cout << "\033[1;37m" << req.headers[i].value << "\033[0m" << std::endl;
@@ -50,7 +63,9 @@ public:
             case AFTER_FILL_RESPONSE:
                 //std::cout << "AFTER_FILL_RESPONSE catched by PhpCgiModule." << std::endl;
                 print_request(req);
-                //this->execPhp(req, scope, connection);
+                if (req.extension == "php") {
+                    this->execPhp(req, scope, connection);
+                }
                 break;
             default:
                 //print_request(req);
@@ -66,7 +81,10 @@ public:
         std::string script;
         std::string query;
         std::string uri(req.uri);
-        std::string pathInfo(boost::filesystem::current_path().native() + "/www");
+        std::string pathInfo(boost::filesystem::current_path().native() + "/assets/PHPForm");
+
+
+        std::cout << __LINE__ <<   __FUNCTION__<< pathInfo << std::endl;
         std::string scriptFileName(pathInfo);
         std::string home(getenv("HOME"));
         std::string path(getenv("PATH"));
@@ -86,8 +104,11 @@ public:
             if (size && pos < size)
                 query.append(uri.substr(pos + 1).c_str(), size - pos);
         }
-
-        scriptFileName += script;
+        if(script == "/")
+            script = "/index.html",
+        std::cout << "SCRIPT ASKIP " << script << std::endl;
+        scriptFileName =  scriptFileName + script;
+        std::cout << "SCRIPT + PATH ASKIP " << scriptFileName << std::endl;
 
         env["DOCUMENT_ROOT"] = pathInfo;
         env["GATEWAY_INTERFACE"] = "CGI/1.1";
@@ -129,15 +150,17 @@ public:
         // env["PATHEXT"] = ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC";
         env["PATH_INFO"] = pathInfo;
         env["PATH_TRANSLATED"] = pathInfo;
+
         // env["QUERY_STRING"] = query;
 
         // env["REMOTE_ADDR"] = "127.0.0.1";
         // env["REMOTE_PORT"] = "63555";
-        // env["REQUEST_METHOD"] = requestHeader.getCommand();
+        env["REQUEST_METHOD"] = req.method;
         // env["REQUEST_URI"] = requestHeader.getArg();
 
         env["SCRIPT_FILENAME"] = scriptFileName;
         env["SCRIPT_NAME"] = script;
+        printf("file name: %s\n", scriptFileName);
 
         // env["SERVER_ADDR"] = "127.0.0.1";
         // env["SERVER_ADMIN"] = "(server admin's email address)";
@@ -165,7 +188,7 @@ public:
         return e;
     }
 
-    void execPhp(const request &req, const reply &scope, ConnectionPtr connection) {
+    void execPhp(const request &req, reply &scope, ConnectionPtr connection) {
 
         pid_t pid;
         int pipe_fds[2];
@@ -173,7 +196,6 @@ public:
         char *buff;
 
         std::cout << "ExecPhp" << std::endl;
-
         pipe(pipe_fds);
 
         pid = fork();
@@ -220,20 +242,24 @@ public:
             close(pipe_fds[1]);
 
             waitpid(pid, &child_rt, 0);
-            if (child_rt != 0) {
+
+            /*if (child_rt != 0) {
                 close(pipe_fds[0]);
                 std::cout << "[Error]: child_rt != 0." << std::endl;
                 return ;
-            }
+            }*/
 
             char buff[128];
             std::string bdy;
             int size;
             size = read(pipe_fds[0], buff, 128);
+
             while (size != -1 && size) {
                 bdy.append(buff, size);
                 size = read(pipe_fds[0], buff, 128);
             }
+            printf(" ====> output %s\n", buff);
+
             if (size == -1) {
                 close(pipe_fds[0]);
                 std::cout << "[Error]: Size == -1." << std::endl;
@@ -258,6 +284,13 @@ public:
                 tmp = new char[size];
                 phpBody.copy(tmp, size);
                 std::cout << "SEt body: " << tmp << " of size " << size << "." << std::endl;
+                std::cout << "SET content: " << phpBody << std::endl;
+//                scope.content = phpBody;
+                scope.content.append("<p> Hello World </p>\n");
+                scope = reply::stockReply(reply::ok);
+
+                //phpBody.copy(tmp, size);
+
                 //body.setBody(tmp, size);
             }
 
@@ -296,6 +329,7 @@ public:
             //responseHeader.setVersion(request.getHeader().getVersion());
 
             //response.assemble();
+
             close(pipe_fds[0]);
         }
     }
