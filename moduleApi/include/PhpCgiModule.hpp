@@ -80,10 +80,9 @@ public:
         std::string script;
         std::string query;
         std::string uri(req.uri);
-        std::string pathInfo(boost::filesystem::current_path().native() + "/assets/PHPForm");
+        std::string pathInfo(boost::filesystem::current_path().native() + "/" + req.docRoot);
 
 
-        std::cout << __LINE__ <<   __FUNCTION__<< pathInfo << std::endl;
         std::string scriptFileName(pathInfo);
         std::string home(getenv("HOME"));
         std::string path(getenv("PATH"));
@@ -138,22 +137,24 @@ public:
             if (it.name == "Host") {
                 env["HTTP_HOST"] = it.value;
             }
-
             if (it.name == "User-Agent") {
                 env["HTTP_USER_AGENT"] = it.value;
             }
 
-        }
-        std::cout << "URI: " << req.query << " <=> " << req.query.size();
+            if (it.name == "Content-type") {
+                env["CONTENT_TYPE"] = it.value;
+            }
 
-        if(req.params.size())
-        {
-            env["BODY"] = req.query;
-            env["CONTENT_LENGTH"] = req.query.size();
-            env["REQUEST_URI"] = req.query;
-            env["QUERY_STRING"] = req.query;
+            if (it.name == "Content-length") {
+                env["CONTENT_LENGTH"] = it.value;
+            }
+
         }
 
+
+
+        std::cout << "URI: " << req.query << " <=> " << req.query.size() << std::endl;
+        env["QUERY_STRING"] = req.query;
         env["PATH"] = path;
         // env["PATHEXT"] = ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC";
 
