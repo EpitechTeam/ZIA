@@ -60,20 +60,6 @@ public:
 
     int catchEvent(const Event &event, request &req, reply &scope, ConnectionPtr connection) {
         switch (event) {
-            print_request(req);
-            //this->execPhp(req, scope, connection);
-            /*
-             *     BEFORE_CONNECTION,
-    AFTER_CONNECTION,
-    BEFORE_URL_TO_PATH,
-    AFTER_URL_TO_PATH,
-    BEFORE_DETERMINATE_FILE_EXTENSION,
-    AFTER_DETERMINATE_FILE_EXTENSION,
-    BEFORE_FILE_OPENING,
-    AFTER_FILE_OPENING,
-    BEFORE_FILL_RESPONSE,
-    AFTER_FILL_RESPONSE
-             */
             case AFTER_FILL_RESPONSE:
                 print_request(req);
                 if (req.extension == "php") {
