@@ -60,14 +60,27 @@ public:
 
     int catchEvent(const Event &event, request &req, reply &scope, ConnectionPtr connection) {
         switch (event) {
+            print_request(req);
+            //this->execPhp(req, scope, connection);
+            /*
+             *     BEFORE_CONNECTION,
+    AFTER_CONNECTION,
+    BEFORE_URL_TO_PATH,
+    AFTER_URL_TO_PATH,
+    BEFORE_DETERMINATE_FILE_EXTENSION,
+    AFTER_DETERMINATE_FILE_EXTENSION,
+    BEFORE_FILE_OPENING,
+    AFTER_FILE_OPENING,
+    BEFORE_FILL_RESPONSE,
+    AFTER_FILL_RESPONSE
+             */
             case AFTER_FILL_RESPONSE:
-                //std::cout << "AFTER_FILL_RESPONSE catched by PhpCgiModule." << std::endl;
                 print_request(req);
                 this->execPhp(req, scope, connection);
                 break;
+            case AFTER_CONNECTION:
+                break;
             default:
-                //print_request(req);
-                //std::cout << "event" << std::endl;
                 break;
         }
         return 0;
@@ -143,27 +156,37 @@ public:
             }
 
         }
+        std::cout << "URI: " << req.query << " <=> " << req.query.size();
+
+        if(req.params.size())
+        {
+            env["BODY"] = req.query;
+            env["CONTENT_LENGTH"] = req.query.size();
+            env["REQUEST_URI"] = req.query;
+            env["QUERY_STRING"] = req.query;
+        }
 
         env["PATH"] = path;
         // env["PATHEXT"] = ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC";
+
         env["PATH_INFO"] = pathInfo;
         env["PATH_TRANSLATED"] = pathInfo;
 
-        // env["QUERY_STRING"] = query;
 
-        // env["REMOTE_ADDR"] = "127.0.0.1";
-        // env["REMOTE_PORT"] = "63555";
-        env["REQUEST_METHOD"] = req.method;
+
+        env["REMOTE_ADDR"] = "127.0.0.1";
+        env["REMOTE_PORT"] = "4242";
+
         // env["REQUEST_URI"] = requestHeader.getArg();
 
         env["SCRIPT_FILENAME"] = scriptFileName;
         env["SCRIPT_NAME"] = script;
         printf("file name: %s\n", scriptFileName);
 
-        // env["SERVER_ADDR"] = "127.0.0.1";
+        env["SERVER_ADDR"] = "127.0.0.1";
         // env["SERVER_ADMIN"] = "(server admin's email address)";
-        // env["SERVER_NAME"] = "127.0.0.1";
-        // env["SERVER_PORT"] = "80";
+        env["SERVER_NAME"] = "zia";
+        env["SERVER_PORT"] = "4242";
         env["SERVER_PROTOCOL"] = req.http_version_major;
         env["SERVER_SIGNATURE"] = "";
         env["SERVER_SOFTWARE"] = "a.out server zia_server";
@@ -284,8 +307,11 @@ public:
                 std::cout << "SEt body: " << tmp << " of size " << size << "." << std::endl;
                 std::cout << "SET content: " << phpBody << std::endl;
 //                scope.content = phpBody;
-                scope.content.append("<p> Hello World </p>\n");
-                scope = reply::stockReply(reply::ok);
+                scope.content = phpBody;
+                scope.headers[0].name = "Content-Length";
+                scope.headers[0].value = std::to_string(scope.content.size());
+
+                //scope = reply::stockReply(reply::ok);
 
                 //phpBody.copy(tmp, size);
 
@@ -305,7 +331,6 @@ public:
 
                 if (key == "Status") {
                     size_t pos;
-
                     pos = value.find_first_of(' ');
                     std::cout << "Set Status Code: " << value.substr(0, pos) << std::endl;
                     // responseHeader.setStatusCode(value.substr(0, pos));
@@ -313,6 +338,9 @@ public:
                     // responseHeader.setStatusMessage(value.substr(pos + 1));
                 } else {
                     std::cout << "Set Value: (" << key << ", " << value << ")" << std::endl;
+                    scope.headers[1].name = key;
+                    scope.headers[1].value = value;
+                    //rep.headers.resize(2);
                     // responseHeader.setValue(key, value);
                 }
 
