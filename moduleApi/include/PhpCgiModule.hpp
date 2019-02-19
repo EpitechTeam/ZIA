@@ -76,7 +76,9 @@ public:
              */
             case AFTER_FILL_RESPONSE:
                 print_request(req);
-                this->execPhp(req, scope, connection);
+                if (req.extension == "php") {
+                    this->execPhp(req, scope, connection);
+                }
                 break;
             case AFTER_CONNECTION:
                 break;
