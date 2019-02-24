@@ -13,6 +13,8 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <limits.h>
+
 
 #include <boost/filesystem.hpp>
 
@@ -79,7 +81,7 @@ public:
         std::string script;
         std::string query;
         std::string uri(req.uri);
-        std::string pathInfo(boost::filesystem::current_path().native() + "/" + req.docRoot);
+        std::string pathInfo(realpath(std::string(boost::filesystem::current_path().native() + "/" + req.docRoot).c_str(), NULL));
 
 
         std::string scriptFileName(pathInfo);
@@ -92,7 +94,6 @@ public:
         const char **e = new const char *[env.size() + 1];
         int i = 0;
         std::map<std::string, std::string>::iterator it;
-
 
         if (pos == std::string::npos) {
             script = uri;
@@ -309,11 +310,6 @@ public:
             close(pipe_fds[1]);
             waitpid(pid, &child_rt, 0);
 
-            if (child_rt != 0) {
-                close(pipe_fds[0]);
-                std::cout << "[Error]: child_rt != 0." << std::endl;
-                return ;
-            }
 
             char buff[128];
             std::string bdy;
@@ -325,7 +321,15 @@ public:
                 size = read(pipe_fds[0], buff, 128);
             }
 
+
             printf(" ====> output %s\n", buff);
+
+            if (child_rt != 0) {
+                close(pipe_fds[0]);
+                std::cout << "[Error]: child_rt != 0." << std::endl;
+                return ;
+            }
+
 
             if (size == -1) {
                 close(pipe_fds[0]);
