@@ -59,7 +59,7 @@ elseif (APPLE)
             httpServer/src/requestParser.cpp
             httpServer/src/server.cpp
             moduleApi/src/moduleManager.cpp
-            )
+            moduleApi/src/ConfigParser.cpp)
 
     target_link_libraries(zia_server pthread)
     target_link_libraries(zia_server ${CONAN_LIBS})

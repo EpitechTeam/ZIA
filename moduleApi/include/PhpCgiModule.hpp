@@ -178,7 +178,7 @@ public:
 
         env["SCRIPT_FILENAME"] = scriptFileName;
         env["SCRIPT_NAME"] = script;
-        printf("file name: %s\n", scriptFileName);
+        //printf("file name: %s\n", scriptFileName);
 
         //env["SERVER_ADDR"] = "127.0.0.1";
         // env["SERVER_ADMIN"] = "(server admin's email address)";
