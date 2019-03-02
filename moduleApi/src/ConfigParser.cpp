@@ -74,6 +74,7 @@ ServerConfig &ConfigParser::parseConfigFile(std::string pathName)
 	for (json::iterator it = jsonConfig.begin(); it != jsonConfig.end(); ++it) {
 		_config[it.key()] = it.value();
 	}
+	return _config;
 }
 
 

@@ -34,7 +34,7 @@ if (LINUX)
             httpServer/src/RequestParser.cpp
             httpServer/src/Server.cpp
             moduleApi/src/moduleManager.cpp
-            )
+            moduleApi/src/ConfigParser.cpp)
 
     target_link_libraries(zia_server pthread)
     target_link_libraries(zia_server ${CONAN_LIBS})
