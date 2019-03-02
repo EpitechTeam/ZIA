@@ -5,13 +5,16 @@
 #include <iostream>
 #include <string>
 #include <boost/asio.hpp>
-#include "Server.hpp"
 
-int main(int argc, char* argv[])
+#include "Server.hpp"
+#include "Zia.hpp"
+
+int main(int ac, char* av[])
 {
+
     try
     {
-        if (argc != 4)
+        if (ac != 4)
         {
             std::cerr << "Usage: zia_server <address> <port> <doc_root>\n";
             std::cerr << "  For IPv4, try:\n";
@@ -21,8 +24,14 @@ int main(int argc, char* argv[])
             return 1;
         }
 
-        Server server(argv[1], argv[2], argv[3]);
-        server.loadModule("");
+        zany::Context       context;
+
+        //Server server(av[1], av[2], av[3]);
+        //server.loadModule("");
+
+        Zia                 zia(context);
+
+        zia.run(ac, av);
 
         /*
         std::thread moduleLoadingThread([&server]() {
@@ -33,7 +42,7 @@ int main(int argc, char* argv[])
             }
         });*/
         // Run the server until stopped.
-        server.run();
+        //server.run();
 
        // moduleLoadingThread.join();
     }

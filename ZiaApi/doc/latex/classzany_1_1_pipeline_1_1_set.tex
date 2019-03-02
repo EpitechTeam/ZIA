@@ -1,0 +1,56 @@
+\hypertarget{classzany_1_1_pipeline_1_1_set}{}\section{zany\+:\+:Pipeline\+:\+:Set Class Reference}
+\label{classzany_1_1_pipeline_1_1_set}\index{zany\+::\+Pipeline\+::\+Set@{zany\+::\+Pipeline\+::\+Set}}
+
+
+{\ttfamily \#include $<$Pipeline.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$Priority P = Priority\+::\+L\+OW, Rights R = Rights\+::\+R\+E\+A\+D\+\_\+\+W\+R\+I\+TE$>$ }\\ID \hyperlink{classzany_1_1_pipeline_1_1_set_a1f81cf9f24022822c7c9382de470c07c}{add\+Task} (typename \+\_\+\+Function\+Type\+Selector$<$ R $>$\+::type const \&fct)
+\item 
+void \hyperlink{classzany_1_1_pipeline_1_1_set_ae7da91711a8148a7a1220d8dc398e1a8}{execute} (\hyperlink{classzany_1_1_pipeline_1_1_instance}{Instance} \&pipeline)
+\item 
+void \hyperlink{classzany_1_1_pipeline_1_1_set_a10dc8ef169ab4bf07e56d4099d2dac3c}{remove\+Task} (ID id)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A set is a group of handlers for a specific hook It sorts the handlers from their \hyperlink{classzany_1_1_pipeline_ab49de07eef2daaaa382e3a7b75c9e662}{Priority()} You don\textquotesingle{}t need to create them, \hyperlink{classzany_1_1_pipeline_afe387915735556acc7fc8382d9504bb7}{Pipeline\+::get\+Hook\+Set()} allows it 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classzany_1_1_pipeline_1_1_set_a1f81cf9f24022822c7c9382de470c07c}\label{classzany_1_1_pipeline_1_1_set_a1f81cf9f24022822c7c9382de470c07c}} 
+\index{zany\+::\+Pipeline\+::\+Set@{zany\+::\+Pipeline\+::\+Set}!add\+Task@{add\+Task}}
+\index{add\+Task@{add\+Task}!zany\+::\+Pipeline\+::\+Set@{zany\+::\+Pipeline\+::\+Set}}
+\subsubsection{\texorpdfstring{add\+Task()}{addTask()}}
+{\footnotesize\ttfamily template$<$Pipeline\+::\+Priority P, Pipeline\+::\+Rights R$>$ \\
+Pipeline\+::\+Set\+::\+ID zany\+::\+Pipeline\+::\+Set\+::add\+Task (\begin{DoxyParamCaption}\item[{typename \+\_\+\+Function\+Type\+Selector$<$ R $>$\+::type const \&}]{fct }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Add an handler to the set \mbox{\Hypertarget{classzany_1_1_pipeline_1_1_set_ae7da91711a8148a7a1220d8dc398e1a8}\label{classzany_1_1_pipeline_1_1_set_ae7da91711a8148a7a1220d8dc398e1a8}} 
+\index{zany\+::\+Pipeline\+::\+Set@{zany\+::\+Pipeline\+::\+Set}!execute@{execute}}
+\index{execute@{execute}!zany\+::\+Pipeline\+::\+Set@{zany\+::\+Pipeline\+::\+Set}}
+\subsubsection{\texorpdfstring{execute()}{execute()}}
+{\footnotesize\ttfamily void zany\+::\+Pipeline\+::\+Set\+::execute (\begin{DoxyParamCaption}\item[{\hyperlink{classzany_1_1_pipeline_1_1_instance}{Pipeline\+::\+Instance} \&}]{pipeline }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Execute the handlers in the right order 
+\begin{DoxyParams}{Parameters}
+{\em pipeline} & The instance of the execution \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classzany_1_1_pipeline_1_1_set_a10dc8ef169ab4bf07e56d4099d2dac3c}\label{classzany_1_1_pipeline_1_1_set_a10dc8ef169ab4bf07e56d4099d2dac3c}} 
+\index{zany\+::\+Pipeline\+::\+Set@{zany\+::\+Pipeline\+::\+Set}!remove\+Task@{remove\+Task}}
+\index{remove\+Task@{remove\+Task}!zany\+::\+Pipeline\+::\+Set@{zany\+::\+Pipeline\+::\+Set}}
+\subsubsection{\texorpdfstring{remove\+Task()}{removeTask()}}
+{\footnotesize\ttfamily void zany\+::\+Pipeline\+::\+Set\+::remove\+Task (\begin{DoxyParamCaption}\item[{ID}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Remove an handler 
+\begin{DoxyParams}{Parameters}
+{\em id} & ID of the handler returned by \hyperlink{classzany_1_1_pipeline_1_1_set_a1f81cf9f24022822c7c9382de470c07c}{add\+Task(typename \+\_\+\+Function\+Type\+Selector$<$\+R$>$\+::type const \&fct)} \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+lib/\+Zany/\hyperlink{_pipeline_8hpp}{Pipeline.\+hpp}\item 
+lib/\+Zany/Pipeline.\+ipp\end{DoxyCompactItemize}

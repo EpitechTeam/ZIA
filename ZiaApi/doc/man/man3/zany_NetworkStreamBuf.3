@@ -1,0 +1,37 @@
+.TH "zany::NetworkStreamBuf< IO >" 3 "Tue Feb 12 2019" "Zia API" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+zany::NetworkStreamBuf< IO >
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits streambuf, and IO\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNetworkStreamBuf\fP (int fd)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual int_type \fBunderflow\fP () override"
+.br
+.ti -1c
+.RI "virtual int_type \fBuflow\fP () override"
+.br
+.ti -1c
+.RI "virtual int_type \fBpbackfail\fP (int_type ch) override"
+.br
+.ti -1c
+.RI "virtual std::streamsize \fBshowmanyc\fP () override"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Zia API from the source code\&.

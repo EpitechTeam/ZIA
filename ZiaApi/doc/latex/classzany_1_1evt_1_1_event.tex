@@ -1,0 +1,53 @@
+\hypertarget{classzany_1_1evt_1_1_event}{}\section{zany\+:\+:evt\+:\+:Event Class Reference}
+\label{classzany_1_1evt_1_1_event}\index{zany\+::evt\+::\+Event@{zany\+::evt\+::\+Event}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structzany_1_1evt_1_1_event_1_1_evt_hdl_block}{Evt\+Hdl\+Block}
+\item 
+struct \hyperlink{structzany_1_1evt_1_1_event_1_1_evt_hdl_block_destr}{Evt\+Hdl\+Block\+Destr}
+\item 
+struct \hyperlink{structzany_1_1evt_1_1_event_1_1_fct_sign}{Fct\+Sign}
+\end{DoxyCompactItemize}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classzany_1_1evt_1_1_event_ac9f7ccc11f6d8972fef33a0a0dd0625a}\label{classzany_1_1evt_1_1_event_ac9f7ccc11f6d8972fef33a0a0dd0625a}} 
+using {\bfseries Evt\+Hdl\+Destr} = std\+::function$<$ void(void)$>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classzany_1_1evt_1_1_event_a013618651040ecea7c55538bea0c65e8}\label{classzany_1_1evt_1_1_event_a013618651040ecea7c55538bea0c65e8}} 
+{\bfseries Event} (std\+::function$<$ void()$>$ const \&on\+Empty\+\_\+=nullptr)
+\item 
+\mbox{\Hypertarget{classzany_1_1evt_1_1_event_a9844354cb161b041af9c9d3830eea36b}\label{classzany_1_1evt_1_1_event_a9844354cb161b041af9c9d3830eea36b}} 
+{\footnotesize template$<$typename Ret  = void, typename ... Args$>$ }\\const Evt\+Hdl\+Destr \& {\bfseries add\+Handler} (typename \hyperlink{structzany_1_1evt_1_1_event_1_1_fct_sign}{Fct\+Sign}$<$ std\+::function$<$ Ret(Args...)$>$$>$\+::type const \&hdl)
+\item 
+\mbox{\Hypertarget{classzany_1_1evt_1_1_event_a24f9a27694cc913ae25895f27b54839a}\label{classzany_1_1evt_1_1_event_a24f9a27694cc913ae25895f27b54839a}} 
+{\footnotesize template$<$typename Ret , typename ... Args$>$ }\\std\+::enable\+\_\+if$<$(! std\+::is\+\_\+same$<$ Ret, void $>$\+::value), typename \hyperlink{structzany_1_1evt_1_1_event_1_1_fct_sign}{Fct\+Sign}$<$ Ret $>$\+::ret $>$\+::type {\bfseries fire} (Args... args)
+\item 
+\mbox{\Hypertarget{classzany_1_1evt_1_1_event_ad293c2395cbe9bcfab7b1543503d0aea}\label{classzany_1_1evt_1_1_event_ad293c2395cbe9bcfab7b1543503d0aea}} 
+{\footnotesize template$<$typename Ret , typename ... Args$>$ }\\std\+::enable\+\_\+if$<$ std\+::is\+\_\+same$<$ Ret, void $>$\+::value, void $>$\+::type {\bfseries fire} (Args... args)
+\item 
+\mbox{\Hypertarget{classzany_1_1evt_1_1_event_ae221767af6e994276f4fd65d19b55c12}\label{classzany_1_1evt_1_1_event_ae221767af6e994276f4fd65d19b55c12}} 
+{\footnotesize template$<$typename ... Args$>$ }\\void {\bfseries fire} (Args... args)
+\item 
+\mbox{\Hypertarget{classzany_1_1evt_1_1_event_a3453343dcc64fc4be93e968f40dbadb7}\label{classzany_1_1evt_1_1_event_a3453343dcc64fc4be93e968f40dbadb7}} 
+bool {\bfseries is\+Empty} (void) const
+\item 
+\mbox{\Hypertarget{classzany_1_1evt_1_1_event_ab95d3e01e1c5c11439a1bf6a87bfb31b}\label{classzany_1_1evt_1_1_event_ab95d3e01e1c5c11439a1bf6a87bfb31b}} 
+void {\bfseries dump} () const
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classzany_1_1evt_1_1_event_ae21179a719cd7f3bad94fe775774a9ba}\label{classzany_1_1evt_1_1_event_ae21179a719cd7f3bad94fe775774a9ba}} 
+std\+::function$<$ void()$>$ {\bfseries on\+Empty}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+lib/\+Zany/\+Event/Event.\+hpp\item 
+lib/\+Zany/\+Event/Event.\+ipp\end{DoxyCompactItemize}

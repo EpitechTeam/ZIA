@@ -1,0 +1,8 @@
+<map id="zany::AbstractData" name="zany::AbstractData">
+<area shape="rect" id="node2" href="$classzany_1_1_array.html" title="zany::Array" alt="" coords="5,80,95,107"/>
+<area shape="rect" id="node3" href="$classzany_1_1_bool.html" title="zany::Bool" alt="" coords="119,80,203,107"/>
+<area shape="rect" id="node4" href="$classzany_1_1_null.html" title="zany::Null" alt="" coords="227,80,308,107"/>
+<area shape="rect" id="node5" href="$classzany_1_1_number.html" title="zany::Number" alt="" coords="333,80,437,107"/>
+<area shape="rect" id="node6" href="$classzany_1_1_object.html" title="zany::Object" alt="" coords="461,80,557,107"/>
+<area shape="rect" id="node7" href="$classzany_1_1_string.html" title="zany::String" alt="" coords="581,80,673,107"/>
+</map>

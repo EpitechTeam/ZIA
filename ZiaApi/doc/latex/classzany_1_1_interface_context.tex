@@ -1,0 +1,85 @@
+\hypertarget{classzany_1_1_interface_context}{}\section{zany\+:\+:Interface\+Context Class Reference}
+\label{classzany_1_1_interface_context}\index{zany\+::\+Interface\+Context@{zany\+::\+Interface\+Context}}
+
+
+{\ttfamily \#include $<$Context.\+hpp$>$}
+
+
+
+Inheritance diagram for zany\+:\+:Interface\+Context\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=196pt]{classzany_1_1_interface_context__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classzany_1_1_interface_context_a56da6cf74ba78321a0ebe0b334175176}{add\+Task} (Handler const \&handler)=0
+\item 
+virtual void \hyperlink{classzany_1_1_interface_context_a92f9597c6b6b7af0287a7f5178c2d063}{wait\+Until\+Empty} ()=0
+\item 
+virtual void \hyperlink{classzany_1_1_interface_context_a225552253490052c2fb75f05169b16a7}{run} ()=0
+\item 
+virtual void \hyperlink{classzany_1_1_interface_context_a13d40a4b37fca39813fe231e4081c022}{stop} ()=0
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Interface Class for managing the queue of tasks 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classzany_1_1_interface_context_a56da6cf74ba78321a0ebe0b334175176}\label{classzany_1_1_interface_context_a56da6cf74ba78321a0ebe0b334175176}} 
+\index{zany\+::\+Interface\+Context@{zany\+::\+Interface\+Context}!add\+Task@{add\+Task}}
+\index{add\+Task@{add\+Task}!zany\+::\+Interface\+Context@{zany\+::\+Interface\+Context}}
+\subsubsection{\texorpdfstring{add\+Task()}{addTask()}}
+{\footnotesize\ttfamily virtual void zany\+::\+Interface\+Context\+::add\+Task (\begin{DoxyParamCaption}\item[{Handler const \&}]{handler }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Add a task
+
+
+\begin{DoxyParams}{Parameters}
+{\em The} & function/lambda to add to the queue \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{classzany_1_1_context_a448dcb8a627491eb4c8de0f46cd13ab1}{zany\+::\+Context}.
+
+\mbox{\Hypertarget{classzany_1_1_interface_context_a225552253490052c2fb75f05169b16a7}\label{classzany_1_1_interface_context_a225552253490052c2fb75f05169b16a7}} 
+\index{zany\+::\+Interface\+Context@{zany\+::\+Interface\+Context}!run@{run}}
+\index{run@{run}!zany\+::\+Interface\+Context@{zany\+::\+Interface\+Context}}
+\subsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily virtual void zany\+::\+Interface\+Context\+::run (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Start (blocking) 
+
+Implemented in \hyperlink{classzany_1_1_context_af7642e436736dbe466c476b56435d90f}{zany\+::\+Context}.
+
+\mbox{\Hypertarget{classzany_1_1_interface_context_a13d40a4b37fca39813fe231e4081c022}\label{classzany_1_1_interface_context_a13d40a4b37fca39813fe231e4081c022}} 
+\index{zany\+::\+Interface\+Context@{zany\+::\+Interface\+Context}!stop@{stop}}
+\index{stop@{stop}!zany\+::\+Interface\+Context@{zany\+::\+Interface\+Context}}
+\subsubsection{\texorpdfstring{stop()}{stop()}}
+{\footnotesize\ttfamily virtual void zany\+::\+Interface\+Context\+::stop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Stop the context 
+
+Implemented in \hyperlink{classzany_1_1_context_ae99b0f88172d429cc43b83effced053e}{zany\+::\+Context}.
+
+\mbox{\Hypertarget{classzany_1_1_interface_context_a92f9597c6b6b7af0287a7f5178c2d063}\label{classzany_1_1_interface_context_a92f9597c6b6b7af0287a7f5178c2d063}} 
+\index{zany\+::\+Interface\+Context@{zany\+::\+Interface\+Context}!wait\+Until\+Empty@{wait\+Until\+Empty}}
+\index{wait\+Until\+Empty@{wait\+Until\+Empty}!zany\+::\+Interface\+Context@{zany\+::\+Interface\+Context}}
+\subsubsection{\texorpdfstring{wait\+Until\+Empty()}{waitUntilEmpty()}}
+{\footnotesize\ttfamily virtual void zany\+::\+Interface\+Context\+::wait\+Until\+Empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Wait while execution queue is not empty 
+
+Implemented in \hyperlink{classzany_1_1_context_aa611ac3befc23b58e8cef92932f21b67}{zany\+::\+Context}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lib/\+Zany/\hyperlink{_context_8hpp}{Context.\+hpp}\end{DoxyCompactItemize}

@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$structzany_1_1_http_base_request.html" title="zany::HttpBaseRequest" alt="" coords="5,31,168,57"/>
+<area shape="rect" id="node2" href="$structzany_1_1_http_request.html" title="zany::HttpRequest" alt="" coords="221,5,353,32"/>
+<area shape="rect" id="node3" href="$structzany_1_1_http_response.html" title="zany::HttpResponse" alt="" coords="216,56,359,83"/>
+</map>
