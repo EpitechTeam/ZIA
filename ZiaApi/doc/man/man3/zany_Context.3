@@ -1,0 +1,85 @@
+.TH "zany::Context" 3 "Tue Feb 12 2019" "Zia API" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+zany::Context \- One implementation of context\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Context\&.hpp>\fP
+.PP
+Inherits \fBzany::InterfaceContext\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBContext\fP ()=default"
+.br
+.ti -1c
+.RI "\fBContext\fP (\fBContext\fP const &other)=delete"
+.br
+.ti -1c
+.RI "\fBContext\fP (\fBContext\fP &&other)=default"
+.br
+.ti -1c
+.RI "\fBContext\fP & \fBoperator=\fP (\fBContext\fP const &other)=delete"
+.br
+.ti -1c
+.RI "virtual void \fBaddTask\fP (Handler const &handler) final"
+.br
+.ti -1c
+.RI "virtual void \fBwaitUntilEmpty\fP () final"
+.br
+.ti -1c
+.RI "virtual void \fBrun\fP () final"
+.br
+.ti -1c
+.RI "virtual void \fBstop\fP () final"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+One implementation of context\&. 
+
+You can use your own if you want, don't forget to make it thread safe like this one 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "zany::Context::Context ()\fC [default]\fP"
+Default constructor 
+.SS "zany::Context::Context (\fBContext\fP const & other)\fC [delete]\fP"
+No copy by parenthesis 
+.SS "zany::Context::Context (\fBContext\fP && other)\fC [default]\fP"
+Default move constructor 
+.SH "Member Function Documentation"
+.PP 
+.SS "void zany::Context::addTask (Handler const & handler)\fC [inline]\fP, \fC [final]\fP, \fC [virtual]\fP"
+Add a task
+.PP
+\fBParameters:\fP
+.RS 4
+\fIThe\fP function/lambda to add to the queue 
+.RE
+.PP
+
+.PP
+Implements \fBzany::InterfaceContext\fP\&.
+.SS "\fBContext\fP& zany::Context::operator= (\fBContext\fP const & other)\fC [delete]\fP"
+No copy by equal sign 
+.SS "void zany::Context::run ()\fC [inline]\fP, \fC [final]\fP, \fC [virtual]\fP"
+Start (blocking) 
+.PP
+Implements \fBzany::InterfaceContext\fP\&.
+.SS "void zany::Context::stop ()\fC [inline]\fP, \fC [final]\fP, \fC [virtual]\fP"
+Stop the context 
+.PP
+Implements \fBzany::InterfaceContext\fP\&.
+.SS "void zany::Context::waitUntilEmpty ()\fC [inline]\fP, \fC [final]\fP, \fC [virtual]\fP"
+Wait while execution queue is not empty 
+.PP
+Implements \fBzany::InterfaceContext\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Zia API from the source code\&.

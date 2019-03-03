@@ -1,0 +1,65 @@
+\hypertarget{classzany_1_1_loader_1_1_abstract_module}{}\section{zany\+:\+:Loader\+:\+:Abstract\+Module Class Reference}
+\label{classzany_1_1_loader_1_1_abstract_module}\index{zany\+::\+Loader\+::\+Abstract\+Module@{zany\+::\+Loader\+::\+Abstract\+Module}}
+
+
+Collaboration diagram for zany\+:\+:Loader\+:\+:Abstract\+Module\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classzany_1_1_loader_1_1_abstract_module__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classzany_1_1_loader_1_1_abstract_module_1_1_collector}{Collector}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classzany_1_1_loader_1_1_abstract_module_a1cc8f21732c3955363508fd7001289be}\label{classzany_1_1_loader_1_1_abstract_module_a1cc8f21732c3955363508fd7001289be}} 
+virtual void {\bfseries init} ()=0
+\item 
+\mbox{\Hypertarget{classzany_1_1_loader_1_1_abstract_module_a42054eb0725757017139c447c39fdca1}\label{classzany_1_1_loader_1_1_abstract_module_a42054eb0725757017139c447c39fdca1}} 
+virtual bool {\bfseries is\+A\+Parser} ()
+\item 
+\mbox{\Hypertarget{classzany_1_1_loader_1_1_abstract_module_a365c81da234005c89654faf4bf9fe683}\label{classzany_1_1_loader_1_1_abstract_module_a365c81da234005c89654faf4bf9fe683}} 
+virtual \hyperlink{classzany_1_1_entity}{Entity} {\bfseries parse} (std\+::string const \&filename)
+\item 
+\mbox{\Hypertarget{classzany_1_1_loader_1_1_abstract_module_a405bbce0b362ba2db0d8bc538e5f710f}\label{classzany_1_1_loader_1_1_abstract_module_a405bbce0b362ba2db0d8bc538e5f710f}} 
+virtual bool {\bfseries is\+Core\+Module} ()
+\item 
+\mbox{\Hypertarget{classzany_1_1_loader_1_1_abstract_module_a6a4f36986099f13ef9a0d9fab53fbf68}\label{classzany_1_1_loader_1_1_abstract_module_a6a4f36986099f13ef9a0d9fab53fbf68}} 
+virtual void {\bfseries core\+Begin\+Pipeline} (zany\+::\+Socket)
+\item 
+\mbox{\Hypertarget{classzany_1_1_loader_1_1_abstract_module_a9f37f71825fc0b55b32c107374ce4b58}\label{classzany_1_1_loader_1_1_abstract_module_a9f37f71825fc0b55b32c107374ce4b58}} 
+virtual auto {\bfseries name} () const -\/$>$ const std\+::string \&=0
+\item 
+\mbox{\Hypertarget{classzany_1_1_loader_1_1_abstract_module_ac1bbed96b6a3072e87d07770396ac8d4}\label{classzany_1_1_loader_1_1_abstract_module_ac1bbed96b6a3072e87d07770396ac8d4}} 
+auto {\bfseries get\+Unique\+Id} () const
+\item 
+\mbox{\Hypertarget{classzany_1_1_loader_1_1_abstract_module_a886fb096eb373e4ebaf0f30e351cdad1}\label{classzany_1_1_loader_1_1_abstract_module_a886fb096eb373e4ebaf0f30e351cdad1}} 
+void {\bfseries link\+Orchestrator} (\hyperlink{classzany_1_1_orchestrator}{Orchestrator} \&p)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classzany_1_1_loader_1_1_abstract_module_ac19f88dd1e02ae93508e92e0a4a1dadb}\label{classzany_1_1_loader_1_1_abstract_module_ac19f88dd1e02ae93508e92e0a4a1dadb}} 
+static bool {\bfseries is\+Valid\+Parse\+Result} (\hyperlink{classzany_1_1_entity}{Entity} const \&variant)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classzany_1_1_loader_1_1_abstract_module_a628e207c1499413aeaf6ca77a2aae728}\label{classzany_1_1_loader_1_1_abstract_module_a628e207c1499413aeaf6ca77a2aae728}} 
+\hyperlink{classzany_1_1_loader_1_1_abstract_module_1_1_collector}{Collector} {\bfseries garbage}
+\item 
+\mbox{\Hypertarget{classzany_1_1_loader_1_1_abstract_module_aa4bdf493407f1a899dd3dc18e50b9954}\label{classzany_1_1_loader_1_1_abstract_module_aa4bdf493407f1a899dd3dc18e50b9954}} 
+\hyperlink{classzany_1_1_orchestrator}{Orchestrator} $\ast$ {\bfseries master} = nullptr
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+lib/\+Zany/Loader.\+hpp\item 
+lib/\+Zany/Loader.\+ipp\end{DoxyCompactItemize}

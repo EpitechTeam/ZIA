@@ -1,0 +1,43 @@
+.TH "zany::NetworkIO" 3 "Tue Feb 12 2019" "Zia API" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+zany::NetworkIO
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNetworkIO\fP (int socketFd)"
+.br
+.ti -1c
+.RI "auto \fBwrite\fP (char const *buffer, std::size_t len)"
+.br
+.ti -1c
+.RI "auto \fBread\fP (char *buffer, std::size_t len)"
+.br
+.ti -1c
+.RI "void \fBsetFd\fP (int fd)"
+.br
+.ti -1c
+.RI "auto \fBgetFd\fP ()"
+.br
+.ti -1c
+.RI "void \fBsetSendFlags\fP (int flags)"
+.br
+.ti -1c
+.RI "auto \fBgetSendFlags\fP ()"
+.br
+.ti -1c
+.RI "void \fBsetRecvFlags\fP (int flags)"
+.br
+.ti -1c
+.RI "auto \fBgetRecvFlags\fP ()"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Zia API from the source code\&.

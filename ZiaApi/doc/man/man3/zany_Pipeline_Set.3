@@ -1,0 +1,52 @@
+.TH "zany::Pipeline::Set" 3 "Tue Feb 12 2019" "Zia API" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+zany::Pipeline::Set
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Pipeline\&.hpp>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "template<Priority P = Priority::LOW, Rights R = Rights::READ_WRITE> ID \fBaddTask\fP (typename _FunctionTypeSelector< R >::type const &fct)"
+.br
+.ti -1c
+.RI "void \fBexecute\fP (\fBInstance\fP &pipeline)"
+.br
+.ti -1c
+.RI "void \fBremoveTask\fP (ID id)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+A set is a group of handlers for a specific hook It sorts the handlers from their \fBPriority()\fP You don't need to create them, \fBPipeline::getHookSet()\fP allows it 
+.SH "Member Function Documentation"
+.PP 
+.SS "template<Pipeline::Priority P, Pipeline::Rights R> Pipeline::Set::ID zany::Pipeline::Set::addTask (typename _FunctionTypeSelector< R >::type const & fct)\fC [inline]\fP"
+Add an handler to the set 
+.SS "void zany::Pipeline::Set::execute (\fBPipeline::Instance\fP & pipeline)\fC [inline]\fP"
+Execute the handlers in the right order 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpipeline\fP The instance of the execution 
+.RE
+.PP
+
+.SS "void zany::Pipeline::Set::removeTask (ID id)\fC [inline]\fP"
+Remove an handler 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIid\fP ID of the handler returned by \fBaddTask(typename _FunctionTypeSelector<R>::type const &fct)\fP 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Zia API from the source code\&.

@@ -1,0 +1,44 @@
+\hypertarget{classzany_1_1_thread_pool}{}\section{zany\+:\+:Thread\+Pool Class Reference}
+\label{classzany_1_1_thread_pool}\index{zany\+::\+Thread\+Pool@{zany\+::\+Thread\+Pool}}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classzany_1_1_thread_pool_aa546aef54ee4f1fc6dff64cd606141e5}\label{classzany_1_1_thread_pool_aa546aef54ee4f1fc6dff64cd606141e5}} 
+using {\bfseries Handler} = std\+::function$<$ void()$>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classzany_1_1_thread_pool_af331f281f2de4b03b6adf53b6570f785}\label{classzany_1_1_thread_pool_af331f281f2de4b03b6adf53b6570f785}} 
+{\bfseries Thread\+Pool} (std\+::uint32\+\_\+t thread\+Nbr)
+\item 
+\mbox{\Hypertarget{classzany_1_1_thread_pool_a25f5a43464eebcc3caf9078cb328303d}\label{classzany_1_1_thread_pool_a25f5a43464eebcc3caf9078cb328303d}} 
+{\bfseries Thread\+Pool} (\hyperlink{classzany_1_1_thread_pool}{Thread\+Pool} const \&other)=delete
+\item 
+\mbox{\Hypertarget{classzany_1_1_thread_pool_aa32102cf4a07efe4cc2ec813f8630498}\label{classzany_1_1_thread_pool_aa32102cf4a07efe4cc2ec813f8630498}} 
+{\bfseries Thread\+Pool} (\hyperlink{classzany_1_1_thread_pool}{Thread\+Pool} \&\&other)=default
+\item 
+\mbox{\Hypertarget{classzany_1_1_thread_pool_a6203a91f947417bc1eafc406ee907c99}\label{classzany_1_1_thread_pool_a6203a91f947417bc1eafc406ee907c99}} 
+\hyperlink{classzany_1_1_thread_pool}{Thread\+Pool} \& {\bfseries operator=} (\hyperlink{classzany_1_1_thread_pool}{Thread\+Pool} const \&other)=delete
+\item 
+\mbox{\Hypertarget{classzany_1_1_thread_pool_aa20407f0fee89ccac5dc49731b3c76df}\label{classzany_1_1_thread_pool_aa20407f0fee89ccac5dc49731b3c76df}} 
+std\+::uint32\+\_\+t {\bfseries available} ()
+\item 
+\mbox{\Hypertarget{classzany_1_1_thread_pool_a9960f7dcc7d98209c473da47229047c2}\label{classzany_1_1_thread_pool_a9960f7dcc7d98209c473da47229047c2}} 
+auto {\bfseries pending} ()
+\item 
+\mbox{\Hypertarget{classzany_1_1_thread_pool_a1b1a1ad0740c403ce673d458f0bb120a}\label{classzany_1_1_thread_pool_a1b1a1ad0740c403ce673d458f0bb120a}} 
+void {\bfseries run\+Task} (Handler const \&hdl)
+\item 
+\mbox{\Hypertarget{classzany_1_1_thread_pool_a1bb322954083f50905b5282d6726a135}\label{classzany_1_1_thread_pool_a1bb322954083f50905b5282d6726a135}} 
+void {\bfseries wait\+For\+Empty} ()
+\item 
+\mbox{\Hypertarget{classzany_1_1_thread_pool_ae6bf0f7f7af399319389cdc1cbf52e6d}\label{classzany_1_1_thread_pool_ae6bf0f7f7af399319389cdc1cbf52e6d}} 
+void {\bfseries abort} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+lib/\+Zany/Thread\+Pool.\+hpp\item 
+lib/\+Zany/Thread\+Pool.\+ipp\end{DoxyCompactItemize}

@@ -1,14 +1,15 @@
 cmake_minimum_required(VERSION 3.10.2)
 project(Zia)
 
-add_definitions("-std=c++11")
+set(CMAKE_CXX_STANDARD 17)
 
 message(STATUS "start running Server cmake...")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY .)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++ -g3 -Wall -O")
 
-include_directories(httpServer/include)
+include_directories(ZiaApi/lib)
+include_directories(Zia/include)
 
 if (UNIX AND NOT APPLE)
     set(LINUX TRUE)
@@ -23,19 +24,26 @@ if (LINUX)
 
     conan_basic_setup()
 
-    add_executable(zia_server
-            httpServer/src/connection.cpp
-            httpServer/src/connection_manager.cpp
-            httpServer/src/main.cpp
-            httpServer/src/mime_types.cpp
-            httpServer/src/reply.cpp
-            httpServer/src/request_handler.cpp
-            httpServer/src/request_parser.cpp
-            httpServer/src/server.cpp
-            )
+    add_executable(zia
+            Zia/src/main.cpp
+            Zia/src/Zia.cpp)
 
-    target_link_libraries(zia_server pthread)
-    target_link_libraries(zia_server ${CONAN_LIBS})
+    target_link_libraries(zia pthread)
+    target_link_libraries(zia ${CONAN_LIBS})
+
+
+    add_library(ConnectionModule SHARED
+            modules/Connection/ConnectionModule.cpp)
+
+    target_link_libraries(ConnectionModule pthread)
+    target_link_libraries(ConnectionModule ${CONAN_LIBS})
+
+
+    add_library(HttpServerModule SHARED
+            modules/HttpServer/HttpServer.cpp)
+
+    target_link_libraries(HttpServerModule pthread)
+    target_link_libraries(HttpServerModule ${CONAN_LIBS})
 
     set(CMAKE_CXX_FLAGS "-g3 -Wall -O0")
 
@@ -48,21 +56,24 @@ elseif (APPLE)
     conan_basic_setup()
 
     add_executable(zia_server
-            httpServer/src/connection.cpp
-            httpServer/src/connection_manager.cpp
+            httpServer/src/Connection.cpp
+            httpServer/src/ConnectionManager.cpp
             httpServer/src/main.cpp
             httpServer/src/mime_types.cpp
             httpServer/src/reply.cpp
-            httpServer/src/request_handler.cpp
-            httpServer/src/request_parser.cpp
-            httpServer/src/server.cpp
+            httpServer/src/RequestHandler.cpp
+            httpServer/src/RequestParser.cpp
+            httpServer/src/Server.cpp
+            moduleApi/src/moduleManager.cpp
             )
 
-    target_link_libraries(zia_server pthread)
-    target_link_libraries(zia_server ${CONAN_LIBS})
+    target_link_libraries(zia pthread)
+    target_link_libraries(zia ${CONAN_LIBS})
 
 endif ()
 
 if (WIN32)
     message(STATUS "WINDOWS")
 endif ()
+
+target_link_libraries(zia ${CMAKE_DL_LIBS})

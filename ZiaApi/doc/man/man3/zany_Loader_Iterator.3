@@ -1,0 +1,49 @@
+.TH "zany::Loader::Iterator" 3 "Tue Feb 12 2019" "Zia API" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+zany::Loader::Iterator
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits iterator< std::input_iterator_tag, struct epoll_event >\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "using \fBType\fP = \fBAbstractModule\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBIterator\fP (decltype(Loader::_modules)::iterator &&it)"
+.br
+.ti -1c
+.RI "\fBIterator\fP (const \fBIterator\fP &mit)"
+.br
+.ti -1c
+.RI "\fBIterator\fP & \fBoperator++\fP ()"
+.br
+.ti -1c
+.RI "\fBIterator\fP \fBoperator++\fP (int)"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBIterator\fP &rhs) const"
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBIterator\fP &rhs) const"
+.br
+.ti -1c
+.RI "\fBType\fP & \fBoperator*\fP ()"
+.br
+.ti -1c
+.RI "\fBType\fP * \fBoperator\->\fP ()"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Zia API from the source code\&.

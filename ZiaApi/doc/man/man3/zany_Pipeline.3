@@ -1,0 +1,67 @@
+.TH "zany::Pipeline" 3 "Tue Feb 12 2019" "Zia API" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+zany::Pipeline
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Pipeline\&.hpp>\fP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBHooks\fP"
+.br
+.ti -1c
+.RI "class \fBInstance\fP"
+.br
+.ti -1c
+.RI "class \fBSet\fP"
+.br
+.in -1c
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBPriority\fP : std::uint8_t "
+.br
+.ti -1c
+.RI "enum \fBRights\fP : std::uint8_t "
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "template<typename T  = zany::Context, typename \&.\&.\&. Args> void \fBstartPipeline\fP (zany::Socket fd, Args &&\&.\&.\&.)"
+.br
+.ti -1c
+.RI "template<Hooks::Decl H> \fBSet\fP & \fBgetHookSet\fP ()"
+.br
+.ti -1c
+.RI "template<Hooks::Decl H> void \fBexecuteHook\fP (\fBInstance\fP &instance)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Class handling the hooks to plug the modules functions to the Orchestrator Try to see it as a manager of sets of handlers, the execution is managed in the \fBInstance\fP Class 
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBzany::Pipeline::Priority\fP : std::uint8_t\fC [strong]\fP"
+Priority of the hook 
+.SS "enum \fBzany::Pipeline::Rights\fP : std::uint8_t\fC [strong]\fP"
+Permissions of the hook (READ_ONLY allow threading in the Pipeline()) 
+.SH "Member Function Documentation"
+.PP 
+.SS "template<Hooks::Decl H> zany::Pipeline::executeHook (\fBInstance\fP & instance)\fC [inline]\fP"
+Execute a hook set 
+.SS "template<Pipeline::Hooks::Decl H> \fBPipeline::Set\fP & zany::Pipeline::getHookSet ()\fC [inline]\fP"
+Get the set of an hook 
+.SS "template<typename T  = zany::Context, typename \&.\&.\&. Args> zany::Pipeline::startPipeline (zany::Socket fd, Args && \&.\&.\&.)\fC [inline]\fP"
+Create an instance of a \fBPipeline\fP 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Zia API from the source code\&.

@@ -1,0 +1,177 @@
+.TH "zany::Entity" 3 "Tue Feb 12 2019" "Zia API" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+zany::Entity
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBCloneOption\fP { \fBLAZY\fP, \fBDEEP\fP }"
+.br
+.ti -1c
+.RI "enum \fBType\fP { \fBNBR\fP, \fBSTR\fP, \fBARR\fP, \fBOBJ\fP, \fBBOL\fP, \fBNUL\fP }"
+.br
+.ti -1c
+.RI "enum \fBStringifyAttr\fP { \fBPRETTY\fP, \fBMINIFIED\fP }"
+.br
+.ti -1c
+.RI "using \fBOnConflitFunc\fP = std::function< void(std::string const &, \fBEntity\fP &, \fBEntity\fP &)>"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBEntity\fP (\fBEntity\fP const &)=default"
+.br
+.ti -1c
+.RI "\fBEntity\fP (Type type=Type::NUL)"
+.br
+.ti -1c
+.RI "\fBEntity\fP (double nbr)"
+.br
+.ti -1c
+.RI "\fBEntity\fP (long nbr)"
+.br
+.ti -1c
+.RI "\fBEntity\fP (unsigned long nbr)"
+.br
+.ti -1c
+.RI "\fBEntity\fP (int nbr)"
+.br
+.ti -1c
+.RI "\fBEntity\fP (unsigned int nbr)"
+.br
+.ti -1c
+.RI "\fBEntity\fP (bool bol)"
+.br
+.ti -1c
+.RI "\fBEntity\fP (std::string const &str)"
+.br
+.ti -1c
+.RI "\fBEntity\fP (const char *s)"
+.br
+.ti -1c
+.RI "\fBEntity\fP (std::initializer_list< \fBArrayEntry\fP > list)"
+.br
+.ti -1c
+.RI "\fBEntity\fP (std::initializer_list< ObjEntry > list)"
+.br
+.ti -1c
+.RI "\fBEntity\fP & \fBoperator=\fP (\fBEntity\fP const &other)=default"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (\fBEntity\fP const &other) const"
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (\fBEntity\fP const &other) const"
+.br
+.ti -1c
+.RI "\fBEntity\fP & \fBoperator[]\fP (std::string const &key)"
+.br
+.ti -1c
+.RI "\fBEntity\fP & \fBoperator[]\fP (unsigned idx)"
+.br
+.ti -1c
+.RI "\fBEntity\fP & \fBpush\fP (\fBEntity\fP const &obj)"
+.br
+.ti -1c
+.RI "void \fBmerge\fP (\fBEntity\fP const &toAdd, OnConflitFunc const &onConflit=_basicOnConfit)"
+.br
+.ti -1c
+.RI "\fBEntity\fP \fBclone\fP (CloneOption attr=CloneOption::DEEP) const"
+.br
+.ti -1c
+.RI "bool \fBisObject\fP (void) const"
+.br
+.ti -1c
+.RI "bool \fBisArray\fP (void) const"
+.br
+.ti -1c
+.RI "bool \fBisNumber\fP (void) const"
+.br
+.ti -1c
+.RI "bool \fBisString\fP (void) const"
+.br
+.ti -1c
+.RI "bool \fBisBool\fP (void) const"
+.br
+.ti -1c
+.RI "bool \fBisNull\fP (void) const"
+.br
+.ti -1c
+.RI "template<typename T > T \fBto\fP () const"
+.br
+.ti -1c
+.RI "template<typename T > T & \fBgetData\fP ()"
+.br
+.ti -1c
+.RI "template<typename T > const T & \fBgetData\fP () const"
+.br
+.ti -1c
+.RI "template<typename T > auto & \fBvalue\fP ()"
+.br
+.ti -1c
+.RI "template<typename T > const auto & \fBvalue\fP () const"
+.br
+.ti -1c
+.RI "template<typename T , typename U > U \fBvalue\fP ()"
+.br
+.ti -1c
+.RI "template<typename T , typename U > U \fBvalue\fP () const"
+.br
+.ti -1c
+.RI "template<typename T > const T & \fBconstGetData\fP () const"
+.br
+.ti -1c
+.RI "template<> int \fBto\fP () const"
+.br
+.ti -1c
+.RI "template<> long \fBto\fP () const"
+.br
+.ti -1c
+.RI "template<> double \fBto\fP () const"
+.br
+.ti -1c
+.RI "template<> char * \fBto\fP () const"
+.br
+.ti -1c
+.RI "template<> bool \fBto\fP () const"
+.br
+.ti -1c
+.RI "template<> int \fBto\fP () const"
+.br
+.ti -1c
+.RI "template<> long \fBto\fP () const"
+.br
+.ti -1c
+.RI "template<> double \fBto\fP () const"
+.br
+.ti -1c
+.RI "template<> std::string \fBto\fP () const"
+.br
+.ti -1c
+.RI "template<> char * \fBto\fP () const"
+.br
+.ti -1c
+.RI "template<> bool \fBto\fP () const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBEntity\fP \fBnewObject\fP ()"
+.br
+.ti -1c
+.RI "static \fBEntity\fP \fBnewArray\fP ()"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Zia API from the source code\&.

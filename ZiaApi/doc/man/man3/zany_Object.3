@@ -1,0 +1,36 @@
+.TH "zany::Object" 3 "Tue Feb 12 2019" "Zia API" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+zany::Object
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBzany::AbstractData\fP, and unordered_map< std::string, Entity >\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBObject\fP (std::initializer_list< ObjEntry > list)"
+.br
+.ti -1c
+.RI "virtual bool \fBoperator==\fP (\fBAbstractData\fP const &) const final"
+.br
+.ti -1c
+.RI "virtual Entity::Type \fBgetType\fP () const final"
+.br
+.ti -1c
+.RI "virtual std::shared_ptr< \fBAbstractData\fP > \fBclone\fP (Entity::CloneOption attr) const final"
+.br
+.ti -1c
+.RI "std::unordered_map< std::string, \fBEntity\fP > & \fBget\fP (void)"
+.br
+.ti -1c
+.RI "const std::unordered_map< std::string, \fBEntity\fP > & \fBget\fP (void) const"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Zia API from the source code\&.

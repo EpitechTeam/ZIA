@@ -1,8 +1,10 @@
  [requires]
  boost/1.68.0@conan/stable
+ OpenSSL/1.1.1@conan/stable
 
  [options]
  boost:shared=False
+ OpenSSL:shared=False
 
  [generators]
  cmake

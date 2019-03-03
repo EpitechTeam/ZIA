@@ -1,0 +1,36 @@
+.TH "zany::Array" 3 "Tue Feb 12 2019" "Zia API" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+zany::Array
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBzany::AbstractData\fP, and vector< Entity >\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBArray\fP (std::initializer_list< \fBEntity\fP > list)"
+.br
+.ti -1c
+.RI "virtual bool \fBoperator==\fP (\fBAbstractData\fP const &) const final"
+.br
+.ti -1c
+.RI "virtual Entity::Type \fBgetType\fP (void) const final"
+.br
+.ti -1c
+.RI "virtual std::shared_ptr< \fBAbstractData\fP > \fBclone\fP (Entity::CloneOption attr) const final"
+.br
+.ti -1c
+.RI "std::vector< \fBEntity\fP > & \fBget\fP (void)"
+.br
+.ti -1c
+.RI "const std::vector< \fBEntity\fP > & \fBget\fP (void) const"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Zia API from the source code\&.

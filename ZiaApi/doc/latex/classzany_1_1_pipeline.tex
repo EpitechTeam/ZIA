@@ -1,0 +1,79 @@
+\hypertarget{classzany_1_1_pipeline}{}\section{zany\+:\+:Pipeline Class Reference}
+\label{classzany_1_1_pipeline}\index{zany\+::\+Pipeline@{zany\+::\+Pipeline}}
+
+
+{\ttfamily \#include $<$Pipeline.\+hpp$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classzany_1_1_pipeline_1_1_hooks}{Hooks}
+\item 
+class \hyperlink{classzany_1_1_pipeline_1_1_instance}{Instance}
+\item 
+class \hyperlink{classzany_1_1_pipeline_1_1_set}{Set}
+\end{DoxyCompactItemize}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{classzany_1_1_pipeline_ab49de07eef2daaaa382e3a7b75c9e662}{Priority} \+: std\+::uint8\+\_\+t 
+\item 
+enum \hyperlink{classzany_1_1_pipeline_a1d41e45c2e3e9716efd9e7ae6eae99be}{Rights} \+: std\+::uint8\+\_\+t 
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T  = zany\+::\+Context, typename ... Args$>$ }\\void \hyperlink{classzany_1_1_pipeline_a6d37ae7b4a0045d1a9a5a8dacbd8ac29}{start\+Pipeline} (zany\+::\+Socket fd, Args \&\&...)
+\item 
+{\footnotesize template$<$Hooks\+::\+Decl H$>$ }\\\hyperlink{classzany_1_1_pipeline_1_1_set}{Set} \& \hyperlink{classzany_1_1_pipeline_afe387915735556acc7fc8382d9504bb7}{get\+Hook\+Set} ()
+\item 
+{\footnotesize template$<$Hooks\+::\+Decl H$>$ }\\void \hyperlink{classzany_1_1_pipeline_a80d8242dd8e8b94f92cc215f76427c49}{execute\+Hook} (\hyperlink{classzany_1_1_pipeline_1_1_instance}{Instance} \&instance)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class handling the hooks to plug the modules functions to the Orchestrator Try to see it as a manager of sets of handlers, the execution is managed in the \hyperlink{classzany_1_1_pipeline_1_1_instance}{Instance} Class 
+
+\subsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classzany_1_1_pipeline_ab49de07eef2daaaa382e3a7b75c9e662}\label{classzany_1_1_pipeline_ab49de07eef2daaaa382e3a7b75c9e662}} 
+\index{zany\+::\+Pipeline@{zany\+::\+Pipeline}!Priority@{Priority}}
+\index{Priority@{Priority}!zany\+::\+Pipeline@{zany\+::\+Pipeline}}
+\subsubsection{\texorpdfstring{Priority}{Priority}}
+{\footnotesize\ttfamily enum \hyperlink{classzany_1_1_pipeline_ab49de07eef2daaaa382e3a7b75c9e662}{zany\+::\+Pipeline\+::\+Priority} \+: std\+::uint8\+\_\+t\hspace{0.3cm}{\ttfamily [strong]}}
+
+Priority of the hook \mbox{\Hypertarget{classzany_1_1_pipeline_a1d41e45c2e3e9716efd9e7ae6eae99be}\label{classzany_1_1_pipeline_a1d41e45c2e3e9716efd9e7ae6eae99be}} 
+\index{zany\+::\+Pipeline@{zany\+::\+Pipeline}!Rights@{Rights}}
+\index{Rights@{Rights}!zany\+::\+Pipeline@{zany\+::\+Pipeline}}
+\subsubsection{\texorpdfstring{Rights}{Rights}}
+{\footnotesize\ttfamily enum \hyperlink{classzany_1_1_pipeline_a1d41e45c2e3e9716efd9e7ae6eae99be}{zany\+::\+Pipeline\+::\+Rights} \+: std\+::uint8\+\_\+t\hspace{0.3cm}{\ttfamily [strong]}}
+
+Permissions of the hook (R\+E\+A\+D\+\_\+\+O\+N\+LY allow threading in the Pipeline()) 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classzany_1_1_pipeline_a80d8242dd8e8b94f92cc215f76427c49}\label{classzany_1_1_pipeline_a80d8242dd8e8b94f92cc215f76427c49}} 
+\index{zany\+::\+Pipeline@{zany\+::\+Pipeline}!execute\+Hook@{execute\+Hook}}
+\index{execute\+Hook@{execute\+Hook}!zany\+::\+Pipeline@{zany\+::\+Pipeline}}
+\subsubsection{\texorpdfstring{execute\+Hook()}{executeHook()}}
+{\footnotesize\ttfamily template$<$Hooks\+::\+Decl H$>$ \\
+zany\+::\+Pipeline\+::execute\+Hook (\begin{DoxyParamCaption}\item[{\hyperlink{classzany_1_1_pipeline_1_1_instance}{Instance} \&}]{instance }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Execute a hook set \mbox{\Hypertarget{classzany_1_1_pipeline_afe387915735556acc7fc8382d9504bb7}\label{classzany_1_1_pipeline_afe387915735556acc7fc8382d9504bb7}} 
+\index{zany\+::\+Pipeline@{zany\+::\+Pipeline}!get\+Hook\+Set@{get\+Hook\+Set}}
+\index{get\+Hook\+Set@{get\+Hook\+Set}!zany\+::\+Pipeline@{zany\+::\+Pipeline}}
+\subsubsection{\texorpdfstring{get\+Hook\+Set()}{getHookSet()}}
+{\footnotesize\ttfamily template$<$Pipeline\+::\+Hooks\+::\+Decl H$>$ \\
+\hyperlink{classzany_1_1_pipeline_1_1_set}{Pipeline\+::\+Set} \& zany\+::\+Pipeline\+::get\+Hook\+Set (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the set of an hook \mbox{\Hypertarget{classzany_1_1_pipeline_a6d37ae7b4a0045d1a9a5a8dacbd8ac29}\label{classzany_1_1_pipeline_a6d37ae7b4a0045d1a9a5a8dacbd8ac29}} 
+\index{zany\+::\+Pipeline@{zany\+::\+Pipeline}!start\+Pipeline@{start\+Pipeline}}
+\index{start\+Pipeline@{start\+Pipeline}!zany\+::\+Pipeline@{zany\+::\+Pipeline}}
+\subsubsection{\texorpdfstring{start\+Pipeline()}{startPipeline()}}
+{\footnotesize\ttfamily template$<$typename T  = zany\+::\+Context, typename ... Args$>$ \\
+zany\+::\+Pipeline\+::start\+Pipeline (\begin{DoxyParamCaption}\item[{zany\+::\+Socket}]{fd,  }\item[{Args \&\&}]{... }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Create an instance of a \hyperlink{classzany_1_1_pipeline}{Pipeline} 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+lib/\+Zany/\hyperlink{_pipeline_8hpp}{Pipeline.\+hpp}\item 
+lib/\+Zany/Pipeline.\+ipp\end{DoxyCompactItemize}

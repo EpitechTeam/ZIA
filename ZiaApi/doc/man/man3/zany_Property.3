@@ -1,0 +1,51 @@
+.TH "zany::Property" 3 "Tue Feb 12 2019" "Zia API" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+zany::Property
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBException\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBProperty\fP (\fBProperty\fP const &)=default"
+.br
+.ti -1c
+.RI "\fBProperty\fP (\fBProperty\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBProperty\fP & \fBoperator=\fP (\fBProperty\fP const &)=default"
+.br
+.ti -1c
+.RI "template<typename _T , typename \&.\&.\&. _Args> _T & \fBset\fP (_Args &&\&.\&.\&.__args)"
+.br
+.ti -1c
+.RI "const auto & \fBtype\fP () const"
+.br
+.ti -1c
+.RI "template<typename _T > const _T & \fBget\fP () const"
+.br
+.ti -1c
+.RI "template<typename _T > _T & \fBget\fP ()"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "template<typename _T , typename \&.\&.\&. _Args> static \fBProperty\fP \fBmake\fP (_Args &&\&.\&.\&.__args)"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Zia API from the source code\&.

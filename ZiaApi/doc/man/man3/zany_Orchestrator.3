@@ -1,0 +1,77 @@
+.TH "zany::Orchestrator" 3 "Tue Feb 12 2019" "Zia API" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+zany::Orchestrator
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBOrchestrator\fP (\fBInterfaceContext\fP &ctx)"
+.br
+.ti -1c
+.RI "\fBOrchestrator\fP (\fBOrchestrator\fP const &other)=delete"
+.br
+.ti -1c
+.RI "\fBOrchestrator\fP (\fBOrchestrator\fP &&other)=default"
+.br
+.ti -1c
+.RI "\fBOrchestrator\fP & \fBoperator=\fP (\fBOrchestrator\fP const &other)=delete"
+.br
+.ti -1c
+.RI "void \fBloadModule\fP (std::string const &filename, std::function< void(\fBLoader::AbstractModule\fP &)> const &callback, std::function< void(std::exception)> const &error=nullptr)"
+.br
+.ti -1c
+.RI "void \fBunloadModule\fP (\fBLoader::AbstractModule\fP const &module, std::function< void()> const &callback)"
+.br
+.ti -1c
+.RI "void \fBstartPipeline\fP (zany::Socket sockFd)"
+.br
+.ti -1c
+.RI "void \fBwaitForSafeHandlersFinished\fP ()"
+.br
+.ti -1c
+.RI "template<typename T > void \fBaddSafeHandler\fP (T &&function)"
+.br
+.ti -1c
+.RI "virtual void \fBroutine\fP ()=0"
+.br
+.ti -1c
+.RI "void \fBlinkThreadPool\fP (\fBThreadPool\fP &pool)"
+.br
+.ti -1c
+.RI "auto & \fBgetThreadPool\fP ()"
+.br
+.ti -1c
+.RI "auto & \fBgetThreadPool\fP () const"
+.br
+.ti -1c
+.RI "auto & \fBgetLoader\fP () const"
+.br
+.ti -1c
+.RI "auto & \fBgetPipeline\fP ()"
+.br
+.ti -1c
+.RI "auto const  & \fBgetPipeline\fP () const"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBInterfaceContext\fP & \fB_ctx\fP"
+.br
+.ti -1c
+.RI "\fBPipeline\fP \fB_pline\fP"
+.br
+.ti -1c
+.RI "\fBLoader\fP \fB_loader\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Zia API from the source code\&.
