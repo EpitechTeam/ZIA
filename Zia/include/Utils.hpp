@@ -169,7 +169,7 @@ namespace Utils {
         return zany::HttpRequest::RequestMethods::ERROR;
     }
 
-    void writeReponseHeader(zany::Pipeline::Instance &i) {
+    void _writeReponseHeader(zany::Pipeline::Instance &i) {
 
         auto &istream = i.connection->stream();
 
@@ -181,6 +181,12 @@ namespace Utils {
         }
         istream << "\r\n";
 
+    }
+
+    void writeResponse(zany::Pipeline::Instance &i, const auto &data) {
+        _writeReponseHeader(i);
+
+        i.connection->stream() << "\r\n" << data << "\r\n";
     }
 
     void printPipelineContent(zany::Pipeline::Instance &i) {

@@ -28,7 +28,7 @@ void    Zia::run(int ac, char **av) {
     this->_pline.linkThreadPool(tp);
 
     this->_config = zany::makeObject{
-            { "ipAddress", av[1] },
+            { "host", av[1] },
             { "port", av[2] },
             { "docRoot", av[3]}
     };

@@ -140,8 +140,6 @@ void HttpServerModule::_beforeHandleResponse(zany::Pipeline::Instance &i) {
             }
         }
     }
-
-    Utils::writeReponseHeader(i);
 }
 
 void HttpServerModule::_onHandleResponse(zany::Pipeline::Instance &i) {
@@ -152,9 +150,9 @@ void HttpServerModule::_onHandleResponse(zany::Pipeline::Instance &i) {
         && i.request.method == zany::HttpRequest::RequestMethods::GET) {
         auto 	&fs = i.properties["fs"].get<std::ifstream>();
 
-        i.connection->stream() << "\r\n" << fs.rdbuf() << "\r\n";
+        Utils::writeResponse(i, fs.rdbuf());
     } else if (i.writerID == 0 || i.writerID == this->getUniqueId()) {
-        i.connection->stream() << "\r\n" << reply::to_string(i.response.status) << "\r\n";
+        Utils::writeResponse(i, reply::to_string(i.response.status));
     }
 }
 
