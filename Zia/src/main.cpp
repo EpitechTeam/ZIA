@@ -6,7 +6,6 @@
 #include <string>
 #include <boost/asio.hpp>
 
-#include "Server.hpp"
 #include "Zia.hpp"
 
 int main(int ac, char* av[])
@@ -26,25 +25,10 @@ int main(int ac, char* av[])
 
         zany::Context       context;
 
-        //Server server(av[1], av[2], av[3]);
-        //server.loadModule("");
-
         Zia                 zia(context);
 
         zia.run(ac, av);
 
-        /*
-        std::thread moduleLoadingThread([&server]() {
-            std::string line;
-
-            while (std::getline(std::cin, line)) {
-                server.loadModule(line);
-            }
-        });*/
-        // Run the server until stopped.
-        //server.run();
-
-       // moduleLoadingThread.join();
     }
     catch (std::exception& e)
     {

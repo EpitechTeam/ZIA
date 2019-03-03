@@ -8,11 +8,8 @@ message(STATUS "start running Server cmake...")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY .)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++ -g3 -Wall -O")
 
-include_directories(httpServer/include)
-include_directories(moduleApi/include)
 include_directories(ZiaApi/lib)
-include_directories(modules/Connection)
-include_directories(modules/HttpServer)
+include_directories(Zia/include)
 
 if (UNIX AND NOT APPLE)
     set(LINUX TRUE)
@@ -28,13 +25,12 @@ if (LINUX)
     conan_basic_setup()
 
     add_executable(zia
-            httpServer/src/main.cpp
-            httpServer/src/reply.cpp
-            httpServer/src/Zia.cpp
-            )
+            Zia/src/main.cpp
+            Zia/src/Zia.cpp)
 
     target_link_libraries(zia pthread)
     target_link_libraries(zia ${CONAN_LIBS})
+
 
     add_library(ConnectionModule SHARED
             modules/Connection/ConnectionModule.cpp)
@@ -42,9 +38,8 @@ if (LINUX)
     target_link_libraries(ConnectionModule pthread)
     target_link_libraries(ConnectionModule ${CONAN_LIBS})
 
+
     add_library(HttpServerModule SHARED
-            httpServer/src/mime_types.cpp
-            httpServer/src/reply.cpp
             modules/HttpServer/HttpServer.cpp)
 
     target_link_libraries(HttpServerModule pthread)
