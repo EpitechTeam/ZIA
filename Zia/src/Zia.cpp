@@ -36,7 +36,8 @@ void    Zia::run(int ac, char **av) {
     std::vector<std::string> modules = {
             "../lib/libConnectionModule.so",
             "../lib/libHttpServerModule.so",
-            "../lib/libParamsModule.so"
+            "../lib/libParamsModule.so",
+            "../lib/libPhpCgiModule.so"
      };
 
     for (auto &module : modules) {
