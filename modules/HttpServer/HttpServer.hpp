@@ -28,8 +28,6 @@ public:
 
 
 private:
-    bool urlDecode(const std::string &in, std::string &out);
-
     void _beforeHandleRequest(zany::Pipeline::Instance &i);
 
     void _onHandleRequest(zany::Pipeline::Instance &i);
@@ -39,6 +37,8 @@ private:
     void _onHandleResponse(zany::Pipeline::Instance &i);
 
     void _parsePath(zany::Pipeline::Instance &i, std::string const &path);
+
+    void _parseRequest(zany::Pipeline::Instance &i);
 
 };
 

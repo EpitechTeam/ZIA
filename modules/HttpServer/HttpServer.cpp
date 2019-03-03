@@ -3,7 +3,6 @@
 //
 
 #include "HttpServer.hpp"
-#include "Zia.hpp"
 #include "Utils.hpp"
 
 void HttpServerModule::init() {
@@ -27,31 +26,11 @@ void HttpServerModule::init() {
 }
 
 void HttpServerModule::_parsePath(zany::Pipeline::Instance &i, std::string const &path) {
-    std::size_t endPathPos = 0;
-    char c;
 
-    while (endPathPos < path.size() && (c = path.at(endPathPos)) && c != '?') ++endPathPos;
-
-    i.request.path = std::string(path.begin(), path.begin() + endPathPos);
-    if (c == '?') {
-        i.request.fullQuery = std::string(path.begin() + endPathPos + 1, path.end());
-        std::istringstream sstm(i.request.fullQuery);
-        std::string param;
-
-        while (std::getline(sstm, param, '&')) {
-            std::string key;
-
-            std::istringstream pstm(param);
-            std::getline(pstm, key, '=');
-            std::getline(pstm, i.request.query[key]);
-        }
-    }
 }
 
-void HttpServerModule::_beforeHandleRequest(zany::Pipeline::Instance &i) {
-    i.writerID = this->getUniqueId();
+void HttpServerModule::_parseRequest(zany::Pipeline::Instance &i) {
     std::string line;
-
 
     i.connection->stream() >> std::ws;
     std::getline(i.connection->stream(), line);
@@ -66,7 +45,7 @@ void HttpServerModule::_beforeHandleRequest(zany::Pipeline::Instance &i) {
     i.request.methodString = str;
 
     stm >> str;
-    this->_parsePath(i, str);
+    i.request.path = str;
 
     stm >> str;
     std::istringstream pstm(str);
@@ -104,6 +83,12 @@ void HttpServerModule::_beforeHandleRequest(zany::Pipeline::Instance &i) {
     }
 }
 
+void HttpServerModule::_beforeHandleRequest(zany::Pipeline::Instance &i) {
+    i.writerID = this->getUniqueId();
+
+    this->_parseRequest(i);
+}
+
 void HttpServerModule::_onHandleRequest(zany::Pipeline::Instance &i) {
 
     // Request path must be absolute and not contain "..".
@@ -126,8 +111,10 @@ void HttpServerModule::_onHandleRequest(zany::Pipeline::Instance &i) {
 
 }
 
+
 void HttpServerModule::_beforeHandleResponse(zany::Pipeline::Instance &i) {
 
+    Utils::printPipelineContent(i);
     if (i.response.status == OK) {
 
         if (!boost::filesystem::is_regular_file(i.request.path)) {
@@ -144,7 +131,7 @@ void HttpServerModule::_beforeHandleResponse(zany::Pipeline::Instance &i) {
 
 void HttpServerModule::_onHandleResponse(zany::Pipeline::Instance &i) {
 
-    Utils::printPipelineContent(i);
+    //Utils::printPipelineContent(i);
     if (i.writerID == this->getUniqueId()
         && i.response.status == OK
         && i.request.method == zany::HttpRequest::RequestMethods::GET) {

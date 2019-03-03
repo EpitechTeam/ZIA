@@ -45,6 +45,12 @@ if (LINUX)
     target_link_libraries(HttpServerModule pthread)
     target_link_libraries(HttpServerModule ${CONAN_LIBS})
 
+    add_library(ParamsModule SHARED
+            modules/Params/Params.cpp)
+
+    target_link_libraries(ParamsModule pthread)
+    target_link_libraries(ParamsModule ${CONAN_LIBS})
+
     set(CMAKE_CXX_FLAGS "-g3 -Wall -O0")
 
 elseif (APPLE)

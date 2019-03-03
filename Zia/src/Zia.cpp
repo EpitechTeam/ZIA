@@ -33,7 +33,11 @@ void    Zia::run(int ac, char **av) {
             { "docRoot", av[3]}
     };
 
-    std::vector<std::string> modules = {"../lib/libConnectionModule.so", "../lib/libHttpServerModule.so"};
+    std::vector<std::string> modules = {
+            "../lib/libConnectionModule.so",
+            "../lib/libHttpServerModule.so",
+            "../lib/libParamsModule.so"
+     };
 
     for (auto &module : modules) {
 
