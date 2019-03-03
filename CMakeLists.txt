@@ -51,6 +51,12 @@ if (LINUX)
     target_link_libraries(ParamsModule pthread)
     target_link_libraries(ParamsModule ${CONAN_LIBS})
 
+    add_library(PhpCgiModule SHARED
+            modules/PhpCgi/PhpCgi.cpp)
+
+    target_link_libraries(PhpCgiModule pthread)
+    target_link_libraries(PhpCgiModule ${CONAN_LIBS})
+
     set(CMAKE_CXX_FLAGS "-g3 -Wall -O0")
 
 elseif (APPLE)

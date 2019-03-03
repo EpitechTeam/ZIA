@@ -114,7 +114,6 @@ void HttpServerModule::_onHandleRequest(zany::Pipeline::Instance &i) {
 
 void HttpServerModule::_beforeHandleResponse(zany::Pipeline::Instance &i) {
 
-    Utils::printPipelineContent(i);
     if (i.response.status == OK) {
 
         if (!boost::filesystem::is_regular_file(i.request.path)) {
@@ -131,7 +130,6 @@ void HttpServerModule::_beforeHandleResponse(zany::Pipeline::Instance &i) {
 
 void HttpServerModule::_onHandleResponse(zany::Pipeline::Instance &i) {
 
-    //Utils::printPipelineContent(i);
     if (i.writerID == this->getUniqueId()
         && i.response.status == OK
         && i.request.method == zany::HttpRequest::RequestMethods::GET) {

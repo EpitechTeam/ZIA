@@ -64,7 +64,6 @@ void ParamsModule::_onDataReady(zany::Pipeline::Instance &i) {
         i.request.fullQuery.append(buffer, sread);
         this->_parseQuery(i);
     }
-    Utils::printPipelineContent(i);
 }
 
 extern "C" ZANY_DLL
