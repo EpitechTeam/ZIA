@@ -34,15 +34,24 @@ void    Zia::run(int ac, char **av) {
     };
 
     std::vector<std::string> modules = {
+            "../lib/libConfigParserModule.so",
             "../lib/libConnectionModule.so",
             "../lib/libHttpServerModule.so",
             "../lib/libParamsModule.so"
      };
 
+    bool	parsed = false;
+
     for (auto &module : modules) {
 
-        this->loadModule(module, [this] (auto &module) {
+        this->loadModule(module, [this, &parsed] (auto &module) {
             std::cout << "Module: " << module.name() << " loaded" << std::endl;
+
+            if (module.isAParser() && !parsed) {
+                module.parse("");
+                parsed = true;
+            }
+
         }, [this] (auto exception) {
             std::cout << "Error: " << exception.what() << std::endl;
 
