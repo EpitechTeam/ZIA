@@ -50,21 +50,23 @@ void    Zia::run(int ac, char **av) {
         });
     }
 
-    /*std::thread moduleLoadingThread([this]() {
+    _ctx.addTask([this] {
         std::string line;
+        const std::string load("loadModule");
 
         while (std::getline(std::cin, line)) {
 
-            this->loadModule(line, [this] (auto &module) {
-                std::cout << "Module: " << module.name() << " loaded" << std::endl;
-            }, [this] (auto exception) {
-                std::cout << "Error: " << exception.what() << std::endl;
-
-            });
+            if (line.substr(0, load.length()) == load) {
+                this->loadModule(line.substr(load.length()) , [this] (auto &module) {
+                    std::cout << "Module: " << module.name() << " loaded." << std::endl;
+                }, [this] (auto exception) {
+                    std::cout << "Error: " << exception.what() << std::endl;
+                });
+            } else {
+                std::cout << "Command not found: " << line << "." << std::endl;
+            }
         }
-    });*/
-
-    //this->_server = new Server(av[1], av[2], av[3]);
+    });
 
     std::vector<std::uint16_t>	ports;
 
@@ -79,8 +81,6 @@ void    Zia::run(int ac, char **av) {
 
     _ctx.addTask([] { std::cout << "Ready" << std::endl; });
     _ctx.run();
-    //this->_server->run();
-    //moduleLoadingThread.join();
 }
 
 void	Zia::onPipelineThrow(PipelineExecutionError const &exception) {

@@ -139,6 +139,7 @@ void HttpServerModule::_onHandleResponse(zany::Pipeline::Instance &i) {
     } else if (i.writerID == 0 || i.writerID == this->getUniqueId()) {
         Utils::writeResponse(i, reply::to_string(i.response.status));
     }
+    Utils::printPipelineContent(i);
 }
 
 extern "C" ZANY_DLL
