@@ -26,11 +26,12 @@ void    Zia::run(int ac, char **av) {
     zany::ThreadPool tp(8);
 
     this->_pline.linkThreadPool(tp);
-
     this->_config = zany::makeObject{
-            { "host", av[1] },
             { "port", av[2] },
-            { "docRoot", av[3]}
+            { "docRoot", av[3]},
+            { "Ssl-activated", "true"},
+            { "certificate", "../../Certificate/certificate.pm"},
+            { "private-key", "../../Certificate/certificate.pm"}
     };
 
     std::vector<std::string> modules = {

@@ -17,39 +17,6 @@
 
 #define SSL_IDENTIFIER (22)
 
-
-struct VirtualServersConfig {
-    std::string hostname;
-    std::uint16_t port;
-    std::string certificateFile;
-    std::string privateKeyFile;
-    SSL_CTX *sslContext;
-
-    void init() {
-        const SSL_METHOD *method;
-        SSL_CTX *ctx;
-
-        method = ::SSLv23_server_method();
-
-        ctx = ::SSL_CTX_new(method);
-        if (!ctx) {
-            throw std::runtime_error(std::string("OpenSSL: ") + ERR_error_string(ERR_get_error(), nullptr));
-        }
-
-        SSL_CTX_set_ecdh_auto(ctx, 1);
-
-        if (::SSL_CTX_use_certificate_file(ctx, this->certificateFile.c_str(), SSL_FILETYPE_PEM) <= 0) {
-            throw std::runtime_error(std::string("OpenSSL: ") + ERR_error_string(ERR_get_error(), nullptr));
-        }
-
-        if (::SSL_CTX_use_PrivateKey_file(ctx, this->privateKeyFile.c_str(), SSL_FILETYPE_PEM) <= 0) {
-            throw std::runtime_error(std::string("OpenSSL: ") + ERR_error_string(ERR_get_error(), nullptr));
-        }
-
-        sslContext = ctx;
-    }
-};
-
 class Listener {
 public:
     class SslTcpIoStreamBidirectional : public boost::iostreams::device<boost::iostreams::bidirectional> {
@@ -122,8 +89,12 @@ public:
             auto first = peek();
 
             if (first != SSL_IDENTIFIER) {
+                std::cout << "New Connection from: " << '[' << this->info.ip << "]:" << this->info.port
+                          << std::endl;
                 _sslstream->setSslDisabled(true);
             } else {
+                std::cout << "New Secured Connection from: " << '[' << this->info.ip << "]:" << this->info.port
+                          << std::endl;
                 _sslstream->ssl = std::make_shared<SslTcpIoStreamBidirectional::SslUtils>();
                 _sslstream->ssl->ref_ctx = _parent->_baseCtx;
                 _sslstream->ssl->ssl = ::SSL_new(_parent->_baseCtx);
@@ -174,8 +145,6 @@ public:
             nConnection->info.ip = remoteAd.to_string();
             nConnection->info.port = remoteEp.port();
 
-            std::cout << "New Connection from: " << '[' << nConnection->info.ip << "]:" << nConnection->info.port
-                      << std::endl;
             Connection::fromZany(*nConnection).onAccept();
             onHandleAccept(nConnection);
             startAccept();
@@ -184,36 +153,26 @@ public:
 
     void initVHostConfig(zany::Entity const &cfg) {
         try {
-            auto &vHosts = cfg["server"].value<zany::Array>();
-
-            for (auto &vhost: vHosts) {
-                try {
-                    auto it = vhost.value<zany::Object>().find("ssl");
-                    if (it == vhost.value<zany::Object>().end())
-                        continue;
-
-                    auto &sslc = it->second;
-                    auto targetPort = (std::uint16_t) vhost["port"].to<int>();
-                    if (targetPort != _acceptor.local_endpoint().port())
-                        continue;
-                    auto vhit = vhostsConfigs.emplace(
-                            std::pair<std::string, VirtualServersConfig>(
-                                    vhost["host"].value<zany::String>(),
-                                    VirtualServersConfig{
-                                            vhost["host"].value<zany::String>(),
-                                            targetPort,
-                                            sslc["certificate"].value<zany::String>(),
-                                            sslc["private-key"].value<zany::String>(),
-                                            nullptr
-                                    }
-                            )
-                    );
-                    vhit->second.init();
-                } catch (std::exception const &e) {
-                    std::cerr << e.what() << std::endl;
-                }
+            auto targetPort = (std::uint16_t) cfg["port"].to<int>();
+            if (cfg["Ssl-activated"].isNull()
+                || cfg["Ssl-activated"] != "true"
+                || cfg["certificate"].isNull()
+                || cfg["private-key"].isNull()
+                || targetPort != _acceptor.local_endpoint().port())
+                return ;
+            if (::SSL_CTX_use_certificate_file(_baseCtx, cfg["certificate"].value<zany::String>().c_str(), SSL_FILETYPE_PEM) <= 0) {
+                throw std::runtime_error(std::string("OpenSSL: ") + ERR_error_string(ERR_get_error(), nullptr));
             }
-        } catch (...) {}
+
+            if (::SSL_CTX_use_PrivateKey_file(_baseCtx, cfg["private-key"].value<zany::String>().c_str(), SSL_FILETYPE_PEM) <= 0) {
+                throw std::runtime_error(std::string("OpenSSL: ") + ERR_error_string(ERR_get_error(), nullptr));
+            }
+
+            std::cout << "SSL Activated." << std::endl;
+
+        } catch (std::exception const &e) {
+            std::cerr << e.what() << std::endl;
+        }
     }
 
 std::function<
@@ -222,8 +181,6 @@ std::function<
     onHandleAccept;
 
     boost::asio::ip::tcp::acceptor _acceptor;
-    std::unordered_multimap <std::string, VirtualServersConfig>
-            vhostsConfigs;
     SSL_CTX *_baseCtx;
 };
 
@@ -231,31 +188,9 @@ void Listener::Connection::doHandshake(zany::Pipeline::Instance &pipeline) {
     if (!_sslstream->isSslDisabled()) {
         pipeline.request.port = _parent->_acceptor.local_endpoint().port();
 
-        struct {
-            Connection *co;
-            zany::Pipeline::Instance *pipeline;
-        } data = {
-                this,
-                &pipeline
-        };
-
-        typedef int (*callback_t)(SSL *, int *, decltype(data) *);
-        static callback_t callback = [](SSL *ssl, int *, decltype(data) *cap) -> int {
-            const char *hostname = SSL_get_servername(ssl, TLSEXT_NAMETYPE_host_name);
-
-            auto vhit = cap->co->parent()->vhostsConfigs.find(hostname);
-            if (vhit == cap->co->parent()->vhostsConfigs.end()) return 1;
-            ::SSL_set_SSL_CTX(ssl, vhit->second.sslContext);
-            return 0;
-        };
-
         auto &sslData = *_sslstream->ssl;
-
         sslData.ssl = SSL_new(sslData.ref_ctx);
         ::SSL_set_fd(sslData.ssl, _sock.native_handle());
-
-        ::SSL_CTX_set_tlsext_servername_arg(sslData.ref_ctx, &data);
-        ::SSL_CTX_set_tlsext_servername_callback(sslData.ref_ctx, callback);
 
         if (::SSL_accept(sslData.ssl) <= 0) {
             throw std::runtime_error(std::string("OpenSSL: ") + ERR_error_string(ERR_get_error(), nullptr));
