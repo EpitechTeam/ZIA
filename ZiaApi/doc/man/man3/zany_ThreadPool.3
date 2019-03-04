@@ -1,0 +1,50 @@
+.TH "zany::ThreadPool" 3 "Tue Feb 12 2019" "Zia API" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+zany::ThreadPool
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "using \fBHandler\fP = std::function< void()>"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBThreadPool\fP (std::uint32_t threadNbr)"
+.br
+.ti -1c
+.RI "\fBThreadPool\fP (\fBThreadPool\fP const &other)=delete"
+.br
+.ti -1c
+.RI "\fBThreadPool\fP (\fBThreadPool\fP &&other)=default"
+.br
+.ti -1c
+.RI "\fBThreadPool\fP & \fBoperator=\fP (\fBThreadPool\fP const &other)=delete"
+.br
+.ti -1c
+.RI "std::uint32_t \fBavailable\fP ()"
+.br
+.ti -1c
+.RI "auto \fBpending\fP ()"
+.br
+.ti -1c
+.RI "void \fBrunTask\fP (Handler const &hdl)"
+.br
+.ti -1c
+.RI "void \fBwaitForEmpty\fP ()"
+.br
+.ti -1c
+.RI "void \fBabort\fP ()"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Zia API from the source code\&.

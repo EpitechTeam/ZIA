@@ -1,0 +1,182 @@
+\hypertarget{classzany_1_1_entity}{}\section{zany\+:\+:Entity Class Reference}
+\label{classzany_1_1_entity}\index{zany\+::\+Entity@{zany\+::\+Entity}}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a5d33a8d8bda745a8c8e6cf0a03eee7e2}\label{classzany_1_1_entity_a5d33a8d8bda745a8c8e6cf0a03eee7e2}} 
+enum {\bfseries Clone\+Option} \{ {\bfseries L\+A\+ZY}, 
+{\bfseries D\+E\+EP}
+ \}
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_abac615101758cc03e160fc711e15c884}\label{classzany_1_1_entity_abac615101758cc03e160fc711e15c884}} 
+enum {\bfseries Type} \{ \newline
+{\bfseries N\+BR}, 
+{\bfseries S\+TR}, 
+{\bfseries A\+RR}, 
+{\bfseries O\+BJ}, 
+\newline
+{\bfseries B\+OL}, 
+{\bfseries N\+UL}
+ \}
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a167c260d0fe1b1888bda92c0cfbf74f1}\label{classzany_1_1_entity_a167c260d0fe1b1888bda92c0cfbf74f1}} 
+enum {\bfseries Stringify\+Attr} \{ {\bfseries P\+R\+E\+T\+TY}, 
+{\bfseries M\+I\+N\+I\+F\+I\+ED}
+ \}
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a007686cc00c54a37865405a65d6f5477}\label{classzany_1_1_entity_a007686cc00c54a37865405a65d6f5477}} 
+using {\bfseries On\+Conflit\+Func} = std\+::function$<$ void(std\+::string const \&, \hyperlink{classzany_1_1_entity}{Entity} \&, \hyperlink{classzany_1_1_entity}{Entity} \&)$>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a01477d997fda0587f327f987aea6c168}\label{classzany_1_1_entity_a01477d997fda0587f327f987aea6c168}} 
+{\bfseries Entity} (\hyperlink{classzany_1_1_entity}{Entity} const \&)=default
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_ad10aae47371332c96e4f2c8cc614f5e3}\label{classzany_1_1_entity_ad10aae47371332c96e4f2c8cc614f5e3}} 
+{\bfseries Entity} (Type type=Type\+::\+N\+UL)
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a144fdfaeb805515baa69380c0c1595ff}\label{classzany_1_1_entity_a144fdfaeb805515baa69380c0c1595ff}} 
+{\bfseries Entity} (double nbr)
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a87cd79062899647c63e4b0b407e6e272}\label{classzany_1_1_entity_a87cd79062899647c63e4b0b407e6e272}} 
+{\bfseries Entity} (long nbr)
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_aa634ddfdebe96ff05458fa992d9c5ef8}\label{classzany_1_1_entity_aa634ddfdebe96ff05458fa992d9c5ef8}} 
+{\bfseries Entity} (unsigned long nbr)
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a36cc88188f6188a8b5f25861371dac71}\label{classzany_1_1_entity_a36cc88188f6188a8b5f25861371dac71}} 
+{\bfseries Entity} (int nbr)
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a91dd25a738255565138546dfdf1ce7a1}\label{classzany_1_1_entity_a91dd25a738255565138546dfdf1ce7a1}} 
+{\bfseries Entity} (unsigned int nbr)
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a3fe428e713937a4773f2543362ea394c}\label{classzany_1_1_entity_a3fe428e713937a4773f2543362ea394c}} 
+{\bfseries Entity} (bool bol)
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a7ef279496a4ae34ba31caeee41466548}\label{classzany_1_1_entity_a7ef279496a4ae34ba31caeee41466548}} 
+{\bfseries Entity} (std\+::string const \&str)
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a4ee47f00ccba139a4914f8ec6eedb824}\label{classzany_1_1_entity_a4ee47f00ccba139a4914f8ec6eedb824}} 
+{\bfseries Entity} (const char $\ast$s)
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_aa66f81c7326eaadda5117a743c42b5eb}\label{classzany_1_1_entity_aa66f81c7326eaadda5117a743c42b5eb}} 
+{\bfseries Entity} (std\+::initializer\+\_\+list$<$ \hyperlink{classzany_1_1_entity}{Array\+Entry} $>$ list)
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_ade02ec78fbfdf684461d5fb57ecec218}\label{classzany_1_1_entity_ade02ec78fbfdf684461d5fb57ecec218}} 
+{\bfseries Entity} (std\+::initializer\+\_\+list$<$ Obj\+Entry $>$ list)
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a4f301b0cdab72445a68912c994edd3d7}\label{classzany_1_1_entity_a4f301b0cdab72445a68912c994edd3d7}} 
+\hyperlink{classzany_1_1_entity}{Entity} \& {\bfseries operator=} (\hyperlink{classzany_1_1_entity}{Entity} const \&other)=default
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a272ac41048907f59c46b9fc21cd184a0}\label{classzany_1_1_entity_a272ac41048907f59c46b9fc21cd184a0}} 
+bool {\bfseries operator==} (\hyperlink{classzany_1_1_entity}{Entity} const \&other) const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a7955362e5e19901f4890949862f8b7dc}\label{classzany_1_1_entity_a7955362e5e19901f4890949862f8b7dc}} 
+bool {\bfseries operator!=} (\hyperlink{classzany_1_1_entity}{Entity} const \&other) const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a7cc96544785d0ce20a25a2d2b177f438}\label{classzany_1_1_entity_a7cc96544785d0ce20a25a2d2b177f438}} 
+\hyperlink{classzany_1_1_entity}{Entity} \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (std\+::string const \&key)
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a2123776a705ab53965cf1bcbab5ac3e7}\label{classzany_1_1_entity_a2123776a705ab53965cf1bcbab5ac3e7}} 
+\hyperlink{classzany_1_1_entity}{Entity} \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (unsigned idx)
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_aaace39cfc871d25e3a8e52b4bb949b7c}\label{classzany_1_1_entity_aaace39cfc871d25e3a8e52b4bb949b7c}} 
+\hyperlink{classzany_1_1_entity}{Entity} \& {\bfseries push} (\hyperlink{classzany_1_1_entity}{Entity} const \&obj)
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a603b1b5a8d685c89da2ae8159729f7fb}\label{classzany_1_1_entity_a603b1b5a8d685c89da2ae8159729f7fb}} 
+void {\bfseries merge} (\hyperlink{classzany_1_1_entity}{Entity} const \&to\+Add, On\+Conflit\+Func const \&on\+Conflit=\+\_\+basic\+On\+Confit)
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_afd73007d5ebe1119548653be5b59b8e1}\label{classzany_1_1_entity_afd73007d5ebe1119548653be5b59b8e1}} 
+\hyperlink{classzany_1_1_entity}{Entity} {\bfseries clone} (Clone\+Option attr=Clone\+Option\+::\+D\+E\+EP) const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_ae573986490449ae0513bd3e0e640ca50}\label{classzany_1_1_entity_ae573986490449ae0513bd3e0e640ca50}} 
+bool {\bfseries is\+Object} (void) const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_ae6908971cb9ef360026b441164bc6fae}\label{classzany_1_1_entity_ae6908971cb9ef360026b441164bc6fae}} 
+bool {\bfseries is\+Array} (void) const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a4b2332f5a4e45849118e20e312c957ef}\label{classzany_1_1_entity_a4b2332f5a4e45849118e20e312c957ef}} 
+bool {\bfseries is\+Number} (void) const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_af2567149bcbc8d2a8b5b96d78720c243}\label{classzany_1_1_entity_af2567149bcbc8d2a8b5b96d78720c243}} 
+bool {\bfseries is\+String} (void) const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a4823951c80f2939c28a19344bf0a6ef5}\label{classzany_1_1_entity_a4823951c80f2939c28a19344bf0a6ef5}} 
+bool {\bfseries is\+Bool} (void) const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_ae249c0ff1d495ba051551e0247f7e599}\label{classzany_1_1_entity_ae249c0ff1d495ba051551e0247f7e599}} 
+bool {\bfseries is\+Null} (void) const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a5680d7d3126442c3f82a9045f4648e9c}\label{classzany_1_1_entity_a5680d7d3126442c3f82a9045f4648e9c}} 
+{\footnotesize template$<$typename T $>$ }\\T {\bfseries to} () const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a36eaf259b330065ef5d4d562b485895a}\label{classzany_1_1_entity_a36eaf259b330065ef5d4d562b485895a}} 
+{\footnotesize template$<$typename T $>$ }\\T \& {\bfseries get\+Data} ()
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_aa9836cb17e3e7747ab2146025d6f58ea}\label{classzany_1_1_entity_aa9836cb17e3e7747ab2146025d6f58ea}} 
+{\footnotesize template$<$typename T $>$ }\\const T \& {\bfseries get\+Data} () const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_ab26474b9955424dedab37f6757065f4a}\label{classzany_1_1_entity_ab26474b9955424dedab37f6757065f4a}} 
+{\footnotesize template$<$typename T $>$ }\\auto \& {\bfseries value} ()
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a416ef68c2f2d7cc99050bb7010aa9fdd}\label{classzany_1_1_entity_a416ef68c2f2d7cc99050bb7010aa9fdd}} 
+{\footnotesize template$<$typename T $>$ }\\const auto \& {\bfseries value} () const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a4b46d65306ba9028581d7e4791300d1a}\label{classzany_1_1_entity_a4b46d65306ba9028581d7e4791300d1a}} 
+{\footnotesize template$<$typename T , typename U $>$ }\\U {\bfseries value} ()
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a276a87b238a0e68824988aa8940eea7d}\label{classzany_1_1_entity_a276a87b238a0e68824988aa8940eea7d}} 
+{\footnotesize template$<$typename T , typename U $>$ }\\U {\bfseries value} () const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_ae743c8b1cdf54d3cc9b2eabcc5ade641}\label{classzany_1_1_entity_ae743c8b1cdf54d3cc9b2eabcc5ade641}} 
+{\footnotesize template$<$typename T $>$ }\\const T \& {\bfseries const\+Get\+Data} () const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a26594f38171700d5f00d4770bc8056e1}\label{classzany_1_1_entity_a26594f38171700d5f00d4770bc8056e1}} 
+{\footnotesize template$<$$>$ }\\int {\bfseries to} () const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a38cba4eaebbb8f358d47952ed96d615b}\label{classzany_1_1_entity_a38cba4eaebbb8f358d47952ed96d615b}} 
+{\footnotesize template$<$$>$ }\\long {\bfseries to} () const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a52abac40f3107b9cfca3b2812a03e716}\label{classzany_1_1_entity_a52abac40f3107b9cfca3b2812a03e716}} 
+{\footnotesize template$<$$>$ }\\double {\bfseries to} () const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a19a9eafff1b66ac2f3f8c576e988cef8}\label{classzany_1_1_entity_a19a9eafff1b66ac2f3f8c576e988cef8}} 
+{\footnotesize template$<$$>$ }\\char $\ast$ {\bfseries to} () const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a0a627b6067bb23265a6bbca33ecc91db}\label{classzany_1_1_entity_a0a627b6067bb23265a6bbca33ecc91db}} 
+{\footnotesize template$<$$>$ }\\bool {\bfseries to} () const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a26594f38171700d5f00d4770bc8056e1}\label{classzany_1_1_entity_a26594f38171700d5f00d4770bc8056e1}} 
+{\footnotesize template$<$$>$ }\\int {\bfseries to} () const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a38cba4eaebbb8f358d47952ed96d615b}\label{classzany_1_1_entity_a38cba4eaebbb8f358d47952ed96d615b}} 
+{\footnotesize template$<$$>$ }\\long {\bfseries to} () const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a52abac40f3107b9cfca3b2812a03e716}\label{classzany_1_1_entity_a52abac40f3107b9cfca3b2812a03e716}} 
+{\footnotesize template$<$$>$ }\\double {\bfseries to} () const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a644c78dd43e8436180c00b4ffc156f67}\label{classzany_1_1_entity_a644c78dd43e8436180c00b4ffc156f67}} 
+{\footnotesize template$<$$>$ }\\std\+::string {\bfseries to} () const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a19a9eafff1b66ac2f3f8c576e988cef8}\label{classzany_1_1_entity_a19a9eafff1b66ac2f3f8c576e988cef8}} 
+{\footnotesize template$<$$>$ }\\char $\ast$ {\bfseries to} () const
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a0a627b6067bb23265a6bbca33ecc91db}\label{classzany_1_1_entity_a0a627b6067bb23265a6bbca33ecc91db}} 
+{\footnotesize template$<$$>$ }\\bool {\bfseries to} () const
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_a4541ff5e1ea9c88fced737969bb3eee3}\label{classzany_1_1_entity_a4541ff5e1ea9c88fced737969bb3eee3}} 
+static \hyperlink{classzany_1_1_entity}{Entity} {\bfseries new\+Object} ()
+\item 
+\mbox{\Hypertarget{classzany_1_1_entity_ac8124bc94f4c051fb58afe5de96189e6}\label{classzany_1_1_entity_ac8124bc94f4c051fb58afe5de96189e6}} 
+static \hyperlink{classzany_1_1_entity}{Entity} {\bfseries new\+Array} ()
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+lib/\+Zany/Entity.\+hpp\item 
+lib/\+Zany/Entity.\+ipp\end{DoxyCompactItemize}

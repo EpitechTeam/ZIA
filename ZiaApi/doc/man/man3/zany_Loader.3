@@ -1,0 +1,66 @@
+.TH "zany::Loader" 3 "Tue Feb 12 2019" "Zia API" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+zany::Loader
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBAbstractModule\fP"
+.br
+.ti -1c
+.RI "class \fBIterator\fP"
+.br
+.in -1c
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "using \fBID\fP = std::uintptr_t"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBLoader\fP (\fBLoader\fP const &other)=delete"
+.br
+.ti -1c
+.RI "\fBLoader\fP (\fBLoader\fP &&other)=default"
+.br
+.ti -1c
+.RI "\fBLoader\fP & \fBoperator=\fP (\fBLoader\fP const &other)=delete"
+.br
+.ti -1c
+.RI "\fBAbstractModule\fP & \fBload\fP (std::string const &name)"
+.br
+.ti -1c
+.RI "void \fBunload\fP (\fBAbstractModule\fP const &module)"
+.br
+.ti -1c
+.RI "void \fBunloadAll\fP ()"
+.br
+.ti -1c
+.RI "\fBIterator\fP \fBbegin\fP ()"
+.br
+.ti -1c
+.RI "\fBIterator\fP \fBend\fP ()"
+.br
+.ti -1c
+.RI "\fBIterator::Type\fP & \fBfront\fP ()"
+.br
+.ti -1c
+.RI "std::size_t \fBsize\fP ()"
+.br
+.ti -1c
+.RI "\fBIterator\fP \fBerase\fP (\fBIterator\fP it)"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Zia API from the source code\&.

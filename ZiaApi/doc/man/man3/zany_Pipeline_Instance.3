@@ -1,0 +1,38 @@
+.TH "zany::Pipeline::Instance" 3 "Tue Feb 12 2019" "Zia API" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+zany::Pipeline::Instance
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Pipeline\&.hpp>\fP
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::unordered_map< std::string, Property > \fBproperties\fP"
+.br
+.ti -1c
+.RI "HttpRequest \fBrequest\fP"
+.br
+.ti -1c
+.RI "HttpResponse \fBresponse\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Class instancing a \fBPipeline\fP, launching the sets in the right order, etc\&.\&.\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "std::unordered_map<std::string, Property> zany::Pipeline::Instance::properties"
+Allow data sharing between different hooks 
+.SS "HttpRequest zany::Pipeline::Instance::request"
+Request header 
+.SS "HttpResponse zany::Pipeline::Instance::response"
+Response header 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Zia API from the source code\&.

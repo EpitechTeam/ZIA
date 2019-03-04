@@ -1,0 +1,60 @@
+.TH "zany::InterfaceContext" 3 "Tue Feb 12 2019" "Zia API" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+zany::InterfaceContext
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Context\&.hpp>\fP
+.PP
+Inherited by \fBzany::Context\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBaddTask\fP (Handler const &handler)=0"
+.br
+.ti -1c
+.RI "virtual void \fBwaitUntilEmpty\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void \fBrun\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void \fBstop\fP ()=0"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Interface Class for managing the queue of tasks 
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual void zany::InterfaceContext::addTask (Handler const & handler)\fC [pure virtual]\fP"
+Add a task
+.PP
+\fBParameters:\fP
+.RS 4
+\fIThe\fP function/lambda to add to the queue 
+.RE
+.PP
+
+.PP
+Implemented in \fBzany::Context\fP\&.
+.SS "virtual void zany::InterfaceContext::run ()\fC [pure virtual]\fP"
+Start (blocking) 
+.PP
+Implemented in \fBzany::Context\fP\&.
+.SS "virtual void zany::InterfaceContext::stop ()\fC [pure virtual]\fP"
+Stop the context 
+.PP
+Implemented in \fBzany::Context\fP\&.
+.SS "virtual void zany::InterfaceContext::waitUntilEmpty ()\fC [pure virtual]\fP"
+Wait while execution queue is not empty 
+.PP
+Implemented in \fBzany::Context\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Zia API from the source code\&.

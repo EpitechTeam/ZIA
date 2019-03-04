@@ -1,0 +1,7 @@
+<map id="zany::Loader::AbstractModule" name="zany::Loader::AbstractModule">
+<area shape="rect" id="node2" href="$classzany_1_1_orchestrator.html" title="zany::Orchestrator" alt="" coords="114,102,245,129"/>
+<area shape="rect" id="node3" href="$classzany_1_1_loader.html" title="zany::Loader" alt="" coords="5,5,103,32"/>
+<area shape="rect" id="node4" href="$classzany_1_1_pipeline.html" title="zany::Pipeline" alt="" coords="127,5,231,32"/>
+<area shape="rect" id="node5" href="$classzany_1_1_interface_context.html" title="zany::InterfaceContext" alt="" coords="255,5,410,32"/>
+<area shape="rect" id="node6" href="$classzany_1_1_loader_1_1_abstract_module_1_1_collector.html" title="zany::Loader::AbstractModule\l::Collector" alt="" coords="269,95,465,136"/>
+</map>

@@ -1,0 +1,36 @@
+.TH "zany::AbstractData" 3 "Tue Feb 12 2019" "Zia API" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+zany::AbstractData
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherited by \fBzany::Array\fP, \fBzany::Bool\fP, \fBzany::Null\fP, \fBzany::Number\fP, \fBzany::Object\fP, and \fBzany::String\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual bool \fBoperator==\fP (\fBAbstractData\fP const &) const =0"
+.br
+.ti -1c
+.RI "virtual Entity::Type \fBgetType\fP () const =0"
+.br
+.ti -1c
+.RI "virtual std::shared_ptr< \fBAbstractData\fP > \fBclone\fP (Entity::CloneOption attr) const =0"
+.br
+.ti -1c
+.RI "virtual std::string \fBtoString\fP (void) const"
+.br
+.ti -1c
+.RI "virtual double \fBtoNumber\fP (void) const"
+.br
+.ti -1c
+.RI "virtual bool \fBtoBool\fP (void) const"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Zia API from the source code\&.

@@ -1,0 +1,81 @@
+\hypertarget{classzany_1_1_orchestrator}{}\section{zany\+:\+:Orchestrator Class Reference}
+\label{classzany_1_1_orchestrator}\index{zany\+::\+Orchestrator@{zany\+::\+Orchestrator}}
+
+
+Collaboration diagram for zany\+:\+:Orchestrator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classzany_1_1_orchestrator__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classzany_1_1_orchestrator_a863740f95beb0c6d0aca5c0cc776e188}\label{classzany_1_1_orchestrator_a863740f95beb0c6d0aca5c0cc776e188}} 
+{\bfseries Orchestrator} (\hyperlink{classzany_1_1_interface_context}{Interface\+Context} \&ctx)
+\item 
+\mbox{\Hypertarget{classzany_1_1_orchestrator_ab650f7433644127102aeafa2147b3612}\label{classzany_1_1_orchestrator_ab650f7433644127102aeafa2147b3612}} 
+{\bfseries Orchestrator} (\hyperlink{classzany_1_1_orchestrator}{Orchestrator} const \&other)=delete
+\item 
+\mbox{\Hypertarget{classzany_1_1_orchestrator_a1c36dbeec07bdf6f0fd1ec8af287e0ec}\label{classzany_1_1_orchestrator_a1c36dbeec07bdf6f0fd1ec8af287e0ec}} 
+{\bfseries Orchestrator} (\hyperlink{classzany_1_1_orchestrator}{Orchestrator} \&\&other)=default
+\item 
+\mbox{\Hypertarget{classzany_1_1_orchestrator_a45ab309873c55c3d2aaf03da1526cc88}\label{classzany_1_1_orchestrator_a45ab309873c55c3d2aaf03da1526cc88}} 
+\hyperlink{classzany_1_1_orchestrator}{Orchestrator} \& {\bfseries operator=} (\hyperlink{classzany_1_1_orchestrator}{Orchestrator} const \&other)=delete
+\item 
+\mbox{\Hypertarget{classzany_1_1_orchestrator_a0a333207be787a9ee7501ac8761c1683}\label{classzany_1_1_orchestrator_a0a333207be787a9ee7501ac8761c1683}} 
+void {\bfseries load\+Module} (std\+::string const \&filename, std\+::function$<$ void(\hyperlink{classzany_1_1_loader_1_1_abstract_module}{Loader\+::\+Abstract\+Module} \&)$>$ const \&callback, std\+::function$<$ void(std\+::exception)$>$ const \&error=nullptr)
+\item 
+\mbox{\Hypertarget{classzany_1_1_orchestrator_ad223b78e8fda153d67af3aa4d2cc5054}\label{classzany_1_1_orchestrator_ad223b78e8fda153d67af3aa4d2cc5054}} 
+void {\bfseries unload\+Module} (\hyperlink{classzany_1_1_loader_1_1_abstract_module}{Loader\+::\+Abstract\+Module} const \&module, std\+::function$<$ void()$>$ const \&callback)
+\item 
+\mbox{\Hypertarget{classzany_1_1_orchestrator_acc6be702fde2a6e29ef1a823b052b9b8}\label{classzany_1_1_orchestrator_acc6be702fde2a6e29ef1a823b052b9b8}} 
+void {\bfseries start\+Pipeline} (zany\+::\+Socket sock\+Fd)
+\item 
+\mbox{\Hypertarget{classzany_1_1_orchestrator_a3856101973f5f1db6fb987ebc443b0f1}\label{classzany_1_1_orchestrator_a3856101973f5f1db6fb987ebc443b0f1}} 
+void {\bfseries wait\+For\+Safe\+Handlers\+Finished} ()
+\item 
+\mbox{\Hypertarget{classzany_1_1_orchestrator_afc440f7363eaecf0c8aa756ca04cfdda}\label{classzany_1_1_orchestrator_afc440f7363eaecf0c8aa756ca04cfdda}} 
+{\footnotesize template$<$typename T $>$ }\\void {\bfseries add\+Safe\+Handler} (T \&\&function)
+\item 
+\mbox{\Hypertarget{classzany_1_1_orchestrator_a9a825e6309720a279aa0c60f331e87bd}\label{classzany_1_1_orchestrator_a9a825e6309720a279aa0c60f331e87bd}} 
+virtual void {\bfseries routine} ()=0
+\item 
+\mbox{\Hypertarget{classzany_1_1_orchestrator_a82f1f758bc942ce0b79288be20ac4c26}\label{classzany_1_1_orchestrator_a82f1f758bc942ce0b79288be20ac4c26}} 
+void {\bfseries link\+Thread\+Pool} (\hyperlink{classzany_1_1_thread_pool}{Thread\+Pool} \&pool)
+\item 
+\mbox{\Hypertarget{classzany_1_1_orchestrator_ae359e45fef96b25a21679e8c9bc95cc7}\label{classzany_1_1_orchestrator_ae359e45fef96b25a21679e8c9bc95cc7}} 
+auto \& {\bfseries get\+Thread\+Pool} ()
+\item 
+\mbox{\Hypertarget{classzany_1_1_orchestrator_a3c7f5e4650723ec8d9271b1262390339}\label{classzany_1_1_orchestrator_a3c7f5e4650723ec8d9271b1262390339}} 
+auto \& {\bfseries get\+Thread\+Pool} () const
+\item 
+\mbox{\Hypertarget{classzany_1_1_orchestrator_a3dd218b9573187e16aa4877dc57371ec}\label{classzany_1_1_orchestrator_a3dd218b9573187e16aa4877dc57371ec}} 
+auto \& {\bfseries get\+Loader} () const
+\item 
+\mbox{\Hypertarget{classzany_1_1_orchestrator_a72dbb1e0a2ea4c0cdbb139ebd0e8f6a1}\label{classzany_1_1_orchestrator_a72dbb1e0a2ea4c0cdbb139ebd0e8f6a1}} 
+auto \& {\bfseries get\+Pipeline} ()
+\item 
+\mbox{\Hypertarget{classzany_1_1_orchestrator_a0fa8f4ff1b963d510a56ee3b4f09703d}\label{classzany_1_1_orchestrator_a0fa8f4ff1b963d510a56ee3b4f09703d}} 
+auto const  \& {\bfseries get\+Pipeline} () const
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classzany_1_1_orchestrator_a015e9b4064aa6cf681db3bbb9e68dc29}\label{classzany_1_1_orchestrator_a015e9b4064aa6cf681db3bbb9e68dc29}} 
+\hyperlink{classzany_1_1_interface_context}{Interface\+Context} \& {\bfseries \+\_\+ctx}
+\item 
+\mbox{\Hypertarget{classzany_1_1_orchestrator_a7f3cccf4f3f16594580150d598a2c3c8}\label{classzany_1_1_orchestrator_a7f3cccf4f3f16594580150d598a2c3c8}} 
+\hyperlink{classzany_1_1_pipeline}{Pipeline} {\bfseries \+\_\+pline}
+\item 
+\mbox{\Hypertarget{classzany_1_1_orchestrator_af3690067cfa4d3fd89e0d5b8a78817af}\label{classzany_1_1_orchestrator_af3690067cfa4d3fd89e0d5b8a78817af}} 
+\hyperlink{classzany_1_1_loader}{Loader} {\bfseries \+\_\+loader}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+lib/\+Zany/Orchestrator.\+hpp\item 
+lib/\+Zany/Orchestrator.\+ipp\end{DoxyCompactItemize}

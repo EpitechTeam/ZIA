@@ -1,0 +1,64 @@
+.TH "zany::evt::Event" 3 "Tue Feb 12 2019" "Zia API" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+zany::evt::Event
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBEvtHdlBlock\fP"
+.br
+.ti -1c
+.RI "struct \fBEvtHdlBlockDestr\fP"
+.br
+.ti -1c
+.RI "struct \fBFctSign\fP"
+.br
+.in -1c
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "using \fBEvtHdlDestr\fP = std::function< void(void)>"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBEvent\fP (std::function< void()> const &onEmpty_=nullptr)"
+.br
+.ti -1c
+.RI "template<typename Ret  = void, typename \&.\&.\&. Args> const EvtHdlDestr & \fBaddHandler\fP (typename \fBFctSign\fP< std::function< Ret(Args\&.\&.\&.)>>::type const &hdl)"
+.br
+.ti -1c
+.RI "template<typename Ret , typename \&.\&.\&. Args> std::enable_if<(! std::is_same< Ret, void >::value), typename \fBFctSign\fP< Ret >::ret >::type \fBfire\fP (Args\&.\&.\&. args)"
+.br
+.ti -1c
+.RI "template<typename Ret , typename \&.\&.\&. Args> std::enable_if< std::is_same< Ret, void >::value, void >::type \fBfire\fP (Args\&.\&.\&. args)"
+.br
+.ti -1c
+.RI "template<typename \&.\&.\&. Args> void \fBfire\fP (Args\&.\&.\&. args)"
+.br
+.ti -1c
+.RI "bool \fBisEmpty\fP (void) const"
+.br
+.ti -1c
+.RI "void \fBdump\fP () const"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::function< void()> \fBonEmpty\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Zia API from the source code\&.
