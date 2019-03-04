@@ -8,6 +8,8 @@
 #include "Zany/HttpBase.hpp"
 #include "Zany/Pipeline.hpp"
 
+#include <fstream>
+
 #define OK 200
 #define CREATED 201
 #define ACCEPTED 202
@@ -183,7 +185,7 @@ namespace Utils {
 
     }
 
-    void writeResponse(zany::Pipeline::Instance &i, const auto &data) {
+    void writeResponse(zany::Pipeline::Instance &i, const std::string &data) {
         _writeReponseHeader(i);
 
         i.connection->stream() << "\r\n" << data << "\r\n";
