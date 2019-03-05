@@ -67,7 +67,7 @@ void    Zia::run(int ac, char **av) {
             std::cout << "Module: " << module.name() << " loaded" << std::endl;
 
             if (module.isAParser() && !parsed) {
-                module.parse("");
+                this->_config = module.parse("");
                 parsed = true;
             }
 
