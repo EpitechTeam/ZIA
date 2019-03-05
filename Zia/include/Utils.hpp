@@ -8,6 +8,8 @@
 #include "Zany/HttpBase.hpp"
 #include "Zany/Pipeline.hpp"
 
+#include <fstream>
+
 #define OK 200
 #define CREATED 201
 #define ACCEPTED 202
@@ -183,7 +185,7 @@ namespace Utils {
 
     }
 
-    void writeResponse(zany::Pipeline::Instance &i, const auto &data) {
+    void writeResponse(zany::Pipeline::Instance &i, const std::string &data) {
         _writeReponseHeader(i);
 
         i.connection->stream() << "\r\n" << data << "\r\n";
@@ -217,6 +219,36 @@ namespace Utils {
         }
         std::cout << "==================================================" << std::endl << std::endl;
 
+    }
+
+    void printEntity(zany::Entity entity) {
+        if (entity.isArray()) {
+            std::cout << "Array [" << std::endl;
+            int i = 0;
+            for (auto &it : entity.value<zany::Array>()) {
+                std::cout << "[" << i << "]: ";
+                printEntity(it);
+                i++;
+            }
+            std::cout << "]" << std::endl;
+
+        } else if (entity.isObject()) {
+            std::cout << "Object { " << std::endl;
+            for (auto &it : entity.value<zany::Object>()) {
+                std::cout << "[" << it.first << "]: ";
+                printEntity(it.second);
+            }
+            std::cout << "}" << std::endl;
+
+        } else if (entity.isNumber()) {
+            std::cout << "Number(" << entity.to<int>() << ")" << std::endl;
+        } else if (entity.isString()) {
+            std::cout << "String(" << entity.to<std::string>() << ")" << std::endl;
+        } else if (entity.isBool()) {
+            std::cout << "Bool(" << (entity.to<bool>() == true ? "true" : "false") << ")" << std::endl;
+        } else if (entity.isNull()) {
+            std::cout << "NULL" << std::endl;
+        }
     }
 }
 

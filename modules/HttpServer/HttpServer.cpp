@@ -135,7 +135,9 @@ void HttpServerModule::_onHandleResponse(zany::Pipeline::Instance &i) {
         && i.request.method == zany::HttpRequest::RequestMethods::GET) {
         auto 	&fs = i.properties["fs"].get<std::ifstream>();
 
-        Utils::writeResponse(i, fs.rdbuf());
+        Utils::_writeReponseHeader(i);
+        i.connection->stream() << "\r\n" << fs.rdbuf() << "\r\n";
+
     } else if (i.writerID == 0 || i.writerID == this->getUniqueId()) {
         Utils::writeResponse(i, reply::to_string(i.response.status));
     }

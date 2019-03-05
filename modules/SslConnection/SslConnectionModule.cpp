@@ -9,21 +9,21 @@
 #include "./Listener.hpp"
 #include "Zany.hpp"
 
-    class ConnectionModule : public zany::Loader::AbstractModule {
+    class SslConnectionModule : public zany::Loader::AbstractModule {
     public:
-        ConnectionModule(): _signals(_ios) {
+        SslConnectionModule(): _signals(_ios) {
             _signals.add(SIGINT);
             _signals.add(SIGTERM);
 #if defined(SIGQUIT)
             _signals.add(SIGQUIT);
 #endif // defined(SIGQUIT)
-            _signals.async_wait(boost::bind(&ConnectionModule::_onSignal, this));
+            _signals.async_wait(boost::bind(&SslConnectionModule::_onSignal, this));
         }
 
-        ~ConnectionModule();
+        ~SslConnectionModule();
 
         virtual auto	name() const -> const std::string&
-        { static const std::string name("Connection"); return name; }
+        { static const std::string name("SslConnection"); return name; }
         virtual void	init();
         virtual bool	isACoreModule() final { return true; }
         virtual void	startListening(std::vector<std::uint16_t> &ports) final;
@@ -38,12 +38,12 @@
         boost::asio::signal_set			_signals;
     };
 
-    void	ConnectionModule::init() {
+    void	SslConnectionModule::init() {
         SSL_load_error_strings();
         OpenSSL_add_ssl_algorithms();
     }
 
-ConnectionModule::~ConnectionModule() {
+SslConnectionModule::~SslConnectionModule() {
         _ios.stop();
         if (_t) {
             _t->join();
@@ -51,14 +51,14 @@ ConnectionModule::~ConnectionModule() {
         EVP_cleanup();
     }
 
-    void	ConnectionModule::_onSignal() {
+    void	SslConnectionModule::_onSignal() {
         std::cout << "Closing..." << std::endl;
 
         zany::evt::Manager::get()["onClose"]->fire();
         this->master->getContext().stop();
     }
 
-    void	ConnectionModule::_listening(std::condition_variable &cv) {
+    void	SslConnectionModule::_listening(std::condition_variable &cv) {
         auto &ports = _ports;
 
         std::vector<Listener>	acceptors;
@@ -76,7 +76,7 @@ ConnectionModule::~ConnectionModule() {
 
                     Listener::Connection::fromZany(*c).socket().set_option(noption);
                 }
-                this->master->getContext().addTask(std::bind(&ConnectionModule::_startPipeline, this, c));
+                this->master->getContext().addTask(std::bind(&SslConnectionModule::_startPipeline, this, c));
             };
 
             v6listener.initVHostConfig(master->getConfig());
@@ -89,7 +89,7 @@ ConnectionModule::~ConnectionModule() {
         _ios.run();
     }
 
-    void	ConnectionModule::_startPipeline(zany::Connection::SharedInstance c) {
+    void	SslConnectionModule::_startPipeline(zany::Connection::SharedInstance c) {
         constexpr auto	sp = &zany::Orchestrator::startPipeline;
         auto			&connection = Listener::Connection::fromZany(*c);
 
@@ -102,17 +102,17 @@ ConnectionModule::~ConnectionModule() {
         }
     }
 
-    void	ConnectionModule::startListening(std::vector<std::uint16_t> &ports) {
+    void	SslConnectionModule::startListening(std::vector<std::uint16_t> &ports) {
         std::mutex						mtx;
         std::unique_lock<decltype(mtx)>	ulock(mtx);
         std::condition_variable			cv;
 
         _ports = ports;
-        _t = std::make_unique<std::thread>(std::bind(&ConnectionModule::_listening, this, std::ref(cv)));
+        _t = std::make_unique<std::thread>(std::bind(&SslConnectionModule::_listening, this, std::ref(cv)));
         cv.wait(ulock);
     }
 
 extern "C" ZANY_DLL
         zany::Loader::AbstractModule	*entrypoint() {
-    return new ConnectionModule();
+    return new SslConnectionModule();
 }

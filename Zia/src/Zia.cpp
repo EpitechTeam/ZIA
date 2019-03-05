@@ -21,29 +21,56 @@ auto    Zia::getConfig() const -> const zany::Entity {
     return _config;
 }
 
-void    Zia::run(int ac, char **av) {
+void Zia::_setConfigOnDefault() {
+    std::cout << "Set Config To Default" << std::endl;
+    this->_config = zany::makeObject{
+            { "port", "4242" },
+            { "docRoot", "./../assets"},
+            { "modules", zany::makeArray{
+                    "../lib/libConfigParserModule.so",
+                    "../lib/libSslConnectionModule.so",
+                    "../lib/libHttpServerModule.so",
+                    "../lib/libParamsModule.so"
+            }
+            }
+    };
+}
 
+void    Zia::run(int ac, char **av) {
     zany::ThreadPool tp(8);
+    bool	parsed = false;
 
     this->_pline.linkThreadPool(tp);
-    this->_config = zany::makeObject{
-            { "port", av[2] },
-            { "docRoot", av[3]},
-            { "Ssl-activated", "true"},
-            { "certificate", "../../Certificate/certificate.pm"},
-            { "private-key", "../../Certificate/certificate.pm"}
-    };
 
-    std::vector<std::string> modules = {
-            "../lib/libConnectionModule.so",
-            "../lib/libHttpServerModule.so",
-            "../lib/libParamsModule.so"
-     };
+    this->loadModule("../lib/libConfigParserModule.so", [this, &parsed] (auto &module) {
+        std::cout << "Module: " << module.name() << " loaded" << std::endl;
 
-    for (auto &module : modules) {
+        if (module.isAParser() && !parsed) {
+            this->_config = module.parse("");
+            parsed = true;
+        }
 
-        this->loadModule(module, [this] (auto &module) {
+    }, [this] (auto exception) {
+        std::cout << "Error: " << exception.what() << std::endl;
+    });
+
+
+    if (!parsed || this->_config.isNull()) {
+        this->_setConfigOnDefault();
+    }
+
+    std::vector<zany::Entity> modules = this->_config["modules"].getData<zany::Array>().get();
+
+    for (auto &toLoad : modules) {
+
+        this->loadModule(toLoad.value<zany::String>(), [this, &parsed] (auto &module) {
             std::cout << "Module: " << module.name() << " loaded" << std::endl;
+
+            if (module.isAParser() && !parsed) {
+                module.parse("");
+                parsed = true;
+            }
+
         }, [this] (auto exception) {
             std::cout << "Error: " << exception.what() << std::endl;
 

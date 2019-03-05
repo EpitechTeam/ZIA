@@ -21,6 +21,7 @@ public:
 
 protected:
     virtual void	onPipelineThrow(PipelineExecutionError const &exception) final;
+    void            _setConfigOnDefault();
 
 private:
 
