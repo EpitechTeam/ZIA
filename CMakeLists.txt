@@ -35,11 +35,11 @@ if (LINUX OR APPLE)
     target_link_libraries(zia ${CONAN_LIBS})
     target_link_libraries(zia ${CMAKE_DL_LIBS})
 
-    add_library(ConnectionModule SHARED
-            modules/Connection/ConnectionModule.cpp)
+    add_library(SslConnectionModule SHARED
+            modules/SslConnection/SslConnectionModule.cpp)
 
-    target_link_libraries(ConnectionModule pthread)
-    target_link_libraries(ConnectionModule ${CONAN_LIBS})
+    target_link_libraries(SslConnectionModule pthread)
+    target_link_libraries(SslConnectionModule ${CONAN_LIBS})
 
 
     add_library(HttpServerModule SHARED
