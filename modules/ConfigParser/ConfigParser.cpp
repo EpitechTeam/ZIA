@@ -64,7 +64,7 @@ zany::Entity ConfigParserModule::parseConfigFile(const std::string &path) {
 
         Utils::printEntity(this->_obj);
 
-        std::cout << "\n==============================" << std::endl;
+        std::cout << "\n==============================\n" << std::endl;
 
         return this->_obj;
     } catch (std::exception &e) {
