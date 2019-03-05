@@ -1,5 +1,10 @@
 {
-  "address": "127.0.0.1",
-  "port": "4242",
-  "docRoot": "./../assets"
+  "port": 4242,
+  "docRoot": "./../assets",
+  "modules": [
+    "../lib/libConfigParserModule.so",
+    "../lib/libSslConnectionModule.so",
+    "../lib/libHttpServerModule.so",
+    "../lib/libParamsModule.so"
+  ]
 }

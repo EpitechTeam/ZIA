@@ -5,6 +5,15 @@
 #ifndef ZIA_CONFIGPARSER_HPP
 #define ZIA_CONFIGPARSER_HPP
 
+#include <fstream>
+#include <boost/filesystem.hpp>
+#include "Zany/Loader.hpp"
+
+
+#include "nlohmann/json.hpp"
+
+using json = nlohmann::json;
+
 class ConfigParserModule : public zany::Loader::AbstractModule {
 public:
     ConfigParserModule() = default;
@@ -20,8 +29,11 @@ public:
     virtual auto	parse(std::string const &filename) -> zany::Entity final;
 private:
 
+    zany::Entity    fromJson(json object);
     bool            isJsonFile(const std::string &path) const;
     zany::Entity	parseConfigFile(const std::string &path);
+
+    zany::Entity    _obj;
 
 };
 
