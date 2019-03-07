@@ -55,14 +55,6 @@ zany::Entity ConfigParserModule::parse(std::string const &filename) {
 
         this->_obj = this->fromJson(jsonConfig);
 
-        std::cout << "\n==============================" << std::endl;
-        std::cout << "||      CONFIG PARSING      ||" << std::endl;
-        std::cout << "==============================\n" << std::endl;
-
-        Utils::printEntity(this->_obj);
-
-        std::cout << "\n==============================\n" << std::endl;
-
         return this->_obj;
     } catch (std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;

@@ -13,6 +13,7 @@
 #include "Zia.hpp"
 #include "Zany/Connection.hpp"
 #include "Zany/Event.hpp"
+#include "Utils.hpp"
 
 Zia::Zia(zany::Context &_ctx)
         : zany::Orchestrator(_ctx) {}
@@ -27,10 +28,11 @@ auto    Zia::getConfig() const -> const zany::Entity {
 }
 
 void Zia::_setConfigOnDefault() {
-    std::cout << "Set Config To Default" << std::endl;
+    std::cout << "Set Config On Default" << std::endl;
+
     this->_config = zany::makeObject{
             {"port",    "4242"},
-            {"docRoot", "./../assets"},
+            {"docRoot", "../../assets"},
             {"modules", zany::makeArray{
                     "../lib/libSslConnectionModule.so",
                     "../lib/libHttpServerModule.so",
@@ -63,8 +65,9 @@ void Zia::run(int ac, char **av) {
 
     this->_pline.linkThreadPool(tp);
 
-    if (ac == 0) {
+    if (ac == 1 || !boost::filesystem::is_regular_file(av[1])) {
         this->_setConfigOnDefault();
+        parsed = true;
 
     } else {
         this->loadModule("../lib/libConfigParserModule.so", [this, &parsed, &av](auto &module) {
@@ -87,6 +90,14 @@ void Zia::run(int ac, char **av) {
     if (!this->checkConfig()) {
         return ;
     }
+
+    std::cout << "\n==============================" << std::endl;
+    std::cout << "||      CONFIG PARSING      ||" << std::endl;
+    std::cout << "==============================\n" << std::endl;
+
+    Utils::printEntity(this->_config);
+
+    std::cout << "\n==============================\n" << std::endl;
 
     if (this->_config["modules"].isNull()) {
         std::cout << "Warning: No modules to preload !" << std::endl;
