@@ -14,20 +14,19 @@
 #include "Zany/Connection.hpp"
 #include "Zany/Event.hpp"
 
-Zia::Zia(zany::Context	&_ctx)
-    :  zany::Orchestrator(_ctx) {}
+Zia::Zia(zany::Context &_ctx)
+        : zany::Orchestrator(_ctx) {}
 
-auto    Zia::getConfig() const -> const zany::Entity {
+auto Zia::getConfig() const -> const zany::Entity {
     return _config;
 }
 
 void Zia::_setConfigOnDefault() {
     std::cout << "Set Config To Default" << std::endl;
     this->_config = zany::makeObject{
-            { "port", "4242" },
-            { "docRoot", "./../assets"},
-            { "modules", zany::makeArray{
-                    "../lib/libConfigParserModule.so",
+            {"port",    "4242"},
+            {"docRoot", "./../assets"},
+            {"modules", zany::makeArray{
                     "../lib/libSslConnectionModule.so",
                     "../lib/libHttpServerModule.so",
                     "../lib/libParamsModule.so"
@@ -36,45 +35,76 @@ void Zia::_setConfigOnDefault() {
     };
 }
 
-void    Zia::run(int ac, char **av) {
+bool Zia::checkConfig() const {
+
+    if (this->_config.isNull()) {
+        std::cerr << "Error: No config given." << std::endl;
+        return false;
+
+    } else if (_config["port"].isNull() || (!_config["port"].isString() && !_config["port"].isNumber())) {
+        std::cerr << "Error: port not specified." << std::endl;
+        return false;
+
+    } else if (_config["docRoot"].isNull() || !_config["docRoot"].isString()) {
+        std::cerr << "Error: docRoot not specified." << std::endl;
+        return false;
+    }
+    return true;
+}
+
+void Zia::run(int ac, char **av) {
     zany::ThreadPool tp(8);
-    bool	parsed = false;
+    bool parsed = false;
 
     this->_pline.linkThreadPool(tp);
 
-    this->loadModule("../lib/libConfigParserModule.so", [this, &parsed] (auto &module) {
-        std::cout << "Module: " << module.name() << " loaded" << std::endl;
+    if (ac == 0) {
+        this->_setConfigOnDefault();
 
-        if (module.isAParser() && !parsed) {
-            this->_config = module.parse("");
-            parsed = true;
-        }
+    } else {
+        this->loadModule("../lib/libConfigParserModule.so", [this, &parsed, &av](auto &module) {
+            std::cout << "Module: " << module.name() << " loaded" << std::endl;
 
-    }, [this] (auto exception) {
-        std::cout << "Error: " << exception.what() << std::endl;
-    });
+            if (module.isAParser() && !parsed) {
+                this->_config = module.parse(av[1]);
+                parsed = true;
+            }
 
+        }, [this](auto exception) {
+            std::cout << "Error: " << exception.what() << std::endl;
+        });
+    }
 
     if (!parsed || this->_config.isNull()) {
         this->_setConfigOnDefault();
     }
 
-    std::vector<zany::Entity> modules = this->_config["modules"].getData<zany::Array>().get();
+    if (!this->checkConfig()) {
+        return ;
+    }
 
-    for (auto &toLoad : modules) {
+    if (this->_config["modules"].isNull()) {
+        std::cout << "Warning: No modules to preload !" << std::endl;
+        return ;
 
-        this->loadModule(toLoad.value<zany::String>(), [this, &parsed] (auto &module) {
-            std::cout << "Module: " << module.name() << " loaded" << std::endl;
+    } else if (!this->_config["modules"].isArray()) {
+        std::cout << "Warning: Bad format of modules's list to preload !" << std::endl;
+        return ;
 
-            if (module.isAParser() && !parsed) {
-                this->_config = module.parse("");
-                parsed = true;
-            }
+    } else {
 
-        }, [this] (auto exception) {
-            std::cout << "Error: " << exception.what() << std::endl;
+        std::vector <zany::Entity> modules = this->_config["modules"].getData<zany::Array>().get();
 
-        });
+        for (auto &toLoad : modules) {
+
+            this->loadModule(toLoad.value<zany::String>(), [this, &parsed](auto &module) {
+                std::cout << "Module: " << module.name() << " loaded" << std::endl;
+
+            }, [this](auto exception) {
+                std::cout << "Error: " << exception.what() << std::endl;
+
+            });
+        }
     }
 
     _ctx.addTask([this] {
@@ -84,9 +114,12 @@ void    Zia::run(int ac, char **av) {
         while (std::getline(std::cin, line)) {
 
             if (line.substr(0, load.length()) == load) {
-                this->loadModule(line.substr(load.length()) , [this] (auto &module) {
+                this->loadModule(line.substr(load.length()), [this](auto &module) {
+
                     std::cout << "Module: " << module.name() << " loaded." << std::endl;
-                }, [this] (auto exception) {
+
+                }, [this](auto exception) {
+
                     std::cout << "Error: " << exception.what() << std::endl;
                 });
             } else {
@@ -95,7 +128,7 @@ void    Zia::run(int ac, char **av) {
         }
     });
 
-    std::vector<std::uint16_t>	ports;
+    std::vector <std::uint16_t> ports;
 
     ports.push_back(this->_config["port"].to<int>());
 
@@ -110,7 +143,7 @@ void    Zia::run(int ac, char **av) {
     _ctx.run();
 }
 
-void	Zia::onPipelineThrow(PipelineExecutionError const &exception) {
+void Zia::onPipelineThrow(PipelineExecutionError const &exception) {
     std::cerr << "Error: " << exception.what() << std::endl;
 }
 

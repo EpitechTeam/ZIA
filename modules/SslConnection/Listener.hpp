@@ -158,20 +158,23 @@ public:
                 || cfg["Ssl-activated"] != "true"
                 || cfg["certificate"].isNull()
                 || cfg["private-key"].isNull()
-                || targetPort != _acceptor.local_endpoint().port())
+                || targetPort != _acceptor.local_endpoint().port()) {
+
+                std::cout << "Ssl not Activated.\n" << std::endl;
                 return ;
+            }
             if (::SSL_CTX_use_certificate_file(_baseCtx, cfg["certificate"].value<zany::String>().c_str(), SSL_FILETYPE_PEM) <= 0) {
-                throw std::runtime_error(std::string("OpenSSL: ") + ERR_error_string(ERR_get_error(), nullptr));
+                throw std::runtime_error(std::string("OpenSSL: certificate: ") + ERR_error_string(ERR_get_error(), nullptr));
             }
 
             if (::SSL_CTX_use_PrivateKey_file(_baseCtx, cfg["private-key"].value<zany::String>().c_str(), SSL_FILETYPE_PEM) <= 0) {
-                throw std::runtime_error(std::string("OpenSSL: ") + ERR_error_string(ERR_get_error(), nullptr));
+                throw std::runtime_error(std::string("OpenSSL: private-key:") + ERR_error_string(ERR_get_error(), nullptr));
             }
 
-            std::cout << "SSL Activated." << std::endl;
+            std::cout << "SSL Activated.\n" << std::endl;
 
         } catch (std::exception const &e) {
-            std::cerr << e.what() << std::endl;
+            std::cout << "Ssl not Activated: " << e.what() << ".\n" << std::endl;
         }
     }
 

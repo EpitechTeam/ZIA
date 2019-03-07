@@ -20,6 +20,7 @@ public:
     void			startPipeline(zany::Connection::SharedInstance c);
 
 protected:
+    bool            checkConfig() const;
     virtual void	onPipelineThrow(PipelineExecutionError const &exception) final;
     void            _setConfigOnDefault();
 

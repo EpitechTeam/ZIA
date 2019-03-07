@@ -5,12 +5,6 @@
 #include "./ConfigParser.hpp"
 #include "Utils.hpp"
 
-zany::Entity ConfigParserModule::parse(std::string const &filename) {
-
-    return this->parseConfigFile(
-            filename.empty() ? "./../../config/default-config.json" : filename);
-}
-
 zany::Entity ConfigParserModule::fromJson(json object) {
 
     if (object.is_object()) {
@@ -41,16 +35,19 @@ zany::Entity ConfigParserModule::fromJson(json object) {
     return "NULL";
 }
 
-zany::Entity ConfigParserModule::parseConfigFile(const std::string &path) {
+zany::Entity ConfigParserModule::parse(std::string const &filename) {
 
 
     try {
-        if (!this->isJsonFile(path))
+        if (!this->isJsonFile(filename)) {
+            std::cerr << "Error: "  << filename << "is not a json file." << std::endl;
             return false;
-        std::ifstream jsonFile(path);
+
+        }
+        std::ifstream jsonFile(filename);
 
         if (!jsonFile.is_open()) {
-            std::cerr << "Error opening file";
+            std::cerr << "Error when try to open " << filename << "." << std::endl;
             return false;
         }
         json jsonConfig;

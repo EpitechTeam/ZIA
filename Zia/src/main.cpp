@@ -8,23 +8,24 @@
 
 #include "Zia.hpp"
 
-int main(int ac, char* av[])
+int usage() {
+
+    std::cerr << "Usage: zia    [configFile]" << std::endl;
+    std::cerr << "  configFile  Relative path of config file." << std::endl;
+    return 1;
+}
+
+int main(int ac, char **av)
 {
 
     try
     {
-        if (ac != 4)
-        {
-            std::cerr << "Usage: zia_server <address> <port> <doc_root>\n";
-            std::cerr << "  For IPv4, try:\n";
-            std::cerr << "    receiver 0.0.0.0 80 .\n";
-            std::cerr << "  For IPv6, try:\n";
-            std::cerr << "    receiver 0::0 80 .\n";
-            return 1;
+
+        if (ac == 2 && (std::string(av[1]) == "--help" || std::string(av[1]) == "-h")) {
+            return usage();
         }
 
         zany::Context       context;
-
         Zia                 zia(context);
 
         zia.run(ac, av);
@@ -33,6 +34,7 @@ int main(int ac, char* av[])
     catch (std::exception& e)
     {
         std::cerr << "exception: " << e.what() << "\n";
+        return 1;
     }
 
     return 0;

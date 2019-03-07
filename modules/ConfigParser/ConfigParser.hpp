@@ -31,7 +31,6 @@ private:
 
     zany::Entity    fromJson(json object);
     bool            isJsonFile(const std::string &path) const;
-    zany::Entity	parseConfigFile(const std::string &path);
 
     zany::Entity    _obj;
 

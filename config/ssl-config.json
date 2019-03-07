@@ -1,0 +1,13 @@
+{
+  "port": 4242,
+  "docRoot": "./../assets",
+  "modules": [
+    "../lib/libConfigParserModule.so",
+    "../lib/libSslConnectionModule.so",
+    "../lib/libHttpServerModule.so",
+    "../lib/libParamsModule.so"
+  ],
+  "Ssl-activated": "true",
+  "certificate": "../../Certificate/certificate.pm",
+  "private-key": "../../Certificate/certificate.pm"
+}
