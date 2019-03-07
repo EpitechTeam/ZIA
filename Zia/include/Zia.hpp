@@ -14,6 +14,7 @@
 class Zia: public zany::Orchestrator {
 public:
     Zia(zany::Context	&_ctx);
+    ~Zia();
 
     virtual auto	getConfig() const -> const zany::Entity final;
     void			run(int ac, char **av);
@@ -27,6 +28,7 @@ protected:
 private:
 
     zany::Entity    _config;
+    std::thread     *_loadModuleThread = nullptr;
 };
 
 

@@ -17,7 +17,12 @@
 Zia::Zia(zany::Context &_ctx)
         : zany::Orchestrator(_ctx) {}
 
-auto Zia::getConfig() const -> const zany::Entity {
+Zia::~Zia() {
+    this->_loadModuleThread->join();
+}
+
+
+auto    Zia::getConfig() const -> const zany::Entity {
     return _config;
 }
 
@@ -107,7 +112,7 @@ void Zia::run(int ac, char **av) {
         }
     }
 
-    _ctx.addTask([this] {
+    this->_loadModuleThread = new std::thread([this] {
         std::string line;
         const std::string load("loadModule");
 
