@@ -19,7 +19,9 @@ Zia::Zia(zany::Context &_ctx)
         : zany::Orchestrator(_ctx) {}
 
 Zia::~Zia() {
-    this->_loadModuleThread->join();
+    if (this->_loadModuleThread) {
+        this->_loadModuleThread->join();
+    }
 }
 
 
