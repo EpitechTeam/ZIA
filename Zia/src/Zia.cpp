@@ -40,9 +40,9 @@ void Zia::_setConfigOnDefault() {
 					},
             },
 			{"LinuxModules", zany::makeArray{
-				"../lib/libSslConnection.so",
-				"../lib/libHttpServer.so",
-				"../lib/libParams.so"
+				"../lib/libSslConnectionModule.so",
+				"../lib/libHttpServerModule.so",
+				"../lib/libParamsModule.so"
 				}
 			}
     };
@@ -77,7 +77,7 @@ void Zia::run(int ac, char **av) {
 
     } else {
 
-		std::string parserPath = Utils::isOnLinux() ? "../lib/libConfigParser.so" : "ConfigParserModule.dll";
+		std::string parserPath = Utils::isOnLinux() ? "../lib/libConfigParserModule.so" : "ConfigParserModule.dll";
         
 		this->loadModule(parserPath, [this, &parsed, &av](auto &module) {
             std::cout << "Module: " << module.name() << " loaded" << std::endl;
