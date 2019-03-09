@@ -1,8 +1,12 @@
 {
   "port": 4242,
   "docRoot": "../../assets",
-  "modules": [
-    "../lib/libConfigParserModule.so",
+  "WindowsModules": [
+    "SslConnectionModule.dll",
+    "HttpServerModule.dll",
+    "ParamsModule.dll"
+  ],
+  "LinuxModules": [
     "../lib/libSslConnectionModule.so",
     "../lib/libHttpServerModule.so",
     "../lib/libParamsModule.so"
