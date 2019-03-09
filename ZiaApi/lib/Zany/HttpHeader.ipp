@@ -10,19 +10,20 @@
 namespace zany {
 
 std::string	const& HttpHeader::getData() {
-	return data;
+	return _data;
 }
 
 bool HttpHeader::isNumber() {
 	char	*err;
 
-	std::strtod(data.c_str(), &err);
+	if (_data.empty()) return false;
+	std::strtod(_data.c_str(), &err);
 
 	return *err == '\0';
 }
 
 double HttpHeader::getNumber() {
-	return std::atof(data.c_str());
+	return std::atof(_data.c_str());
 }
 
 }
