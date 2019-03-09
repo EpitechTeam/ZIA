@@ -1,5 +1,5 @@
 <?php
-$prenom = $_POST['prenom'];
-$nom = $_POST['nom'];
-print("<center>Bonjour $prenom $nom</center>");
+$prenom = $_GET['prenom'];
+$nom = $_GET['nom'];
+print("<center>Bonjour  $prenom   $nom</center>");
 ?>

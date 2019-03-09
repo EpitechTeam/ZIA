@@ -56,7 +56,8 @@ boost::process::environment  PhpCgiModule::buildEnv(zany::Pipeline::Instance &in
     std::string script;
     std::string query;
     std::string uri(instance.request.path);
-    std::string pathInfo(boost::filesystem::path(std::string(/*boost::filesystem::current_path().native() + */"/" + master->getConfig()["docRoot"].value<zany::String>()).c_str()).lexically_normal().string());
+    std::string pathInfo(boost::filesystem::path(std::string(boost::filesystem::current_path().native() + "/" + master->getConfig()["docRoot"].value<zany::String>()).c_str()).lexically_normal().string());
+    std::cout << pathInfo << std::endl;
     std::string scriptFileName(pathInfo);
     std::string home(getenv("HOME"));
     std::string path(getenv("PATH"));
@@ -123,9 +124,10 @@ boost::process::environment  PhpCgiModule::buildEnv(zany::Pipeline::Instance &in
     env["PATH_INFO"] = pathInfo;
     env["PATH_TRANSLATED"] = pathInfo;
     env["CONTENT_TYPE"] = "application/x-www-form-urlencoded";
-    env["QUERY_STRING_POST"] = instance.request.fullQuery;
+    //env["QUERY_STRING_POST"] = instance.request.fullQuery;
     env["QUERY_STRING"] = instance.request.fullQuery;
     env["REQUEST_METHOD"] = instance.request.methodString;
+    //env["REQUEST_METHOD"] = "GET";
     env["SCRIPT_FILENAME"] = scriptFileName;
     env["SCRIPT_NAME"] = script;
     env["SYSTEMROOT"] = "/";
@@ -142,38 +144,40 @@ void PhpCgiModule::execPhp(zany::Pipeline::Instance &i) {
     std::string query = "nom=oklm&prenom=oklm";
     std::vector<char> buf;
     std::vector<char> buf2;
-    std::string line;
     boost::process::ipstream pipe_stream;
-
-
-   // int ret = boost::process::system(bin, boost::process::std_out > pipe_stream, env);
-
-
-    boost::process::ipstream is; //reading pipe-stream
-    boost::process::child c(boost::process::search_path("php-cgi"), boost::process::std_out > is, boost::process::std_out > is, env);
-
+    boost::process::ipstream out;
+    boost::process::opstream in;
+    std::string line;
+    boost::process::child c(boost::process::search_path("php-cgi"), boost::process::std_in < i.request.fullQuery, boost::process::std_out > out, env);
     std::vector<std::string> data;
 
-
-    while (c.running() && std::getline(is, line) && !line.empty())
-    {
+    int x = 0;
+    while (c.running() && std::getline(out, line) && !line.empty()) {
         std::cout << "line: " << line << std::endl;
         data.push_back(line);
+
+        if(x == 2)
+            bdy += line;
+
         std::size_t found = line.find("\r");
         if (found!=std::string::npos) {
-            std::cout << "end read" << std::endl;
-            break;
+            x++;
+            if(x == 3) {
+                std::cout << "end read" << std::endl;
+                break;
+            }
         }
     }
+
     c.wait();
 
+    std::cout << "RT: " << std::endl;
     std::string header;
     std::string phpBody;
     size_t pos, last_pos;
     pos = bdy.find(EOL
                    EOL);
     header = bdy.substr(0, pos);
-
     if (pos != std::string::npos)
     {
         phpBody = bdy.substr(pos + 4);
