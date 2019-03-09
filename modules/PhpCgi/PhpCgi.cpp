@@ -5,8 +5,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/filesystem.hpp>
 #include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
+
 
 #include <fstream>
 #include <iostream>
@@ -57,7 +56,7 @@ boost::process::environment  PhpCgiModule::buildEnv(zany::Pipeline::Instance &in
     std::string script;
     std::string query;
     std::string uri(instance.request.path);
-    std::string pathInfo(realpath(std::string(boost::filesystem::current_path().native() + "/" + master->getConfig()["docRoot"].value<zany::String>()).c_str(), NULL));
+    std::string pathInfo(boost::filesystem::path(std::string(/*boost::filesystem::current_path().native() + */"/" + master->getConfig()["docRoot"].value<zany::String>()).c_str()).lexically_normal().string());
     std::string scriptFileName(pathInfo);
     std::string home(getenv("HOME"));
     std::string path(getenv("PATH"));
@@ -77,7 +76,7 @@ boost::process::environment  PhpCgiModule::buildEnv(zany::Pipeline::Instance &in
             query.append(uri.substr(pos + 1).c_str(), size - pos);
     }
 
-    scriptFileName =realpath(std::string(scriptFileName + "/" +script).c_str(), NULL);
+    scriptFileName = boost::filesystem::path(std::string(scriptFileName + "/" +script).c_str()).lexically_normal().string();
 
     env["DOCUMENT_ROOT"] = pathInfo;
     env["GATEWAY_INTERFACE"] = "CGI/1.1";
@@ -144,7 +143,6 @@ void PhpCgiModule::execPhp(zany::Pipeline::Instance &i) {
     std::vector<char> buf;
     std::vector<char> buf2;
     std::string line;
-    boost::process::ipstream pipe_stream;
     boost::process::ipstream pipe_stream;
 
 

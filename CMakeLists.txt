@@ -44,3 +44,8 @@ add_library(ConfigParserModule SHARED
 	modules/ConfigParser/ConfigParser.cpp)
 
 target_link_libraries(ConfigParserModule ${CONAN_LIBS})
+
+add_library(PhpCgiModule SHARED
+	modules/PhpCgi/PhpCgi.cpp)
+
+target_link_libraries(PhpCgiModule ${CONAN_LIBS})
