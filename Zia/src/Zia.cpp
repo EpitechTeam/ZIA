@@ -44,7 +44,10 @@ void Zia::_setConfigOnDefault() {
 				"../lib/libHttpServerModule.so",
 				"../lib/libParamsModule.so"
 				}
-			}
+			},
+            {"Ssl-activated", "false"},
+            {"certificate", "../../Certificate/certificate.pm"},
+            {"private-key", "../../Certificate/certificate.pm"}
     };
 }
 
