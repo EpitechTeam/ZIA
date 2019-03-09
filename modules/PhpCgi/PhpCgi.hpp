@@ -8,6 +8,8 @@
 #include "Zany/Loader.hpp"
 #include "Zany/Pipeline.hpp"
 #include "Zany/Orchestrator.hpp"
+#include <boost/process.hpp>
+
 
 class PhpCgiModule : public zany::Loader::AbstractModule {
 public:
@@ -30,7 +32,7 @@ private:
 
     void _execPhpCgi(zany::Pipeline::Instance &i);
 
-    const char **buildEnv(zany::Pipeline::Instance &i);
+    boost::process::environment  buildEnv(zany::Pipeline::Instance &i);
 
     void exec1(zany::Pipeline::Instance &i, int pipe1[2]);
 
