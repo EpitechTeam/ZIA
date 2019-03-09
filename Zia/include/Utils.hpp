@@ -250,6 +250,14 @@ namespace Utils {
             std::cout << "NULL" << std::endl;
         }
     }
+
+	bool isOnLinux() {
+		#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+		return false;
+		#else
+		return true;
+		#endif
+	}
 }
 
 

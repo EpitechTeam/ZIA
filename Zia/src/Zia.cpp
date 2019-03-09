@@ -33,12 +33,18 @@ void Zia::_setConfigOnDefault() {
     this->_config = zany::makeObject{
             {"port",    "4242"},
             {"docRoot", "../../assets"},
-            {"modules", zany::makeArray{
-                    "../lib/libSslConnectionModule.so",
-                    "../lib/libHttpServerModule.so",
-                    "../lib/libParamsModule.so"
-            }
-            }
+            {"WindowsModules", zany::makeArray{
+                    "SslConnectionModule.dll",
+                    "HttpServerModule.dll",
+                    "ParamsModule.dll"
+					},
+            },
+			{"LinuxModules", zany::makeArray{
+				"../lib/libSslConnection.so",
+				"../lib/libHttpServer.so",
+				"../lib/libParams.so"
+				}
+			}
     };
 }
 
@@ -70,7 +76,10 @@ void Zia::run(int ac, char **av) {
         parsed = true;
 
     } else {
-        this->loadModule("../lib/libConfigParserModule.so", [this, &parsed, &av](auto &module) {
+
+		std::string parserPath = Utils::isOnLinux() ? "../lib/libConfigParser.so" : "ConfigParserModule.dll";
+        
+		this->loadModule(parserPath, [this, &parsed, &av](auto &module) {
             std::cout << "Module: " << module.name() << " loaded" << std::endl;
 
             if (module.isAParser() && !parsed) {
@@ -99,17 +108,19 @@ void Zia::run(int ac, char **av) {
 
     std::cout << "\n==============================\n" << std::endl;
 
-    if (this->_config["modules"].isNull()) {
+	std::string modulesKey = Utils::isOnLinux() ? "LinuxModules" : "WindowsModules";
+
+    if (this->_config[modulesKey].isNull()) {
         std::cout << "Warning: No modules to preload !" << std::endl;
         return ;
 
-    } else if (!this->_config["modules"].isArray()) {
+    } else if (!this->_config[modulesKey].isArray()) {
         std::cout << "Warning: Bad format of modules's list to preload !" << std::endl;
         return ;
 
     } else {
 
-        std::vector <zany::Entity> modules = this->_config["modules"].getData<zany::Array>().get();
+        std::vector <zany::Entity> modules = this->_config[modulesKey].getData<zany::Array>().get();
 
         for (auto &toLoad : modules) {
 
@@ -125,11 +136,12 @@ void Zia::run(int ac, char **av) {
 
     this->_loadModuleThread = new std::thread([this] {
         std::string line;
-        const std::string load("loadModule");
+        const std::string load("loadModule ");
 
         while (std::getline(std::cin, line)) {
 
-            if (line.substr(0, load.length()) == load) {
+			if (line.substr(0, load.length()) == load) {
+
                 this->loadModule(line.substr(load.length()), [this](auto &module) {
 
                     std::cout << "Module: " << module.name() << " loaded." << std::endl;
@@ -138,10 +150,10 @@ void Zia::run(int ac, char **av) {
 
                     std::cout << "Error: " << exception.what() << std::endl;
                 });
-            } else {
-                std::cout << "Command not found: " << line << "." << std::endl;
-            }
-        }
+			} else {
+				std::cout << "Bad command: " << line << std::endl;
+			}
+		}
     });
 
     std::vector <std::uint16_t> ports;
