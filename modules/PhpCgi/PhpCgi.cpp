@@ -138,7 +138,11 @@ void PhpCgiModule::execPhp(zany::Pipeline::Instance &i) {
     std::vector <std::string> data;
 
     int x = 0;
-    while (c.running() && std::getline(out, line) && !line.empty()) {
+    while (c.running() && std::getline(out, line)) {
+
+        if (!Utils::isOnLinux() && line.empty()) {
+            break ;
+        }
         data.push_back(line);
         if (Utils::isOnLinux()) {
             if (x != 0)
@@ -157,7 +161,7 @@ void PhpCgiModule::execPhp(zany::Pipeline::Instance &i) {
             }
         }
     }
-    //c.wait();
+    c.wait();
     std::cout << "Done, exit code: " << c.exit_code() << "\n";
     std::string phpBody = bdy;
     i.response.headers.emplace("Content-Length", std::to_string(phpBody.length()));
