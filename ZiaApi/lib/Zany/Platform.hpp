@@ -17,6 +17,7 @@ static constexpr bool isWindows = false;
 
 #else
 # define ZANY_ISWINDOWS
+#define WIN32_LEAN_AND_MEAN
 # include <windows.h>
 # include <string>
 

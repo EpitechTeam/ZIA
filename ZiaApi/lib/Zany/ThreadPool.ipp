@@ -14,6 +14,7 @@
 #if defined(ZANY_ISUNIX)
 	#include <signal.h>
 #else
+	#define WIN32_LEAN_AND_MEAN
 	#include <Windows.h>
 #endif
 

@@ -57,7 +57,7 @@ void ParamsModule::_onDataReady(zany::Pipeline::Instance &i) {
             return ;
         }
 
-        char buffer[std::stoi(length->second.getData())];
+        char buffer[1024];
 
         auto sread = i.connection->stream().readsome(buffer, length->second.getNumber());
 

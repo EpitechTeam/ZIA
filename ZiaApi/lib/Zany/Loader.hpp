@@ -21,6 +21,7 @@
 #if defined(ZANY_ISUNIX)
 # include <dlfcn.h>
 #else
+#define WIN32_LEAN_AND_MEAN
 # include <windows.h>
 #endif
 
