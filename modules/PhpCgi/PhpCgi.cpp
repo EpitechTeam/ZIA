@@ -53,11 +53,6 @@ boost::process::environment  PhpCgiModule::buildEnv(zany::Pipeline::Instance &in
 
     std::string pathInfo = fullPath.substr(0, fullPath.find_last_of('/'));
 
-    std::cout << "fullPath: " << fullPath << std::endl;
-    std::cout << "PathInfo: " << pathInfo << std::endl;
-
-
-
     env["DOCUMENT_ROOT"] = pathInfo;
     env["GATEWAY_INTERFACE"] = "CGI/1.1";
     env["HOME"] = home;
@@ -131,7 +126,6 @@ void PhpCgiModule::execPhp(zany::Pipeline::Instance &i) {
     int x = 0;
     while (c.running()) {
         if(std::getline(out, line)){
-            std::cout << "line: " << line << std::endl;
             data.push_back(line);
             if(x != 0)
                 bdy += line;
@@ -139,7 +133,6 @@ void PhpCgiModule::execPhp(zany::Pipeline::Instance &i) {
             if (found!=std::string::npos) {
                 x++;
                 if(x == 3) {
-                    std::cout << "end read" << std::endl;
                     break;
                 }
             }
@@ -148,7 +141,6 @@ void PhpCgiModule::execPhp(zany::Pipeline::Instance &i) {
     c.wait();
     std::cout << "Done, exit code: " << c.exit_code() << "\n";
     std::string phpBody = bdy;
-    std::cout << "phpBody: " << phpBody << std::endl;
     i.response.headers.emplace("Content-Length", std::to_string(phpBody.length()));
     i.response.headers.emplace("Content-type", "text/html; charset=UTF-8");
     Utils::writeResponse(i, phpBody);
