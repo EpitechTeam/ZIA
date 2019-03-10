@@ -43,26 +43,21 @@ void PhpCgiModule::_onHandleResponse(zany::Pipeline::Instance &i) {
 
 boost::process::environment  PhpCgiModule::buildEnv(zany::Pipeline::Instance &instance) {
     boost::process::environment  env = boost::this_process::environment();
-    std::string script;
     std::string query;
     std::string uri(instance.request.path);
-    std::string pathInfo(boost::filesystem::path(std::string(boost::filesystem::current_path().native() + "/" + master->getConfig()["docRoot"].value<zany::String>()).c_str()).lexically_normal().string());
-    std::cout << pathInfo << std::endl;
-    std::string scriptFileName(pathInfo);
     std::string home(getenv("HOME"));
     std::string path(getenv("PATH"));
-    std::size_t pos = uri.find_first_of('?');
-    std::size_t size(uri.size());
     std::map<std::string, std::string>::iterator it;
 
-    if (pos == std::string::npos) {
-        script = uri;
-    } else {
-        script.append(uri.substr(0, pos).c_str(), pos);
-        if (size && pos < size)
-            query.append(uri.substr(pos + 1).c_str(), size - pos);
-    }
-    scriptFileName = boost::filesystem::path(std::string(scriptFileName + "/" +script).c_str()).lexically_normal().string();
+    std::string fullPath = boost::filesystem::path(boost::filesystem::current_path().native() + "/" + uri).lexically_normal().string();
+
+    std::string pathInfo = fullPath.substr(0, fullPath.find_last_of('/'));
+
+    std::cout << "fullPath: " << fullPath << std::endl;
+    std::cout << "PathInfo: " << pathInfo << std::endl;
+
+
+
     env["DOCUMENT_ROOT"] = pathInfo;
     env["GATEWAY_INTERFACE"] = "CGI/1.1";
     env["HOME"] = home;
@@ -101,8 +96,8 @@ boost::process::environment  PhpCgiModule::buildEnv(zany::Pipeline::Instance &in
     env["CONTENT_TYPE"] = "application/x-www-form-urlencoded";
     env["QUERY_STRING"] = instance.request.fullQuery;
     env["REQUEST_METHOD"] = instance.request.methodString;
-    env["SCRIPT_FILENAME"] = scriptFileName;
-    env["SCRIPT_NAME"] = script;
+    env["SCRIPT_FILENAME"] = fullPath;
+    env["SCRIPT_NAME"] = uri;
     env["SYSTEMROOT"] = "/";
     env["REDIRECT_STATUS"] = "true";
     return env;
@@ -115,9 +110,6 @@ void PhpCgiModule::execPhp(zany::Pipeline::Instance &i) {
     std::string bin("/usr/bin/php-cgi");
     boost::process::environment  env = this->buildEnv(i);
     std::string bdy = "";
-    std::string query = "nom=oklm&prenom=oklm";
-    std::vector<char> buf;
-    std::vector<char> buf2;
     boost::process::ipstream pipe_stream;
     boost::process::ipstream out;
     boost::process::opstream in;

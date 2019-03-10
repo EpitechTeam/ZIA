@@ -61,33 +61,26 @@ $nom = $_GET['nom'];
 
 $array = array("Abdel", "Ilyes", "Monty", "David", "Leo", "Marvyn");
 
-print("<center><h1>Welcome  $prenom   $nom</h1><br><h2>Team</h2></center>");
-
-foreach ($array as $i => $value) {
-        print("<center><h4>$array[$i]</h4></center><br>");
-}
-
-
-
+print("<center><h1>Here is the data you entered:</h1> <h4>Prenom: $prenom</h4>  <h4>Name: $nom</h4><br></center>");
 
 ?>
 
     			</div>
     		</div>
-    	</div>
-    	<div class="lead">
-    		Lorem ipsum dolor sit, amet consectetur adipisicing elit. At voluptatem totam quis cupiditate recusandae. Ex debitis maiores velit praesentium eos laboriosam assumenda facere officiis, minima dolor iure rerum dolores quae a culpa beatae cum ducimus autem distinctio consequatur vel sequi eligendi accusantium. Quisquam vel cumque, adipisci animi quod provident eligendi quis inventore, eos blanditiis consectetur laboriosam alias ratione consequuntur dolor, corrupti cum! Fugiat placeat laboriosam qui veniam veritatis mollitia, explicabo provident magni asperiores accusamus ab rem officia saepe id excepturi corrupti earum error consequatur necessitatibus, fugit, quod vitae? Repellendus cupiditate eveniet modi voluptates perspiciatis unde labore iusto aperiam dolore ratione!
-    	</div>
 
     	<div class="parallax-image1 my-5">
     		<div class="row h-100">
     			<div class="col-md-12 align-self-center">
-    				<h1 class="text-center border">Parallax Example</h1>
+    				<h1 class="text-center border">Team</h1>
+    				<?php
+    				    foreach ($array as $i => $value) {
+                                print("<center><p>$array[$i]</p></center>");
+                        }
+                        ;
+                        print("<br>");
+    				?>
     			</div>
     		</div>
-    	</div>
-    	<div class="lead">
-    		Lorem ipsum dolor sit, amet consectetur adipisicing elit. At voluptatem totam quis cupiditate recusandae. Ex debitis maiores velit praesentium eos laboriosam assumenda facere officiis, minima dolor iure rerum dolores quae a culpa beatae cum ducimus autem distinctio consequatur vel sequi eligendi accusantium. Quisquam vel cumque, adipisci animi quod provident eligendi quis inventore, eos blanditiis consectetur laboriosam alias ratione consequuntur dolor, corrupti cum! Fugiat placeat laboriosam qui veniam veritatis mollitia, explicabo provident magni asperiores accusamus ab rem officia saepe id excepturi corrupti earum error consequatur necessitatibus, fugit, quod vitae? Repellendus cupiditate eveniet modi voluptates perspiciatis unde labore iusto aperiam dolore ratione!
     	</div>
     </div>
 
