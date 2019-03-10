@@ -251,7 +251,22 @@ namespace Utils {
         }
     }
 
-	bool isOnLinux() {
+    bool entityContain(const zany::Entity &entity, const std::string &value) {
+
+        try {
+            if (entity[value].isNull()) {
+                return false;
+            } else {
+                return true;
+            }
+
+        } catch (std::exception &e) {
+            std::cerr << "entityContain: " << e.what() << "\n";
+            return false;
+        }
+    }
+
+    bool isOnLinux() {
 		#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 		return false;
 		#else

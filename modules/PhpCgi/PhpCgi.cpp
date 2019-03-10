@@ -103,11 +103,7 @@ boost::process::environment  PhpCgiModule::buildEnv(zany::Pipeline::Instance &in
     return env;
 }
 
-
-
-
 void PhpCgiModule::execPhp(zany::Pipeline::Instance &i) {
-    std::string bin("/usr/bin/php-cgi");
     boost::process::environment  env = this->buildEnv(i);
     std::string bdy = "";
     boost::process::ipstream pipe_stream;
@@ -116,7 +112,19 @@ void PhpCgiModule::execPhp(zany::Pipeline::Instance &i) {
     std::string line;
     in << i.request.fullQuery << std::endl;
     in.flush();
-    boost::process::child c(boost::process::search_path("php-cgi"), boost::process::std_in = in, boost::process::std_out > out, env);
+
+    boost::filesystem::path cgiPath;
+
+    if (Utils::entityContain(master->getConfig(), "php-cgi")) {
+
+        cgiPath = boost::filesystem::path(master->getConfig()["php-cgi"].value<zany::String>());
+        std::cout << "Local Cgi Used" << std::endl;
+    } else {
+        cgiPath = boost::process::search_path("php-cgi");
+        std::cout << "System Cgi Used" << std::endl;
+    }
+
+    boost::process::child c(cgiPath, boost::process::std_in = in, boost::process::std_out > out, env);
     in.pipe().close();
     std::vector<std::string> data;
 

@@ -1,6 +1,7 @@
 {
   "port": 4242,
   "docRoot": "../../assets",
+  "php-cgi": "../../cgi/php-cgi",
   "WindowsModules": [
     "SslConnectionModule.dll",
     "HttpServerModule.dll",
