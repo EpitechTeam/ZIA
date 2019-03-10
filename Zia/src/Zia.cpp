@@ -35,17 +35,21 @@ void Zia::_setConfigOnDefault() {
     this->_config = zany::makeObject{
             {"port",    "4242"},
             {"docRoot", "../../assets"},
+            {"php-cgi-linux", "../../cgi/php-cgi"},
+            {"php-cgi-windows", "../../cgi/php-cgi.exe"},
             {"WindowsModules", zany::makeArray{
                     "SslConnectionModule.dll",
                     "HttpServerModule.dll",
-                    "ParamsModule.dll"
-					},
+                    "ParamsModule.dll",
+                    "PhpCgiModule.dll"
+                },
             },
 			{"LinuxModules", zany::makeArray{
 				"../lib/libSslConnectionModule.so",
 				"../lib/libHttpServerModule.so",
-				"../lib/libParamsModule.so"
-				}
+				"../lib/libParamsModule.so",
+                "../lib/libPhpCgiModule.so"
+                }
 			},
             {"Ssl-activated", "false"},
             {"certificate", "../../Certificate/certificate.pm"},

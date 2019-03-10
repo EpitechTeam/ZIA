@@ -1,15 +1,19 @@
 {
   "port": 4242,
   "docRoot": "../../assets",
+  "php-cgi-linux": "../../cgi/php-cgi",
+  "php-cgi-windows": "../../cgi/php-cgi-windows/php-cgi.exe",
   "WindowsModules": [
     "SslConnectionModule.dll",
     "HttpServerModule.dll",
-    "ParamsModule.dll"
+    "ParamsModule.dll",
+    "PhpCgiModule.dll"
   ],
   "LinuxModules": [
     "../lib/libSslConnectionModule.so",
     "../lib/libHttpServerModule.so",
-    "../lib/libParamsModule.so"
+    "../lib/libParamsModule.so",
+    "../lib/libPhpCgiModule.so"
   ],
   "Ssl-activated": "true",
   "certificate": "../../Certificate/certificate.pm",

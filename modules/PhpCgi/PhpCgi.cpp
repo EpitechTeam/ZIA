@@ -12,6 +12,7 @@
 #include <limits.h>
 #include "PhpCgi.hpp"
 #include "Utils.hpp"
+
 #define EOL "\r\n"
 
 void PhpCgiModule::init() {
@@ -34,22 +35,24 @@ void PhpCgiModule::_onHandleResponse(zany::Pipeline::Instance &i) {
         && i.response.status == 200
         && (i.request.method == zany::HttpRequest::RequestMethods::POST
             || i.request.method == zany::HttpRequest::RequestMethods::GET)) {
-        Utils::printPipelineContent(i);
+        std::cout << "CGI PHP Exec" << std::endl;
         this->execPhp(i);
     }
 
 }
 
 
-boost::process::environment  PhpCgiModule::buildEnv(zany::Pipeline::Instance &instance) {
-    boost::process::environment  env = boost::this_process::environment();
+boost::process::environment PhpCgiModule::buildEnv(zany::Pipeline::Instance &instance) {
+    boost::process::environment env = boost::this_process::environment();
     std::string query;
     std::string uri(instance.request.path);
     std::string home(getenv("HOME"));
     std::string path(getenv("PATH"));
     std::map<std::string, std::string>::iterator it;
 
-    std::string fullPath = boost::filesystem::path(boost::filesystem::current_path().native() + "/" + uri).lexically_normal().string();
+    std::string fullPath = boost::filesystem::path(
+            boost::filesystem::canonical(boost::filesystem::current_path().native()).string() + "/" +
+            uri).lexically_normal().string();
 
     std::string pathInfo = fullPath.substr(0, fullPath.find_last_of('/'));
 
@@ -99,7 +102,7 @@ boost::process::environment  PhpCgiModule::buildEnv(zany::Pipeline::Instance &in
 }
 
 void PhpCgiModule::execPhp(zany::Pipeline::Instance &i) {
-    boost::process::environment  env = this->buildEnv(i);
+    boost::process::environment env = this->buildEnv(i);
     std::string bdy = "";
     boost::process::ipstream pipe_stream;
     boost::process::ipstream out;
@@ -110,35 +113,51 @@ void PhpCgiModule::execPhp(zany::Pipeline::Instance &i) {
 
     boost::filesystem::path cgiPath;
 
-    if (Utils::entityContain(master->getConfig(), "php-cgi")) {
+    if (Utils::isOnLinux()) {
+        if (Utils::entityContain(master->getConfig(), "php-cgi-linux")) {
 
-        cgiPath = boost::filesystem::path(master->getConfig()["php-cgi"].value<zany::String>());
-        std::cout << "Local Cgi Used" << std::endl;
+            cgiPath = boost::filesystem::path(master->getConfig()["php-cgi-linux"].value<zany::String>());
+            std::cout << "[Linux]: Local Cgi Used: " << cgiPath << std::endl;
+        } else {
+            cgiPath = boost::process::search_path("php-cgi-linux");
+            std::cout << "[Linux]: System Cgi Used: " << cgiPath << std::endl;
+        }
     } else {
-        cgiPath = boost::process::search_path("php-cgi");
-        std::cout << "System Cgi Used" << std::endl;
+        if (Utils::entityContain(master->getConfig(), "php-cgi-windows")) {
+
+            cgiPath = boost::filesystem::path(master->getConfig()["php-cgi-windows"].value<zany::String>());
+            std::cout << "[Windows]: Local Cgi Used: " << cgiPath << std::endl;
+        } else {
+            cgiPath = boost::process::search_path("php-cgi-windows");
+            std::cout << "[Windows]: System Cgi Used: " << cgiPath << std::endl;
+        }
     }
 
     boost::process::child c(cgiPath, boost::process::std_in = in, boost::process::std_out > out, env);
     in.pipe().close();
-    std::vector<std::string> data;
+    std::vector <std::string> data;
 
     int x = 0;
-    while (c.running()) {
-        if(std::getline(out, line)){
-            data.push_back(line);
-            if(x != 0)
+    while (c.running() && std::getline(out, line) && !line.empty()) {
+        data.push_back(line);
+        if (Utils::isOnLinux()) {
+            if (x != 0)
                 bdy += line;
-            std::size_t found = line.find("\r");
-            if (found!=std::string::npos) {
-                x++;
-                if(x == 3) {
+        } else {
+            if (x > 1)
+                bdy += line;
+        }
+        std::size_t found = line.find("\r");
+        if (found != std::string::npos) {
+            x++;
+            if (Utils::isOnLinux()) {
+                if (x == 3) {
                     break;
                 }
             }
         }
     }
-    c.wait();
+    //c.wait();
     std::cout << "Done, exit code: " << c.exit_code() << "\n";
     std::string phpBody = bdy;
     i.response.headers.emplace("Content-Length", std::to_string(phpBody.length()));
